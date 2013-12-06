@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="favicon.ico">
+    
+    <title>SONTGEN</title>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+    <!--<script src="lib/arbor.js"></script>
+    <script src="lib/paper.js"></script>
+    <script src="GraphDraw.js"></script>-->
+    <script src="sigma.min.js"></script>
+    <script src="sigma.parseJson.js"></script>
+    <script src="jit-yc.js"></script>
+    <script src="data.json"></script>
+    <script src="main-jit.js"></script>
+    <link rel="stylesheet" href="sontgen.css" />
+    <link href="http://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet" type="text/css">
+    
+  </head>
+  <body>
+    <div data-role="page" id="viewer" data-title="SONTGEN:Viewer" data-theme="c" data-add-back-btn="true"> 
+      
+      <div data-theme="a" data-role="panel" data-position="right" data-display="overlay" id="toolbar">	
+	<a href="#" data-theme="b" data-role="button" data-icon="arrow-r" data-rel="close">Close</a>
+	<h3>Toolbar:</h3>
+	<form>
+	  <h4>Add:</h4>
+	  <input type="button" value="Node" data-inline="true" data-icon="plus"/>
+	  <input type="button" value="Edge" data-inline="true" data-icon="plus"/>
+	  <h4>Observe:</h4>
+	  <input type="button" value="Hide" data-inline="true" data-icon="minus"/>
+	  <input type="button" value="Magnify" data-inline="true" data-icon="search"/>
+	  <input type="search" name="search" id="search" value="" placeholder="Search"/>
+	  <h4>Modify:</h4>
+	  <input type="button" value="Remove" data-inline="true" data-icon="delete"/>
+	  <input type="button" value="Undo" data-inline="true" data-icon="back"/>
+	  <input type="button" value="Redo" data-inline="true" data-icon="forward"/>
+	  <h4>Input/Output:</h4>
+	  <input type="button" value="Import" data-inline="true" data-icon="arrow-u"/>
+	  <input type="button" value="Export" data-inline="true" data-icon="arrow-d"/>	 
+	</form>
+      </div>
+      <!-- /panel -->
+
+      <div id="header" data-role="header" data-theme="c">
+       	<a href="index.html" data-rel="back" data-icon="back">Back</a>
+	<h1><a href="http://sontgen.com"><img src="sontgen_logo_large-v0.1.png" alt="SONTGEN" height="23"/></a></h1>
+	<a href="#toolbar" data-icon="gear" data-theme="b">Options</a>
+      </div>
+      <!-- header end -->
+      
+      <div data-role="content" data-theme="c" id="content">
+	  <div class="main" id="canvas"></div>
+      </div>
+      	
+      <!-- content end -->
+      <div data-role="footer" data-theme="a">
+	<div data-role="navbar">
+	  <ul>
+	    <li><a href="#" data-icon="edit" class="ui-btn-active ui-state-persist">Editor</a></li>
+	    <li><a href="#about" data-transition="slideup" data-icon="info">About</a></li>
+	  </ul>
+	</div><!-- /navbar -->
+      </div> 
+     
+    </div><!-- page end -->
+
+    <div data-role="page" id="about" data-title="SONTGEN:About" data-theme="d" data-add-back-btn="true">
+      
+      <div data-theme="c" data-role="header" >
+	<h1>Help & Info</h1>
+      </div><!-- header -->
+
+      <div data-theme="d" data-role="content" >
+	<h2>Help</h2>
+	<h2>Info</h2>
+      </div><! --  content -->
+
+      <div data-role="footer" data-theme="c">
+	<h1>Links</h1>
+      </div><!-- footer -->
+    
+    </div> <!-- page -->
+   
+  </body>
+</html>
