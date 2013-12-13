@@ -1,6 +1,17 @@
+#navbar-logo {
+    padding-top:12px;
+    padding-bottom:12px;
+    margin:0;
+}
+
+.navbar-brand img {
+    height: 25px;
+    padding:0;
+    margin:0;
+}
 
 .heading-img {
-    width: 120px;
+    height: 120px;
 }
 
 footer {
