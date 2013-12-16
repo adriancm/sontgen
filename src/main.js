@@ -11,6 +11,11 @@ var labelType, useGradients, nativeTextSupport, animate;
 };*/
 
 
+/**
+ * Description
+ * @method init
+ * @return 
+ */
 function init(){
     //init data
     
@@ -19,7 +24,9 @@ function init(){
     var sog = new sontgen();
     console.log(sog);
     sog.fromJSON(json);
-    //console.log(sog.toJSON('tree'));
+    sog.addNode('prueba012','Una prueba',{});
+    var prueba = sog.toJSON('graph');
+    console.log(prueba);
 }
 
 if (document.addEventListener) {
