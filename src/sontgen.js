@@ -162,13 +162,14 @@ function sontgen(canvas, mode) {
      * @param {} node2
      * @return void
      */
-    this.addEdge = function(node1, node2){};
-    this.removeNode = '';
-    this.removeEdge = '';
-    this.getNode = '';
-    this.getEdge = '';
-    this.editNode = '';
-    this.editEdge = ''; 
+    this.addEdge = function(node, node2, data){ this.viz.graph.addAdjacence(node, node2, data); };
+    this.removeNode = function(id){ this.viz.graph.removeNode(id); };
+    this.removeEdge = function(id, id2){ this.viz.graph.removeAdjacence(id, id2); };
+    this.getNode = function(id){ return this.viz.graph.getNode(id); };
+    this.getNodeByName = function(name){ return this.viz.graph.getByName(name); }
+    this.getEdge = function(id, id2){ return this.viz.graph.getAdjacence(id, id2); };
+    this.editNode = function(){};
+    this.editEdge = function(){}; 
 
     
 }

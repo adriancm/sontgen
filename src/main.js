@@ -24,7 +24,15 @@ function init(){
     var sog = new sontgen();
     console.log(sog);
     sog.fromJSON(json);
+    //sog.viz.compute();
+    //sog.viz.refresh();
     sog.addNode('prueba012','Una prueba',{});
+    sog.addEdge(sog.getNode('prueba012'),sog.getNodeByName('Pearl Jam'));
+    console.log(sog.getEdge('prueba012',sog.getNodeByName('Pearl Jam').id));
+    sog.removeEdge('prueba012',sog.getNodeByName('Pearl Jam').id);
+    sog.removeNode('prueba012');
+    sog.viz.compute();
+    //sog.viz.refresh();
     var prueba = sog.toJSON('graph');
     console.log(prueba);
 }
