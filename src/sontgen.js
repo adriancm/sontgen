@@ -7,7 +7,6 @@ var labelType, useGradients, nativeTextSupport, animate;
  * @param {} mode
  */
 function sontgen(canvas, mode) {
-    /** @lends sontgen.prototype */
     /**
      * Description
      * @method sog_init
