@@ -1,0 +1,30 @@
+
+.heading-img {
+    width: 120px;
+}
+
+footer {
+    margin: 40px 0 0 0;
+    padding: 50px;
+    padding-bottom: 20px;
+    background-color:black;
+}
+
+#credits {
+    margin-top:30px;
+    color: white;
+}
+
+body { 
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.logo-mini {
+    height: 25px;
+    margin-right:5px
+}
+
+footer .btn-link {
+    color:white;
+}

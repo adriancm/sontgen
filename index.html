@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="favicon.ico">
+    
+    <title>SONTGEN</title>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <!-- Bootstrap -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <!--<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">-->
+    <link rel="stylesheet" href="web/carousel.css">
+    <link rel="stylesheet" href="web/style.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    
+    <!--<script type="text/javascript">
+	window.onload = function() {
+	// Get a reference to the canvas object
+	var canvas = document.getElementById('myCanvas');
+	// Create an empty project and a view for the canvas:
+	paper.setup(canvas);
+	}
+	</script>-->
+
+    <script src="main.js"></script>
+  </head>
+  <body>
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><img src="res/sontgen_logo_large-v0.1.png" height="20px" alt="sontgen logo"></a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+	    <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Docs <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                 <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+            <li><a href="#about">About me</a></li>
+            <li><a href="#contact">Contact</a></li>
+            
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+   
+
+    <!-- JUMBOTRON -->
+    
+    <div class="jumbotron">
+      <h1>Generate easily Linked Data</h1>
+      <p class="lead">SONTGEN (Simple ONTology GENerator) provide you an atractive interface to Visualize, Modify and Validate your own vocabulary. </p>
+      <p><a class="btn btn-lg btn-success" href="src/sontgen.html">Play now!</a></p>
+    </div>
+    <!-- END JUMBO -->
+       
+     <hr class="featurette-divider"/>
+   
+<!-- Marketing messaging and featurettes
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+
+    <div class="container marketing">
+
+      <!-- Three columns of text below the carousel -->
+      <div class="row">
+        <div class="col-lg-4">
+          <img class="heading-img" src="web/rdf-logo.png" alt="Generic placeholder image">
+          <h2>Linked Data</h2>
+          <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+          <p><a class="btn btn-primary" href="http://www.w3.org/standards/semanticweb/data" role="button">Learn more &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <img class="heading-img" src="web/download.png" alt="Generic placeholder image">
+          <h2>Get it</h2>
+          <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
+          <p><a class="btn btn-primary" href="https://github.com/mrtoothbrush/sontgen" role="button">Learn more &raquo;</a>
+	    <a class="btn btn-primary" href="https://github.com/mrtoothbrush/sontgen/archive/master.zip" role="button">Download &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+	  <img class="heading-img" src="web/github-logo.png" alt="Collaboration">
+          <h2>Collaboration</h2>
+          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+          <p><a class="btn btn-primary" href="https://github.com/mrtoothbrush/sontgen" role="button">View details &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+      </div><!-- /.row -->
+
+ <!-- START THE FEATURETTES --
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
+          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        </div>
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+        </div>
+        <div class="col-md-7">
+          <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
+          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
+          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        </div>
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <!-- /END THE FEATURETTES -->
+
+
+      <!-- FOOTER -->
+     
+    </div><!-- /.container -->
+    <footer>
+      <div class="row">
+        <div class="col-lg-4">
+          <h4>Follow</h4>
+          <p><a class="btn btn-link" href="http://www.w3.org/standards/semanticweb/data" role="button"><img class="logo-mini" src="web/googleplus.png" alt=""/>Google+</a></p>
+	  <p><a class="btn btn-link" href="http://www.w3.org/standards/semanticweb/data" role="button"><img class="logo-mini" src="web/facebook.png" alt=""/>Facebook</a></p>
+	   <p><a class="btn btn-link" href="http://www.w3.org/standards/semanticweb/data" role="button"><img class="logo-mini" src="web/github-footer.png" alt=""/>GitHub</a></p>
+	    <p><a class="btn btn-link" href="http://www.w3.org/standards/semanticweb/data" role="button"><img class="logo-mini" src="web/wordpress.png" alt=""/>Wordpress</a></p>
+ <p><a class="btn btn-link" href="http://www.w3.org/standards/semanticweb/data" role="button"><img class="logo-mini" src="web/linkedin.png" alt=""/>Linkedin</a></p>
+  <p><a class="btn btn-link" href="http://www.w3.org/standards/semanticweb/data" role="button"><img class="logo-mini" src="web/twitter.png" alt=""/>Twitter</a></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <h4>Info</h4>
+          <p><a class="btn btn-link" href="https://github.com/mrtoothbrush/sontgen" role="button"><img src="" alt=""/>What's Linked Data?</a></p>
+	  <p><a class="btn btn-link" href="https://github.com/mrtoothbrush/sontgen" role="button"><img src="" alt=""/>Semantic Web</a></p>
+	  <p><a class="btn btn-link" href="https://github.com/mrtoothbrush/sontgen" role="button"><img src="" alt=""/>RDF</a></p>
+	  <p><a class="btn btn-link" href="https://github.com/mrtoothbrush/sontgen" role="button"><img src="" alt=""/>JSON-LD</a></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">	 
+          <h4>Collaboration</h4>
+          <p><a class="btn btn-link" href="https://github.com/mrtoothbrush/sontgen" role="button"><img src="" alt=""/>About</a></p>
+        </div><!-- /.col-lg-4 -->
+      </div><!-- /.row -->
+      <div id="credits">
+	<p class="pull-right"><a href="#">Back to top</a></p>
+	<p>&copy; 2013 Adri&aacute;n Cepillo &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+      </div>
+    </footer>
+    <script src="web/holder.js"></script>
+  </body>
+</html>
