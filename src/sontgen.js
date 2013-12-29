@@ -167,8 +167,8 @@ function sontgen(canvas, mode) {
     this.getNode = function(id){ return this.viz.graph.getNode(id); };
     this.getNodeByName = function(name){ return this.viz.graph.getByName(name); }
     this.getEdge = function(id, id2){ return this.viz.graph.getAdjacence(id, id2); };
-    this.editNode = function(){};
-    this.editEdge = function(){}; 
+    this.editNode = function(id, name, data){    };
+    this.editEdge = function(node, node2, data){}; 
 
     
 }
