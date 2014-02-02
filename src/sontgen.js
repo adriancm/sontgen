@@ -1,4 +1,5 @@
 var labelType, useGradients, nativeTextSupport, animate;
+var autoID = 0;
 
 
 /**
@@ -174,15 +175,35 @@ sontgen.prototype.fromJSON = function(file){
     //end
 };
 
-sontgen.prototype.toJSON = function(type){ return this.viz.toJSON(type); };
+sontgen.prototype.toJSON = function(type){ 
+    
+    return this.viz.toJSON(type); 
+};
 
-sontgen.prototype.addNode = function(id, name, data){ this.viz.graph.addNode({'id':id,'name':name,'data':data}); };
+sontgen.prototype.addNode = function(name, data){ 
+    
+    this.viz.graph.addNode({'id':'_n_'+autoID,'name':name,'data':data}); 
+    autoID++;
+};
    
-sontgen.prototype.addEdge = function(node, node2, data){ this.viz.graph.addAdjacence(node, node2, data); };
+sontgen.prototype.addEdge = function(node, node2, data){ 
+    
+    this.viz.graph.addAdjacence(node, node2, data); 
+};
 
-sontgen.prototype.removeNode = function(id){ this.viz.graph.removeNode(id); };
+sontgen.prototype.removeNode = function(id){ 
 
-sontgen.prototype.removeEdge = function(id, id2){ this.viz.graph.removeAdjacence(id, id2); };
+    if(this.getNode(id)){
+	this.viz.graph.removeNode(id); 
+    }
+};
+
+sontgen.prototype.removeEdge = function(id, id2){ 
+    
+    if(this.getEdge(id, id2)){
+	this.viz.graph.removeAdjacence(id, id2); 
+    }
+};
 
 sontgen.prototype.getNode = function(id){ return this.viz.graph.getNode(id); };
 
@@ -192,8 +213,17 @@ sontgen.prototype.getEdge = function(id, id2){ return this.viz.graph.getAdjacenc
 
 sontgen.prototype.editNode = function(id, name, data){ 
     
-    if( this.viz.graph.getNode(id) !== '' ); 
-    
+    var node = this.getNode(id);
+    if(node){
+	node.name = name;
+	node.data = data;
+    }
 }
 
-sontgen.prototype.editEdge = function(node, node2, data){}; 
+sontgen.prototype.editEdge = function(node, node2, data){
+
+    var edge = this.getEdge(node.id,node2.id);
+    if(edge){
+	edge.data = data;
+    }
+}; 
