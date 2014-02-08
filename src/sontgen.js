@@ -26,6 +26,8 @@ function sontgen(canvas, mode, view) {
         }
     });
 
+    
+
     /**
      * Description
      * @method sog_init
@@ -77,11 +79,26 @@ function sontgen(canvas, mode, view) {
 	    onClick: function(node, eventInfo, e){
 		$jit.util.event.stop(e);
 		if(node){
-		    rgraph.onClick(node.id);
+		    if(!node.collapsed){
+			rgraph.op.contract(node, {  
+			    type: 'animate',  
+			    duration: 1000,  
+			    hideLabels: true,  
+			    transition: $jit.Trans.Quart.easeOut  
+			});  
+		    } else {
+			rgraph.op.expand(node, {  
+			    type: 'animate',  
+			    duration: 1000,  
+			    hideLabels: true,  
+			    transition: $jit.Trans.Quart.easeOut  
+			});  
+		    }
+		    //rgraph.onClick(node.id);
 		}else{
-		    var newNode = new $jit.Node('id','name','data');
-		    rgraph.graph.addNode(newNode);
+		    var newNode = rgraph.graph.addNode({'id':'_node'+autoID,'name':'name','data':'data'});
 		    newNode.pos.setc(eventInfo.getPos());
+		    //rgraph.graph.addAdjacence(rgraph.graph.getNode('_superNode'),newNode);
 		}
 		
 	    },
@@ -141,14 +158,22 @@ function sontgen(canvas, mode, view) {
 		});  
 	    }  
 	},
+	onBeforeCompute: function(node){
+	    console.log(node._depth);
+	    /*if(node._depth < 0){
+		node._depth = 1;
+		console.log(rgraph.graph);
+	    }*/
+	},
 	levelDistance: 200,
 	fps: 30,
 	duration: 1500,	
     });
 
-   
+    
 
     this.viz = rgraph;
+    
     this.canvas = canvas;
     this.mode = mode;
     this.view = view;
@@ -158,14 +183,20 @@ function sontgen(canvas, mode, view) {
 
 
 sontgen.prototype.fromJSON = function(file){ 
-    
+    var that = this;
     this.viz.loadJSON(file); 
     
-    
+    var superNode = this.viz.graph.addNode({'id':'_superNode','name':'_superNode'});
       //trigger small animation
+    var joined = false;
     this.viz.graph.eachNode(function(n) {
+	if(!joined){
+	    that.addEdge(superNode, n);
+	    joined = true;
+	}
+	
 	var pos = n.getPos();
-	pos.setc(-200, -200);
+	//pos.setc(-200, -200);
     });
     this.viz.compute('end');
     this.viz.fx.animate({
@@ -205,11 +236,19 @@ sontgen.prototype.removeEdge = function(id, id2){
     }
 };
 
-sontgen.prototype.getNode = function(id){ return this.viz.graph.getNode(id); };
+sontgen.prototype.getNode = function(id){ 
+    
+    return this.viz.graph.getNode(id); 
+};
 
-sontgen.prototype.getNodeByName = function(name){ return this.viz.graph.getByName(name); }
+sontgen.prototype.getNodeByName = function(name){ 
+    return this.viz.graph.getByName(name); 
+}
 
-sontgen.prototype.getEdge = function(id, id2){ return this.viz.graph.getAdjacence(id, id2); };
+sontgen.prototype.getEdge = function(id, id2){ 
+
+    return this.viz.graph.getAdjacence(id, id2); 
+};
 
 sontgen.prototype.editNode = function(id, name, data){ 
     
