@@ -79,7 +79,7 @@ function sontgen(canvas, mode, view) {
 	    onClick: function(node, eventInfo, e){
 		$jit.util.event.stop(e);
 		if(node){
-		    if(!node.collapsed){
+		    /*if(!node.collapsed){
 			rgraph.op.contract(node, {  
 			    type: 'animate',  
 			    duration: 1000,  
@@ -93,11 +93,11 @@ function sontgen(canvas, mode, view) {
 			    hideLabels: true,  
 			    transition: $jit.Trans.Quart.easeOut  
 			});  
-		    }
-		    //rgraph.onClick(node.id);
+		    }*/
+		    rgraph.onClick(node.id);
 		}else{
-		    var newNode = rgraph.graph.addNode({'id':'_node'+autoID,'name':'name','data':'data'});
-		    newNode.pos.setc(eventInfo.getPos());
+		    //var newNode = rgraph.graph.addNode({'id':'_node'+autoID,'name':'name','data':'data'});
+		    //newNode.pos.setc(eventInfo.getPos());
 		    //rgraph.graph.addAdjacence(rgraph.graph.getNode('_superNode'),newNode);
 		}
 		
@@ -116,22 +116,21 @@ function sontgen(canvas, mode, view) {
 		$jit.util.event.stop(e);
 		rgraph.config.Navigation.panning = false;
  		var pos = eventInfo.getPos(); 
-		console.log(eventInfo);
-		console.log(e);
 		node.pos.setc(pos.x, pos.y);  
 		rgraph.plot();  
 	    },  
 	    onDragEnd: function(node, eventInfo, e){
-		rgraph.config.Navigation.panning = true;
 		$jit.util.event.stop(e);
+		rgraph.config.Navigation.panning = true;
 		rgraph.compute('end');  
-		rgraph.fx.animate( {  
+		console.log(node);
+		/*rgraph.fx.animate( {  
 		    modes: [  
 			'linear'  
 		    ],  
 		    duration: 700,  
 		    transition: $jit.Trans.Elastic.easeOut  
-		}); 
+		});*/ 
 	    },  
 	    //touch events  
 	    onTouchStart: function(node, eventInfo, e) {  
@@ -159,13 +158,15 @@ function sontgen(canvas, mode, view) {
 	    }  
 	},
 	onBeforeCompute: function(node){
+	    alert("compute");
 	    console.log(node._depth);
-	    /*if(node._depth < 0){
+	    if(node._depth < 0){
 		node._depth = 1;
-		console.log(rgraph.graph);
-	    }*/
+		
+	    }
 	},
 	levelDistance: 200,
+	//iterations: 100,
 	fps: 30,
 	duration: 1500,	
     });
@@ -173,7 +174,9 @@ function sontgen(canvas, mode, view) {
     
 
     this.viz = rgraph;
+
     
+
     this.canvas = canvas;
     this.mode = mode;
     this.view = view;
@@ -186,24 +189,40 @@ sontgen.prototype.fromJSON = function(file){
     var that = this;
     this.viz.loadJSON(file); 
     
-    var superNode = this.viz.graph.addNode({'id':'_superNode','name':'_superNode'});
+    /*var superNode = this.viz.graph.addNode({'id':'_superNode','name':'_superNode'});
       //trigger small animation
-    var joined = false;
+    var joined = false;*/
+    console.log(this.viz.compute);
+    this.viz.compute('end');
     this.viz.graph.eachNode(function(n) {
-	if(!joined){
-	    that.addEdge(superNode, n);
-	    joined = true;
+	console.log(n);
+	if(n._depth < 0){
+	    n._depth = 1;
+	    n._treeAngularWidth = 1;
+	    n._AngularWidth = 1;
+	    n.angleSpan.end = 3;
+	    n.endPos.theta = 3;
 	}
-	
-	var pos = n.getPos();
 	//pos.setc(-200, -200);
     });
     this.viz.compute('end');
     this.viz.fx.animate({
 	modes:['polar'],
-	duration: 2000
+	duration: 1000
      });
     //end
+    var that = this;
+    /*this.viz.computeIncremental({  
+	iter: 20,  
+	property: 'end',  
+	onStep: function(perc) {  
+	    console.log("loading " + perc + "%");  
+	},  
+	onComplete: function() {  
+	    console.log("done");  
+	    that.viz.animate();  
+	}  
+    });*/
 };
 
 sontgen.prototype.toJSON = function(type){ 
