@@ -40,7 +40,7 @@ function sontgen(canvas, mode, view) {
 	//concentric circles.
 	background: {
 	    CanvasStyles: {
-		strokeStyle: '#444',
+		strokeStyle: '#252525',
 	    },
 	},
 	//Add navigation capabilities:
@@ -158,11 +158,11 @@ function sontgen(canvas, mode, view) {
 	    }  
 	},
 	onBeforeCompute: function(node){
-	    alert("compute");
+	    //alert("compute");
 	    console.log(node._depth);
 	    if(node._depth < 0){
 		node._depth = 1;
-		
+		node._treeAngularWidth = 1;
 	    }
 	},
 	levelDistance: 200,
@@ -193,18 +193,6 @@ sontgen.prototype.fromJSON = function(file){
       //trigger small animation
     var joined = false;*/
     console.log(this.viz.compute);
-    this.viz.compute('end');
-    this.viz.graph.eachNode(function(n) {
-	console.log(n);
-	if(n._depth < 0){
-	    n._depth = 1;
-	    n._treeAngularWidth = 1;
-	    n._AngularWidth = 1;
-	    n.angleSpan.end = 3;
-	    n.endPos.theta = 3;
-	}
-	//pos.setc(-200, -200);
-    });
     this.viz.compute('end');
     this.viz.fx.animate({
 	modes:['polar'],
@@ -285,3 +273,13 @@ sontgen.prototype.editEdge = function(node, node2, data){
 	edge.data = data;
     }
 }; 
+
+sontgen.prototype.addEventToObj = function(obj, type, fn){
+
+    $jit.util.addEvent(obj, type, fn);
+}
+
+sontgen.prototype.addEvent = function(type, fn){
+    
+    this.viz.config.Events[type] = fn;
+}

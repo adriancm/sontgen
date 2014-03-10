@@ -5,12 +5,6 @@ var json = [{
         "URI": "http://www.w3.org/rdfs.rdf#Class"  
     },  
     "adjacencies": [{  
-        "nodeTo": "node1",  
-        "data": {    
-	    	"labeltext":"some label text",
-            	"labelid":"node0-node1" , 
-        }  
-    }, {  
         "nodeTo": "node2",  
         "data": {  
             	"labeltext":"some label text",

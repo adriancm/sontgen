@@ -1,4 +1,4 @@
-var labelType, useGradients, nativeTextSupport, animate;
+var labelType, useGradients, nativeTextSupport, animate, sog;
 
 /*var Log = {
     elem: false,
@@ -21,7 +21,7 @@ function init(){
     
     //end
 
-    var sog = new sontgen('canvas');
+    sog = new sontgen('canvas');
     console.log(sog);
     sog.fromJSON(json);
     //sog.viz.compute();
@@ -32,6 +32,9 @@ function init(){
     sog.removeNode('prueba012');
     sog.viz.compute();*/
     //sog.viz.refresh();
+    sog.addEvent('onRightClick', function(elem, infoEvent, e){ 
+	alert("hola "+elem.id); 
+    });
     var prueba = sog.toJSON('graph');
     console.log(prueba);
 }
