@@ -1,13 +1,17 @@
+.tip{
+   padding: 10px; 
+   background-color: white; 
+   border-radius: 5px;
+}
 
 html, body {
     height: 100%;
+    background-color: #222;
 }
 
 body h1 {
     font-family: 'Poiret One', cursive; 
 }
-
-
 
 #header > h1 {
     margin: 7px;
@@ -22,10 +26,46 @@ body h1 {
     height:100%;
     width: 100%;
     min-height: 600px;
+    float: right;
 }
+
+.aside {
+    position: fixed;
+    width: 5.5%;
+    height:104%;
+    float: left;
+    /*background: #222;*/
+    opacity: 1;
+    margin-left: 0.5%;
+}
+
+.aside img {
+    width:100%;
+    height: 100%;
+    margin:0;
+    padding: 0%;
+   
+}
+
+/*.aside a:hover img {
+    opacity: 0.4;
+    cursor: pointer;
+    background: #222;
+}
+
+.aside a:active img {
+    opacity: 0.4;
+    background: #000;
+}
+
+.aside a:target img{
+    opacity: 0.4;
+    background: #000;   
+}*/
 
 #viewer {
     height : 100%;
+    background-color: #222;
 }
 
 /*specify a height for the header so we can line-up the elements, the default is 40px*/
@@ -52,6 +92,3 @@ body h1 {
     height   : 30px;
 }​
 
-#toolbar {
-    
-}

@@ -1,4 +1,4 @@
-var labelType, useGradients, nativeTextSupport, animate;
+var labelType, useGradients, nativeTextSupport, animate, moved = true, pressed, node = false;
 var autoID = 0;
 
 
@@ -40,14 +40,14 @@ function sontgen(canvas, mode, view) {
 	//concentric circles.
 	background: {
 	    CanvasStyles: {
-		strokeStyle: '#252525',
+		strokeStyle: '#666',
 	    },
 	},
 	//Add navigation capabilities:
 	//zooming by scrolling and panning.
 	Navigation: {
 	    enable: true,
-	    panning: true,
+	    panning: 'avoid nodes',
 	    zooming: 60
 	},
 	//Set Node and Edge styles.
@@ -59,78 +59,84 @@ function sontgen(canvas, mode, view) {
 	
 	Edge: {
 	    overridable: true,
-	    type: 'Native',
 	    color: 'green',
-	    lineWidth:1.5,
+	    lineWidth: 2,
 	    type: 'labeled',
 	    
 	},
 	Label: { 
 	    overridable: true,
 	    type: 'Native',
-	    
-	    
+	    color: '#fff',
+	    size: 10,	    
 	    
 	},
+	Tips: {  
+	    enable: true,  
+	    type: 'Native',  
+	    offsetX: 10,  
+	    offsetY: 10,  
+	    onShow: function(tip, node) {
+		//var styles = "padding: 10px; background-color: white; border-radius: 5px; ";
+		console.log(tip);
+		tip.innerHTML = "<div>"+
+		    "<h4>URI"+node.name+"</h4>" +
+		    "<p>Descripción</p>"+
+		    "</div>";  
+	    }  
+	},  
 	Events: {
 	    enable: true, 
-	    enableForEdges: false,
+	    enableForEdges: true,
 	    type: 'Native',  
-	    onClick: function(node, eventInfo, e){
+	    
+	    
+	    onMouseEnter: function(node, eventInfo, e){
 		$jit.util.event.stop(e);
-		if(node){
-		    /*if(!node.collapsed){
-			rgraph.op.contract(node, {  
-			    type: 'animate',  
-			    duration: 1000,  
-			    hideLabels: true,  
-			    transition: $jit.Trans.Quart.easeOut  
-			});  
-		    } else {
-			rgraph.op.expand(node, {  
-			    type: 'animate',  
-			    duration: 1000,  
-			    hideLabels: true,  
-			    transition: $jit.Trans.Quart.easeOut  
-			});  
-		    }*/
-		    rgraph.onClick(node.id);
-		}else{
-		    //var newNode = rgraph.graph.addNode({'id':'_node'+autoID,'name':'name','data':'data'});
-		    //newNode.pos.setc(eventInfo.getPos());
-		    //rgraph.graph.addAdjacence(rgraph.graph.getNode('_superNode'),newNode);
-		}
-		
-	    },
-	    onMouseEnter: function(node, eventInfo, e){ 
-		$jit.util.event.stop(e);
-		rgraph.config.Navigation.panning = false;
 		rgraph.canvas.getElement().style.cursor = 'pointer';  
 	    },  
 	    onMouseLeave: function(node, eventInfo, e){ 
 		$jit.util.event.stop(e);
-		rgraph.config.Navigation.panning = true;
 		rgraph.canvas.getElement().style.cursor = 'move';  
 	    },  
-	    onDragMove: function(node, eventInfo, e){  
+	    onDragStart: function(elem, eventInfo, e){
 		$jit.util.event.stop(e);
-		rgraph.config.Navigation.panning = false;
- 		var pos = eventInfo.getPos(); 
+		if(elem){
+		    node = elem;
+		} else {
+		    node = false;
+		}
+		console.log("Drag: "+elem.id);
+		
+	    },
+	    onDragMove: function(elem, eventInfo, e){
+		$jit.util.event.stop(e);
+		
+ 		/*var pos = eventInfo.getPos(); 
 		node.pos.setc(pos.x, pos.y);  
-		rgraph.plot();  
+		rgraph.plot(); */ 
 	    },  
-	    onDragEnd: function(node, eventInfo, e){
+	    onDragEnd: function(elem, eventInfo, e){
 		$jit.util.event.stop(e);
-		rgraph.config.Navigation.panning = true;
-		rgraph.compute('end');  
-		console.log(node);
-		/*rgraph.fx.animate( {  
+		if(elem != undefined){	   
+		    rgraph.graph.addAdjacence(node, elem);
+		} else {
+		    var newNode = rgraph.graph.addNode({'id':'_node'+autoID,'name':'_node'+autoID,'data':'data'});
+		    autoID++;
+		    rgraph.graph.addAdjacence(node, newNode);
+		}
+		
+		
+		console.log(elem.id);
+		rgraph.fx.animate( {  
 		    modes: [  
 			'linear'  
 		    ],  
 		    duration: 700,  
 		    transition: $jit.Trans.Elastic.easeOut  
-		});*/ 
+		}); 
+		rgraph.refresh();
+		node = false;
 	    },  
 	    //touch events  
 	    onTouchStart: function(node, eventInfo, e) {  
@@ -157,14 +163,6 @@ function sontgen(canvas, mode, view) {
 		});  
 	    }  
 	},
-	onBeforeCompute: function(node){
-	    //alert("compute");
-	    console.log(node._depth);
-	    if(node._depth < 0){
-		node._depth = 1;
-		node._treeAngularWidth = 1;
-	    }
-	},
 	levelDistance: 200,
 	//iterations: 100,
 	fps: 30,
@@ -174,9 +172,6 @@ function sontgen(canvas, mode, view) {
     
 
     this.viz = rgraph;
-
-    
-
     this.canvas = canvas;
     this.mode = mode;
     this.view = view;

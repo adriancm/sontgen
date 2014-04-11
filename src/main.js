@@ -22,7 +22,6 @@ function init(){
     //end
 
     sog = new sontgen('canvas');
-    console.log(sog);
     sog.fromJSON(json);
     //sog.viz.compute();
     //sog.viz.refresh();
@@ -33,10 +32,26 @@ function init(){
     sog.viz.compute();*/
     //sog.viz.refresh();
     sog.addEvent('onRightClick', function(elem, infoEvent, e){ 
-	alert("hola "+elem.id); 
+	   alert("hola "+elem.id); 
     });
-    var prueba = sog.toJSON('graph');
-    console.log(prueba);
+    sog.addEvent('onClick', function(elem, eventInfo, e){
+        //$jit.util.event.stop(e);
+        console.log(elem)
+        if (elem) {
+            sog.viz.onClick(elem.id);    
+        }
+        
+        
+        /*rgraph.compute('end');
+        rgraph.fx.animate( {  
+            modes: [  
+            'linear'  
+            ],  
+            duration: 700,  
+            transition: $jit.Trans.Elastic.easeOut  
+        });*/  
+    });
+    sog.toJSON('graph');
 }
 
 if (document.addEventListener) {
