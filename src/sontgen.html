@@ -66,16 +66,7 @@
           <label for="slider-fill"><h4>Zoom:</h4></label>
           <input type="range" name="slider-fill" id="slider-fill" value="60" min="0" max="1000" step="50" data-highlight="true" />
 
-          <fieldset data-role="controlgroup">
-            <legend><h4>Mode:</h4></legend>
-            <input type="radio" name="mode" id="sogAction_edit" value="Edit" data-icon="edit" sogAction="edit" checked="checked" />
-            <label for="sogAction_edit">Add/Edit</label>
-            <input type="radio" name="mode" id="sogAction_view" value="View" data-icon="search" sogAction="view" />
-            <label for="sogAction_view">View</label>
-            <input type="radio" name="mode" id="sogAction_contract" value="Hide" data-icon="minus" sogAction="contract" />
-            <label for="sogAction_contract">Hide</label>      
-          </fieldset>
-   
+          
           <input type="button" value="Undo" data-icon="back"/>
           <input type="button" value="Redo" data-icon="forward"/>
           <input type="file" value="Import" data-icon="arrow-u"/>
@@ -109,8 +100,8 @@
         <div class="main" id="canvas"></div>
         <div class="aside" id="options" >
           <div data-role="controlgroup" >
-            <a id="handopen" href="#handopen" data-role="button" data-theme="a"><img src="../res/handopen.png"/></a>
-            <a id="addnode" href="#addnode" data-role="button" data-theme="a"><img src="../res/addnodo.png" /></a>
+            <a id="handopen"  href="#handopen" data-role="button" data-theme="a"><img src="../res/handopen.png"/></a>
+            <a id="addnode" onclick="sog.addNode()" href="#addnode" data-role="button" data-theme="a"><img src="../res/addnodo.png" /></a>
             <a id="addedge" href="#addedge" data-role="button" data-theme="a"><img src="../res/addedge.png" /></a> 
             <a id="trash" href="#trash" data-role="button" data-theme="a"><img src="../res/trash.png" /></a>
             <a id="openfile" href="#openfile" data-role="button" data-theme="a"><img src="../res/openfile.png"/></a>

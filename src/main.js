@@ -1,4 +1,4 @@
-var labelType, useGradients, nativeTextSupport, animate, sog;
+var labelType, useGradients, nativeTextSupport, animate, sog, actionFlag;
 
 /*var Log = {
     elem: false,
@@ -23,14 +23,7 @@ function init(){
 
     sog = new sontgen('canvas');
     sog.fromJSON(json);
-    //sog.viz.compute();
-    //sog.viz.refresh();
-    /*sog.addNode('prueba012','Una prueba',{});
-    sog.addEdge(sog.getNode('prueba012'), sog.getNodeByName('Pearl Jam'));
-    console.log(sog.getEdge('prueba012', sog.getNodeByName('Pearl Jam').id));
-    sog.removeNode('prueba012');
-    sog.viz.compute();*/
-    //sog.viz.refresh();
+    
     sog.addEvent('onRightClick', function(elem, infoEvent, e){ 
 	   alert("hola "+elem.id); 
     });
@@ -40,16 +33,6 @@ function init(){
         if (elem) {
             sog.viz.onClick(elem.id);    
         }
-        
-        
-        /*rgraph.compute('end');
-        rgraph.fx.animate( {  
-            modes: [  
-            'linear'  
-            ],  
-            duration: 700,  
-            transition: $jit.Trans.Elastic.easeOut  
-        });*/  
     });
     sog.toJSON('graph');
 }

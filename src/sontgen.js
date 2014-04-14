@@ -217,6 +217,14 @@ sontgen.prototype.addNode = function(name, data){
     
     this.viz.graph.addNode({'id':'_n_'+autoID,'name':name,'data':data}); 
     autoID++;
+    this.viz.compute('end');
+    this.viz.fx.animate( {  
+        modes: [  
+        'linear'  
+        ],  
+        duration: 700,  
+        transition: $jit.Trans.Elastic.easeOut  
+    });
 };
    
 sontgen.prototype.addEdge = function(node, node2, data){ 
