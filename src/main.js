@@ -1,4 +1,4 @@
-var labelType, useGradients, nativeTextSupport, animate, sog, actionFlag;
+var labelType, useGradients, nativeTextSupport, animate, sog, ctrlEventObj = {} ;
 
 /*var Log = {
     elem: false,
@@ -10,6 +10,12 @@ var labelType, useGradients, nativeTextSupport, animate, sog, actionFlag;
     }
 };*/
 
+function controlEvents(action){
+
+    ctrlEventObj['selected'] = action;
+    ctrlEventObj['from'] = false;
+    $( "#"+action ).removeClass( "ui-btn-up-a" ).addClass( "ui-btn-down-a" );
+}
 
 /**
  * Description
@@ -31,7 +37,23 @@ function init(){
         //$jit.util.event.stop(e);
         console.log(elem)
         if (elem) {
-            sog.viz.onClick(elem.id);    
+            switch (ctrlEventObj['selected']){
+                case 'viewonly': 
+                    sog.viz.onClick(elem.id);
+                    break;
+                case 'addedge':
+                    var fromnode = ctrlEventObj['from']
+                    if (fromnode) {
+                        sog.addEdge(fromnode, elem);
+                        ctrlEventObj['from'] = false;
+                    } else {
+                        ctrlEventObj['from'] = elem;
+                    }
+                    break;
+                case 'trash':
+                    sog.remove(elem.id);
+            } 
+                
         }
     });
     sog.toJSON('graph');

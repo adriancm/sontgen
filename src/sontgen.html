@@ -100,10 +100,19 @@
         <div class="main" id="canvas"></div>
         <div class="aside" id="options" >
           <div data-role="controlgroup" >
-            <a id="handopen"  href="#handopen" data-role="button" data-theme="a"><img src="../res/handopen.png"/></a>
-            <a id="addnode" onclick="sog.addNode()" href="#addnode" data-role="button" data-theme="a"><img src="../res/addnodo.png" /></a>
-            <a id="addedge" href="#addedge" data-role="button" data-theme="a"><img src="../res/addedge.png" /></a> 
-            <a id="trash" href="#trash" data-role="button" data-theme="a"><img src="../res/trash.png" /></a>
+            <!-- View Only button -->
+            <a id="viewonly" onclick="controlEvents('viewonly')" href="#viewonly" data-role="button" data-theme="a">  <img src="../res/handopen.png"/>
+            </a>
+            <!-- Add Node button -->
+            <a id="addnode" onclick="sog.addNode()" href="#addnode" data-role="button" data-theme="a">
+              <img src="../res/addnodo.png" />
+            </a>
+            <!-- Add Edge button -->
+            <a id="addedge" onclick="controlEvents('addedge')" href="#addedge" data-role="button" data-theme="a">
+              <img src="../res/addedge.png" />
+            </a> 
+            <!-- View Only button -->
+            <a id="trash" onclick="controlEvents('trash')" href="#trash" data-role="button" data-theme="a"><img src="../res/trash.png" /></a>
             <a id="openfile" href="#openfile" data-role="button" data-theme="a"><img src="../res/openfile.png"/></a>
             <a id="saveas" href="#saveas" data-role="button" data-theme="a"><img src="../res/saveas.png" /></a>
             <a id="more" href="#more" data-role="button" data-theme="a"><img src="../res/trash.png" /></a>

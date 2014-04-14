@@ -235,16 +235,26 @@ sontgen.prototype.addEdge = function(node, node2, data){
 sontgen.prototype.removeNode = function(id){ 
 
     if(this.getNode(id)){
-	this.viz.graph.removeNode(id); 
+		this.viz.graph.removeNode(id); 
+		return true;
     }
+    return false;
 };
 
 sontgen.prototype.removeEdge = function(id, id2){ 
     
     if(this.getEdge(id, id2)){
-	this.viz.graph.removeAdjacence(id, id2); 
+		this.viz.graph.removeAdjacence(id, id2);
+		return true; 
     }
+
+    return false;
 };
+
+sontgen.prototype.remove = function(id){
+	this.removeNode(id);
+	return false;
+}
 
 sontgen.prototype.getNode = function(id){ 
     
