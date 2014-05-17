@@ -20,12 +20,12 @@
     
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src=""></script>
-    <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
     <script src="lib/jit/Jit/jit.js"></script>
     <script src="../res/data.json"></script>
     <script src="sontgen.js"></script>
     <script src="main.js"></script>
-    <link type="text/css" rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+    <link type="text/css" rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
     <link href="http://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet" type="text/css">
     <link type="text/css" rel="stylesheet" href="sontgen.css"/> 
     
@@ -48,7 +48,7 @@
 
   <!-- ................................................................................ -->
   <!-- ................................................................................ -->
-    <div data-role="page" id="viewer" data-title="SONTGEN:Viewer" data-theme="c" data-add-back-btn="true"> 
+    <div data-role="page" id="viewer" data-title="SONTGEN:Viewer" data-theme="a" data-add-back-btn="true"> 
       
 
       <!-- ................................................................................ -->
@@ -82,7 +82,7 @@
 
       <!-- ................................................................................ -->
       <!-- ................................................................................ -->
-      <div id="header" data-role="header" data-theme="c">
+      <div id="header" data-role="header" data-theme="a">
         <a href="index.html" data-rel="back" data-icon="back">Back</a>
         <h1><a href="http://sontgen.com"><img src="../res/sontgen_logo_large-v0.1.png" alt="SONTGEN" height="23"/></a></h1>
         <a href="#toolbar" data-icon="gear" data-theme="b">Options</a>
@@ -96,26 +96,26 @@
 
       <!-- ................................................................................ -->
       <!-- ................................................................................ -->
-      <div data-role="content" data-theme="c" id="content">
+      <div data-role="content" data-theme="b" id="content">
         <div class="main" id="canvas"></div>
         <div class="aside" id="options" >
           <div data-role="controlgroup" >
             <!-- View Only button -->
-            <a id="viewonly" onclick="controlEvents('viewonly')" href="#viewonly" data-role="button" data-theme="a">  <img src="../res/handopen.png"/>
+            <a id="viewonly" onclick="controlEvents('viewonly')" href="#viewonly" data-role="button" data-theme="b">  <img src="../res/handopen.png"/>
             </a>
             <!-- Add Node button -->
-            <a id="addnode" onclick="sog.addNode()" href="#addnode" data-role="button" data-theme="a">
-              <img src="../res/addnodo.png" />
+            <a id="addnode" onclick="sog.addNode()" href="#addnode" data-role="button" data-theme="b">
+              <img src="../res/addnode.png" />
             </a>
             <!-- Add Edge button -->
-            <a id="addedge" onclick="controlEvents('addedge')" href="#addedge" data-role="button" data-theme="a">
+            <a id="addedge" onclick="controlEvents('addedge')" href="#addedge" data-role="button" data-theme="b">
               <img src="../res/addedge.png" />
             </a> 
             <!-- View Only button -->
-            <a id="trash" onclick="controlEvents('trash')" href="#trash" data-role="button" data-theme="a"><img src="../res/trash.png" /></a>
-            <a id="openfile" href="#openfile" data-role="button" data-theme="a"><img src="../res/openfile.png"/></a>
-            <a id="saveas" href="#saveas" data-role="button" data-theme="a"><img src="../res/saveas.png" /></a>
-            <a id="more" href="#more" data-role="button" data-theme="a"><img src="../res/trash.png" /></a>
+            <a id="trash" onclick="controlEvents('trash')" href="#trash" data-role="button" data-theme="b"><img src="../res/trash.png" /></a>
+            <a id="openfile" href="#openfile" data-role="button" ><img src="../res/openfile.png"/></a>
+            <a id="saveas" href="#saveas" data-role="button" ><img src="../res/saveas.png" /></a>
+            <!--<a id="more" href="#more" data-role="button" data-theme="a"><img src="../res/trash.png" /></a>-->
           </div>
         </div> 
       </div>

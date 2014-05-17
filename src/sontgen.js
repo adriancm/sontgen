@@ -76,8 +76,8 @@ function sontgen(canvas, mode, view) {
         //concentric circles.
         background: {
             CanvasStyles: {
-                strokeStyle: '#666',
-            },
+                strokeStyle: '#666'
+            }
         },
         //Add navigation capabilities:
         //zooming by scrolling and panning.
@@ -90,21 +90,21 @@ function sontgen(canvas, mode, view) {
         Node: {
             overridable: true,
             color: 'purple',
-            dim: 20,
+            dim: 20
         },
 
         Edge: {
             overridable: true,
             color: 'green',
             lineWidth: 2,
-            type: 'labeled',
+            type: 'labeled'
 
         },
         Label: {
             overridable: true,
             type: 'Native',
             color: '#fff',
-            size: 10,
+            size: 10
 
         },
         Tips: {
@@ -115,8 +115,8 @@ function sontgen(canvas, mode, view) {
             onShow: function(tip, node) {
                 //var styles = "padding: 10px; background-color: white; border-radius: 5px; ";
                 console.log(tip);
-                tip.innerHTML = "<div>" +
-                    "<h4>URI" + node.name + "</h4>" +
+                tip.innerHTML = "<div style='font-family: sans-serif'>" +
+                    "<h4>URI: <span style='font-weight: normal;'>\"" + node.name + "\"</span></h4>" +
                     "<p>Descripción</p>" +
                     "</div>";
             }
@@ -207,7 +207,7 @@ function sontgen(canvas, mode, view) {
         levelDistance: 200,
         //iterations: 100,
         fps: 30,
-        duration: 1500,
+        duration: 1500
 
     });
 
@@ -223,7 +223,7 @@ function sontgen(canvas, mode, view) {
 
 
 sontgen.prototype.fromJSON = function(file) {
-    var that = this;
+    //var that = this;
     this.viz.loadJSON(file);
 
     /*var superNode = this.viz.graph.addNode({'id':'_superNode','name':'_superNode'});
@@ -236,8 +236,7 @@ sontgen.prototype.fromJSON = function(file) {
         duration: 1000
     });
     //end
-    var that = this;
-    /*this.viz.computeIncremental({  
+    /*this.viz.computeIncremental({
     iter: 20,  
     property: 'end',  
     onStep: function(perc) {  
@@ -299,7 +298,7 @@ sontgen.prototype.remove = function(id) {
     this.removeNode(id);
 
     return false;
-}
+};
 
 sontgen.prototype.getNode = function(id) {
 
@@ -308,7 +307,7 @@ sontgen.prototype.getNode = function(id) {
 
 sontgen.prototype.getNodeByName = function(name) {
     return this.viz.graph.getByName(name);
-}
+};
 
 sontgen.prototype.getEdge = function(id, id2) {
 
@@ -322,7 +321,7 @@ sontgen.prototype.editNode = function(id, name, data) {
         node.name = name;
         node.data = data;
     }
-}
+};
 
 sontgen.prototype.editEdge = function(node, node2, data) {
 
@@ -335,12 +334,12 @@ sontgen.prototype.editEdge = function(node, node2, data) {
 sontgen.prototype.addEventToObj = function(obj, type, fn) {
 
     $jit.util.addEvent(obj, type, fn);
-}
+};
 
 sontgen.prototype.addEvent = function(type, fn) {
 
     this.viz.config.Events[type] = fn;
-}
+};
 
 sontgen.prototype.animate = function(trans, way, dur) {
 
@@ -356,4 +355,4 @@ sontgen.prototype.animate = function(trans, way, dur) {
         transition: $jit.Trans[trans][way]
     });
     //} else 
-}
+};

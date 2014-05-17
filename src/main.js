@@ -12,9 +12,10 @@ var labelType, useGradients, nativeTextSupport, animate, sog, ctrlEventObj = {};
 
 function controlEvents(action) {
 
+    $("#" + ctrlEventObj['selected']).css({"background": "linear-gradient(#444444, #2D2D2D) #333333"},{"border": "none"});
     ctrlEventObj['selected'] = action;
     ctrlEventObj['from'] = false;
-    $("#" + action).removeClass("ui-btn-up-a").addClass("ui-btn-down-a");
+    $("#" + action).css({"background": "linear-gradient(#444444, #767676) #333333", "border": "0 0 12px solid #22AADD"});
 }
 
 /**
@@ -33,6 +34,7 @@ function init() {
     sog.addEvent('onRightClick', function(elem, infoEvent, e) {
         alert("hola " + elem.id);
     });
+
     sog.addEvent('onClick', function(elem, eventInfo, e) {
         //$jit.util.event.stop(e);
         console.log(elem)
@@ -56,7 +58,10 @@ function init() {
 
         }
     });
+
     sog.toJSON('graph');
+
+    controlEvents('viewonly');
 }
 
 if (document.addEventListener) {
