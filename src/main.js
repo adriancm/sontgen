@@ -1,14 +1,14 @@
 var labelType, useGradients, nativeTextSupport, animate, sog, ctrlEventObj = {};
 
 /*var Log = {
-    elem: false,
-    write: function(text){
-	if (!this.elem) 
-	    this.elem = document.getElementById('log');
-	this.elem.innerHTML = text;
-	this.elem.style.left = (500 - this.elem.offsetWidth / 2) + 'px';
-    }
-};*/
+ elem: false,
+ write: function(text){
+ if (!this.elem)
+ this.elem = document.getElementById('log');
+ this.elem.innerHTML = text;
+ this.elem.style.left = (500 - this.elem.offsetWidth / 2) + 'px';
+ }
+ };*/
 
 function controlEvents(action) {
 
@@ -41,7 +41,10 @@ function init() {
         if (elem) {
             switch (ctrlEventObj['selected']) {
                 case 'viewonly':
-                    sog.viz.onClick(elem.id);
+                    if(elem.nodeFrom)
+                        alert('This is an edge');
+                    else
+                        sog.viz.onClick(elem.id);
                     break;
                 case 'addedge':
                     var fromnode = ctrlEventObj['from']
@@ -57,6 +60,16 @@ function init() {
             }
 
         }
+    });
+
+    sog.addEvent('onMouseEnter', function(elem, eventInfo, e) {
+        sog.viz.canvas.getElement().style.cursor = 'pointer';
+        sog.showTip(e.clientX, e.clientY, elem);
+    });
+
+    sog.addEvent('onMouseLeave', function(elem, eventInfo, e) {
+        sog.hideTips();
+        sog.viz.canvas.getElement().style.cursor = 'move';
     });
 
     sog.toJSON('graph');

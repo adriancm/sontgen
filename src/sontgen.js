@@ -44,7 +44,7 @@ function sontgen(canvas, mode, view) {
     $jit.RGraph.Plot.EdgeTypes.implement({
         'labeled': {
             'render': function(adj, canvas) {
-                this.edgeTypes.arrow.render.call(this, adj, canvas);
+                this.edgeTypes.line.render.call(this, adj, canvas);
                 var data = adj.data;
                 if (data.labeltext) {
                     var ctx = canvas.getCtx();
@@ -63,7 +63,7 @@ function sontgen(canvas, mode, view) {
     });
 
 
-
+    var that = this;
     /**
      * Description
      * @method sog_init
@@ -90,14 +90,15 @@ function sontgen(canvas, mode, view) {
         Node: {
             overridable: true,
             color: 'purple',
-            dim: 20
+            dim: 10
         },
 
         Edge: {
             overridable: true,
             color: 'green',
-            lineWidth: 2,
-            type: 'labeled'
+            lineWidth: 3,
+            type: 'arrow',
+            dim: 20
 
         },
         Label: {
@@ -110,13 +111,13 @@ function sontgen(canvas, mode, view) {
         Tips: {
             enable: true,
             type: 'Native',
-            offsetX: 10,
-            offsetY: 10,
+            offsetX: 5,
+            offsetY: 5,
             onShow: function(tip, node) {
                 //var styles = "padding: 10px; background-color: white; border-radius: 5px; ";
-                console.log(tip);
-                tip.innerHTML = "<div style='font-family: sans-serif'>" +
-                    "<h4>URI: <span style='font-weight: normal;'>\"" + node.name + "\"</span></h4>" +
+                that.hideTips();
+                tip.innerHTML = '<div class="tip">' +
+                    "<h4>URI: <span>\"" + node.name + "\"</span></h4>" +
                     "<p>Descripción</p>" +
                     "</div>";
             }
@@ -126,15 +127,6 @@ function sontgen(canvas, mode, view) {
             enableForEdges: true,
             type: 'Native',
 
-
-            onMouseEnter: function(node, eventInfo, e) {
-                $jit.util.event.stop(e);
-                rgraph.canvas.getElement().style.cursor = 'pointer';
-            },
-            onMouseLeave: function(node, eventInfo, e) {
-                $jit.util.event.stop(e);
-                rgraph.canvas.getElement().style.cursor = 'move';
-            },
             onDragStart: function(elem, eventInfo, e) {
                 $jit.util.event.stop(e);
                 if (elem) {
@@ -217,6 +209,7 @@ function sontgen(canvas, mode, view) {
     this.canvas = canvas;
     this.mode = mode;
     this.view = view;
+    this.nodeTip =
 
     console.log(rgraph);
 }
@@ -356,3 +349,24 @@ sontgen.prototype.animate = function(trans, way, dur) {
     });
     //} else 
 };
+
+sontgen.prototype.showTip = function(x, y, elem, html){
+    if(x && y){
+        if(!html){
+            if(elem){
+
+                if(elem.nodeFrom)
+                    html = '<div class="tip customtip" style="top:' + y + 'px; left:' + x + 'px;">Una prueba de edge: '
+                            + elem.nodeFrom.name + ' to ' + elem.nodeTo.name + '</div>';
+                else
+                    html = '';
+            }
+        }
+        $('#canvas-canvaswidget').append(html);
+    }
+};
+
+sontgen.prototype.hideTips = function(){
+    $('.customtip').remove();
+}
+
