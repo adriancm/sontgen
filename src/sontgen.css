@@ -106,3 +106,6 @@ body h1 {
     height: auto;
     text-shadow: none;
 }
+#popupMenu {
+    min-width: 120px;
+}

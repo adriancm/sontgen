@@ -76,7 +76,7 @@ function sontgen(canvas, mode, view) {
         //concentric circles.
         background: {
             CanvasStyles: {
-                strokeStyle: '#666'
+                strokeStyle: '#222'
             }
         },
         //Add navigation capabilities:
@@ -127,25 +127,8 @@ function sontgen(canvas, mode, view) {
             enableForEdges: true,
             type: 'Native',
 
-            onDragStart: function(elem, eventInfo, e) {
-                $jit.util.event.stop(e);
-                if (elem) {
-                    node = elem;
-                } else {
-                    node = false;
-                }
-                console.log("Drag: " + elem.id);
-
-            },
-            onDragMove: function(elem, eventInfo, e) {
-                $jit.util.event.stop(e);
-
-                /*var pos = eventInfo.getPos(); 
-            node.pos.setc(pos.x, pos.y);  
-            rgraph.plot(); */
-            },
             onDragEnd: function(elem, eventInfo, e) {
-                $jit.util.event.stop(e);
+               /* $jit.util.event.stop(e);
                 if (elem != undefined) {
                     rgraph.graph.addAdjacence(node, elem);
                 } else {
@@ -168,7 +151,7 @@ function sontgen(canvas, mode, view) {
                     transition: $jit.Trans.Elastic.easeOut
                 });
                 rgraph.refresh();
-                node = false;
+                node = false;*/
             },
             //touch events  
             onTouchStart: function(node, eventInfo, e) {
@@ -203,13 +186,10 @@ function sontgen(canvas, mode, view) {
 
     });
 
-
-
     this.viz = rgraph;
     this.canvas = canvas;
     this.mode = mode;
     this.view = view;
-    this.nodeTip =
 
     console.log(rgraph);
 }
@@ -230,21 +210,30 @@ sontgen.prototype.fromJSON = function(file) {
     });
     //end
     /*this.viz.computeIncremental({
-    iter: 20,  
-    property: 'end',  
-    onStep: function(perc) {  
-        console.log("loading " + perc + "%");  
-    },  
-    onComplete: function() {  
-        console.log("done");  
-        that.viz.animate();  
-    }  
+    iter: 20,
+    property: 'end',
+    onStep: function(perc) {
+        console.log("loading " + perc + "%");
+    },
+    onComplete: function() {
+        console.log("done");
+        that.viz.animate();
+    }
 });*/
 };
 
 sontgen.prototype.toJSON = function(type) {
 
     return this.viz.toJSON(type);
+};
+
+sontgen.prototype.loadFile = function(path){
+
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+        // Great success! All the File APIs are supported.
+    } else {
+        alert('The File APIs are not fully supported. Please upgrade your browser.');
+    }
 };
 
 sontgen.prototype.addNode = function(name, data) {
@@ -278,12 +267,11 @@ sontgen.prototype.removeNode = function(id) {
 
 sontgen.prototype.removeEdge = function(id, id2) {
 
-    if (this.getEdge(id, id2)) {
+    if(this.getEdge(id, id2)){
         this.viz.graph.removeAdjacence(id, id2);
         this.animate('Elastic', 'easeOut');
         return true;
     }
-
     return false;
 };
 
@@ -354,7 +342,6 @@ sontgen.prototype.showTip = function(x, y, elem, html){
     if(x && y){
         if(!html){
             if(elem){
-
                 if(elem.nodeFrom)
                     html = '<div class="tip customtip" style="top:' + y + 'px; left:' + x + 'px;">Una prueba de edge: '
                             + elem.nodeFrom.name + ' to ' + elem.nodeTo.name + '</div>';
@@ -368,5 +355,34 @@ sontgen.prototype.showTip = function(x, y, elem, html){
 
 sontgen.prototype.hideTips = function(){
     $('.customtip').remove();
+}
+
+sontgen.prototype.isNode = function(elem){
+    if(elem){
+        if(elem.nodeFrom)
+            return false;
+        else
+            return true;
+    } else {
+        return false;
+    }
+}
+
+sontgen.prototype.isEdge = function(elem){
+    if(elem)
+        return !this.isNode(elem);
+    else
+        return false;
+}
+
+sontgen.prototype.cursor = function(type, path){
+    if(type == 'custom'){
+        if(path)
+            sog.viz.canvas.getElement().style.cursor = 'url("'+path+'")';
+    } else if(type) {
+        sog.viz.canvas.getElement().style.cursor = type;
+    } else {
+        return sog.viz.canvas.getElement().style.cursor;
+    }
 }
 
