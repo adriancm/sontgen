@@ -97,7 +97,7 @@ function sontgen(canvas, mode, view) {
             overridable: true,
             color: 'green',
             lineWidth: 3,
-            type: 'arrow',
+            type: 'line',
             dim: 20
 
         },
@@ -111,14 +111,13 @@ function sontgen(canvas, mode, view) {
         Tips: {
             enable: true,
             type: 'Native',
-            offsetX: 5,
-            offsetY: 5,
+            offsetX: 0,
+            offsetY: 0,
             onShow: function(tip, node) {
                 //var styles = "padding: 10px; background-color: white; border-radius: 5px; ";
                 that.hideTips();
                 tip.innerHTML = '<div class="tip">' +
-                    "<h4>URI: <span>\"" + node.name + "\"</span></h4>" +
-                    "<p>Descripción</p>" +
+                    "<span>" + node.name + "</span>" +
                     "</div>";
             }
         },
@@ -227,13 +226,17 @@ sontgen.prototype.toJSON = function(type) {
     return this.viz.toJSON(type);
 };
 
-sontgen.prototype.loadFile = function(path){
+sontgen.prototype.openFile = function(path){
 
     if (window.File && window.FileReader && window.FileList && window.Blob) {
         // Great success! All the File APIs are supported.
     } else {
         alert('The File APIs are not fully supported. Please upgrade your browser.');
     }
+};
+
+sontgen.prototype.saveAs = function(path){
+
 };
 
 sontgen.prototype.addNode = function(name, data) {
@@ -249,14 +252,14 @@ sontgen.prototype.addNode = function(name, data) {
 };
 
 sontgen.prototype.addEdge = function(node, node2, data) {
-
+    //TODO Hidden edge case
     var e = this.viz.graph.addAdjacence(node, node2, data);
     this.animate('Elastic', 'easeOut');
     return e;
 };
 
 sontgen.prototype.removeNode = function(id) {
-
+    //TODO Root or Last node case
     if (this.getNode(id)) {
         this.viz.graph.removeNode(id);
         this.animate('Elastic', 'easeOut');
@@ -343,8 +346,8 @@ sontgen.prototype.showTip = function(x, y, elem, html){
         if(!html){
             if(elem){
                 if(elem.nodeFrom)
-                    html = '<div class="tip customtip" style="top:' + y + 'px; left:' + x + 'px;">Una prueba de edge: '
-                            + elem.nodeFrom.name + ' to ' + elem.nodeTo.name + '</div>';
+                    html = '<div class="tip customtip" style="top:' + y + 'px; left:' + x + 'px;">' +
+                        elem.nodeFrom.name + ' > ' + elem.data.labeltext + ' > ' + elem.nodeTo.name + '</div>';
                 else
                     html = '';
             }
