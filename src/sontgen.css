@@ -1,34 +1,117 @@
 
-body h1 {
-    font-family: 'Poiret One', cursive; 
+
+html, body {
+    height: 100%;
+    background-color: #222;
+    font-family: sans-serif;
 }
 
-#toolbar {
-    
+body h1 {
+    /*font-family: 'Poiret One', cursive; */
 }
 
 #header > h1 {
-    margin: 7px;
+    /*margin: 0px;*/
 }
 #header > a {
     margin-top: 4px;
     margin-bottom: 4px;
 }
 
-#content {
-    padding: 0;
-    margin: 0;
-    height:549px;
-}
-
-.main { 
-    background: #222; 
+.main {
+    background: #222;
     height:100%;
     width: 100%;
+    min-height: 600px;
+    float: right;
 }
 
+.aside {
+    position: fixed;
+    width: 5.5%;
+    height:104%;
+    float: left;
+    /*background: #222;*/
+    opacity: 1;
+    margin-left: 0.5%;
+}
 
+.aside img {
+    width: 100%;
+    height: 100%;
+    margin:0;
+    padding: 0%;
 
-#canvas { 
- 
+}
+
+/*.aside a:hover img {
+    opacity: 0.4;
+    cursor: pointer;
+    background: #222;
+}
+
+.aside a:active img {
+    opacity: 0.4;
+    background: #000;
+}
+
+.aside a:target img{
+    opacity: 0.4;
+    background: #000;   
+}*/
+
+#viewer {
+    height : 100%;
+    background-color: #222;
+    overflow: hidden;
+}
+
+/*specify a height for the header so we can line-up the elements, the default is 40px*/
+#viewer .ui-header {
+    height : 48px;
+    z-index: 1;
+}
+
+/*set the content to be full-width and height except it doesn't overlap the header or footer*/
+#viewer .ui-content {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    bottom: 50px;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    z-index: 0;
+}
+
+#viewer .ui-footer {
+    position : absolute;
+    bottom   : 23px;
+    left     : 0;
+    width    : 100%;
+    height   : 32px;
+}
+
+.tip{
+    padding: 5px;
+    background-color: black;
+    border-radius: 30px;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    font-size: 10px;
+    opacity: 0.7;
+    color:white;
+    font-weight: bold;
+    font-family: sans-serif;
+    text-shadow: none;
+}
+
+.customtip {
+    padding: 10px;
+    position: fixed;
+}
+
+#popupMenu {
+    min-width: 120px;
 }

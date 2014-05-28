@@ -1,6 +1,37 @@
-var labelType, useGradients, nativeTextSupport, animate;
+var labelType, useGradients, nativeTextSupport, animate, moved = true,
+    pressed, node = false;
 var autoID = 0;
 
+/// expand with color, background etc.
+function drawTextBG(ctx, txt, font, x, y) {
+
+    /// lets save current state as we make a lot of changes        
+    ctx.save();
+
+    /// set font
+    ctx.font = font.family;
+
+    /// draw text from top - makes life easier at the moment
+    ctx.textBaseline = 'top';
+
+    /// color for background
+    ctx.fillStyle = '#222';
+
+    /// get width of text
+    var width = ctx.measureText(txt).width;
+
+    /// draw background rect assuming height of font
+    ctx.fillRect(x, y, width, parseInt(font, 10));
+
+    /// text color
+    ctx.fillStyle = font.color;
+
+    /// draw text on top
+    ctx.fillText(txt, x, y);
+
+    /// restore original state
+    ctx.restore();
+}
 
 /**
  * Create a new sontgen object.
@@ -13,256 +44,354 @@ function sontgen(canvas, mode, view) {
     $jit.RGraph.Plot.EdgeTypes.implement({
         'labeled': {
             'render': function(adj, canvas) {
-                this.edgeTypes.arrow.render.call(this, adj, canvas);
+                this.edgeTypes.line.render.call(this, adj, canvas);
                 var data = adj.data;
-                if(data.labeltext) {
+                if (data.labeltext) {
                     var ctx = canvas.getCtx();
                     var posFr = adj.nodeFrom.pos.getc(true);
                     var posTo = adj.nodeTo.pos.getc(true);
-		    ctx.fillStyle = "#ccc";
-                    ctx.fillText(data.labeltext, (posFr.x + posTo.x)/2, (posFr.y + posTo.y)/2);
-                }// if data.labeltext
+                    drawTextBG(ctx, data.labeltext, {
+                        color: '#ccc',
+                        family: 'sans'
+                    }, (posFr.x + posTo.x) / 2, (posFr.y + posTo.y) / 2);
+                    //ctx.fillStyle = "#ccc";
+                    //ctx.fillText(data.labeltext, (posFr.x + posTo.x) / 2, (posFr.y + posTo.y) / 2);
+
+                } // if data.labeltext
             }
         }
     });
 
-    
 
+    var that = this;
     /**
      * Description
      * @method sog_init
      * @return rgraph
      */
     var rgraph = new $jit.RGraph({
-	//Where to append the visualization
-	injectInto: canvas,
-	//Optional: create a background canvas that plots
-	//concentric circles.
-	background: {
-	    CanvasStyles: {
-		strokeStyle: '#444',
-	    },
-	},
-	//Add navigation capabilities:
-	//zooming by scrolling and panning.
-	Navigation: {
-	    enable: true,
-	    panning: true,
-	    zooming: 60
-	},
-	//Set Node and Edge styles.
-	Node: {
-	    overridable: true,
-	    color: 'purple',
-	    dim: 20,
-	},
-	
-	Edge: {
-	    overridable: true,
-	    type: 'Native',
-	    color: 'green',
-	    lineWidth:1.5,
-	    type: 'labeled',
-	    
-	},
-	Label: { 
-	    overridable: true,
-	    type: 'Native',
-	    
-	    
-	    
-	},
-	Events: {
-	    enable: true, 
-	    enableForEdges: false,
-	    type: 'Native',  
-	    onClick: function(node, eventInfo, e){
-		$jit.util.event.stop(e);
-		if(node){
-		    if(!node.collapsed){
-			rgraph.op.contract(node, {  
-			    type: 'animate',  
-			    duration: 1000,  
-			    hideLabels: true,  
-			    transition: $jit.Trans.Quart.easeOut  
-			});  
-		    } else {
-			rgraph.op.expand(node, {  
-			    type: 'animate',  
-			    duration: 1000,  
-			    hideLabels: true,  
-			    transition: $jit.Trans.Quart.easeOut  
-			});  
-		    }
-		    //rgraph.onClick(node.id);
-		}else{
-		    var newNode = rgraph.graph.addNode({'id':'_node'+autoID,'name':'name','data':'data'});
-		    newNode.pos.setc(eventInfo.getPos());
-		    //rgraph.graph.addAdjacence(rgraph.graph.getNode('_superNode'),newNode);
-		}
-		
-	    },
-	    onMouseEnter: function(node, eventInfo, e){ 
-		$jit.util.event.stop(e);
-		rgraph.config.Navigation.panning = false;
-		rgraph.canvas.getElement().style.cursor = 'pointer';  
-	    },  
-	    onMouseLeave: function(node, eventInfo, e){ 
-		$jit.util.event.stop(e);
-		rgraph.config.Navigation.panning = true;
-		rgraph.canvas.getElement().style.cursor = 'move';  
-	    },  
-	    onDragMove: function(node, eventInfo, e){  
-		$jit.util.event.stop(e);
-		rgraph.config.Navigation.panning = false;
- 		var pos = eventInfo.getPos(); 
-		console.log(eventInfo);
-		console.log(e);
-		node.pos.setc(pos.x, pos.y);  
-		rgraph.plot();  
-	    },  
-	    onDragEnd: function(node, eventInfo, e){
-		rgraph.config.Navigation.panning = true;
-		$jit.util.event.stop(e);
-		rgraph.compute('end');  
-		rgraph.fx.animate( {  
-		    modes: [  
-			'linear'  
-		    ],  
-		    duration: 700,  
-		    transition: $jit.Trans.Elastic.easeOut  
-		}); 
-	    },  
-	    //touch events  
-	    onTouchStart: function(node, eventInfo, e) {  
-		//stop the default event  
-		$jit.util.event.stop(e);  
-	    },  
-	    onTouchMove: function(node, eventInfo, e){  
-		//stop the default event  
-		$jit.util.event.stop(e);  
-		var pos = eventInfo.getPos();  
-		node.pos.setc(pos.x, pos.y);  
-		rgraph.plot();  
-	    },  
-	    onTouchEnd: function(node, eventInfo, e){  
-		//stop the default event  
-		$jit.util.event.stop(e);  
-		rgraph.compute('end');  
-		rgraph.fx.animate( {  
-		    modes: [  
-			'linear'  
-		    ],  
-		    duration: 700,  
-		    transition: $jit.Trans.Elastic.easeOut  
-		});  
-	    }  
-	},
-	onBeforeCompute: function(node){
-	    console.log(node._depth);
-	    /*if(node._depth < 0){
-		node._depth = 1;
-		console.log(rgraph.graph);
-	    }*/
-	},
-	levelDistance: 200,
-	fps: 30,
-	duration: 1500,	
+        //Where to append the visualization
+        injectInto: canvas,
+        //Optional: create a background canvas that plots
+        //concentric circles.
+        background: {
+            CanvasStyles: {
+                strokeStyle: '#222'
+            }
+        },
+        //Add navigation capabilities:
+        //zooming by scrolling and panning.
+        Navigation: {
+            enable: true,
+            panning: 'avoid nodes',
+            zooming: 60
+        },
+        //Set Node and Edge styles.
+        Node: {
+            overridable: true,
+            color: 'purple',
+            dim: 10
+        },
+
+        Edge: {
+            overridable: true,
+            color: 'green',
+            lineWidth: 3,
+            type: 'line',
+            dim: 20
+
+        },
+        Label: {
+            overridable: true,
+            type: 'Native',
+            color: '#fff',
+            size: 10
+
+        },
+        Tips: {
+            enable: true,
+            type: 'Native',
+            offsetX: 0,
+            offsetY: 0,
+            onShow: function(tip, node) {
+                //var styles = "padding: 10px; background-color: white; border-radius: 5px; ";
+                that.hideTips();
+                tip.innerHTML = '<div class="tip">' +
+                    "<span>" + node.name + "</span>" +
+                    "</div>";
+            }
+        },
+        Events: {
+            enable: true,
+            enableForEdges: true,
+            type: 'Native',
+
+            onDragEnd: function(elem, eventInfo, e) {
+               /* $jit.util.event.stop(e);
+                if (elem != undefined) {
+                    rgraph.graph.addAdjacence(node, elem);
+                } else {
+                    var newNode = rgraph.graph.addNode({
+                        'id': '_node' + autoID,
+                        'name': '_node' + autoID,
+                        'data': 'data'
+                    });
+                    autoID++;
+                    rgraph.graph.addAdjacence(node, newNode);
+                }
+
+
+                console.log(elem.id);
+                rgraph.fx.animate({
+                    modes: [
+                        'linear'
+                    ],
+                    duration: 700,
+                    transition: $jit.Trans.Elastic.easeOut
+                });
+                rgraph.refresh();
+                node = false;*/
+            },
+            //touch events  
+            onTouchStart: function(node, eventInfo, e) {
+                //stop the default event  
+                $jit.util.event.stop(e);
+            },
+            onTouchMove: function(node, eventInfo, e) {
+                //stop the default event  
+                $jit.util.event.stop(e);
+                var pos = eventInfo.getPos();
+                node.pos.setc(pos.x, pos.y);
+                rgraph.plot();
+            },
+            onTouchEnd: function(node, eventInfo, e) {
+                //stop the default event  
+                $jit.util.event.stop(e);
+                rgraph.compute('end');
+                rgraph.fx.animate({
+                    modes: [
+                        'linear'
+                    ],
+                    duration: 700,
+                    transition: $jit.Trans.Elastic.easeOut
+                });
+            }
+        },
+
+        levelDistance: 200,
+        //iterations: 100,
+        fps: 30,
+        duration: 1500
+
     });
 
-    
-
     this.viz = rgraph;
-    
     this.canvas = canvas;
     this.mode = mode;
     this.view = view;
+    this.selected = '';
 
     console.log(rgraph);
 }
 
 
-sontgen.prototype.fromJSON = function(file){ 
-    var that = this;
-    this.viz.loadJSON(file); 
-    
-    var superNode = this.viz.graph.addNode({'id':'_superNode','name':'_superNode'});
+sontgen.prototype.fromJSON = function(file) {
+    //var that = this;
+    this.viz.loadJSON(file);
+
+    /*var superNode = this.viz.graph.addNode({'id':'_superNode','name':'_superNode'});
       //trigger small animation
-    var joined = false;
-    this.viz.graph.eachNode(function(n) {
-	if(!joined){
-	    that.addEdge(superNode, n);
-	    joined = true;
-	}
-	
-	var pos = n.getPos();
-	//pos.setc(-200, -200);
-    });
+      var joined = false;*/
+    console.log(this.viz.compute);
     this.viz.compute('end');
     this.viz.fx.animate({
-	modes:['polar'],
-	duration: 2000
-     });
+        modes: ['polar'],
+        duration: 1000
+    });
     //end
+    /*this.viz.computeIncremental({
+    iter: 20,
+    property: 'end',
+    onStep: function(perc) {
+        console.log("loading " + perc + "%");
+    },
+    onComplete: function() {
+        console.log("done");
+        that.viz.animate();
+    }
+});*/
 };
 
-sontgen.prototype.toJSON = function(type){ 
-    
-    return this.viz.toJSON(type); 
+sontgen.prototype.toJSON = function(type) {
+
+    return this.viz.toJSON(type);
 };
 
-sontgen.prototype.addNode = function(name, data){ 
-    
-    this.viz.graph.addNode({'id':'_n_'+autoID,'name':name,'data':data}); 
+sontgen.prototype.openFile = function(path){
+
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+        // Great success! All the File APIs are supported.
+    } else {
+        alert('The File APIs are not fully supported. Please upgrade your browser.');
+    }
+};
+
+sontgen.prototype.saveAs = function(path){
+
+};
+
+sontgen.prototype.addNode = function(name, data) {
+
+    var n = this.viz.graph.addNode({
+        'id': '_n_' + autoID,
+        'name': name,
+        'data': data
+    });
     autoID++;
-};
-   
-sontgen.prototype.addEdge = function(node, node2, data){ 
-    
-    this.viz.graph.addAdjacence(node, node2, data); 
+    this.animate('Elastic', 'easeOut');
+    return n;
 };
 
-sontgen.prototype.removeNode = function(id){ 
-
-    if(this.getNode(id)){
-	this.viz.graph.removeNode(id); 
+sontgen.prototype.addEdge = function(node, node2, data) {
+    //TODO Hidden edge case
+    var e = this.getEdge(node.id,node2.id);
+    if(e && e.getData('_rootsAdj')){
+        e.removeData('_rootsAdj');
+        e.setData('alpha', 1);
     }
+    e = this.viz.graph.addAdjacence(node, node2, data);
+    this.animate('Elastic', 'easeOut');
+    return e;
 };
 
-sontgen.prototype.removeEdge = function(id, id2){ 
-    
+sontgen.prototype.removeNode = function(id) {
+    //TODO Root or Last node case
+    if (this.getNode(id) && id != this.viz.root) {
+        this.viz.graph.removeNode(id);
+        this.animate('Elastic', 'easeOut');
+        return true;
+    }
+    return false;
+};
+
+sontgen.prototype.removeEdge = function(id, id2) {
+
     if(this.getEdge(id, id2)){
-	this.viz.graph.removeAdjacence(id, id2); 
+        this.viz.graph.removeAdjacence(id, id2);
+        this.animate('Elastic', 'easeOut');
+        return true;
     }
+    return false;
 };
 
-sontgen.prototype.getNode = function(id){ 
-    
-    return this.viz.graph.getNode(id); 
+sontgen.prototype.remove = function(id) {
+    this.removeNode(id);
+
+    return false;
 };
 
-sontgen.prototype.getNodeByName = function(name){ 
-    return this.viz.graph.getByName(name); 
-}
+sontgen.prototype.getNode = function(id) {
 
-sontgen.prototype.getEdge = function(id, id2){ 
-
-    return this.viz.graph.getAdjacence(id, id2); 
+    return this.viz.graph.getNode(id);
 };
 
-sontgen.prototype.editNode = function(id, name, data){ 
-    
+sontgen.prototype.getNodeByName = function(name) {
+    return this.viz.graph.getByName(name);
+};
+
+sontgen.prototype.getEdge = function(id, id2) {
+
+    return this.viz.graph.getAdjacence(id, id2);
+};
+
+sontgen.prototype.editNode = function(id, name, data) {
+
     var node = this.getNode(id);
-    if(node){
-	node.name = name;
-	node.data = data;
+    if (node) {
+        node.name = name;
+        node.data = data;
+    }
+};
+
+sontgen.prototype.editEdge = function(node, node2, data) {
+
+    var edge = this.getEdge(node.id, node2.id);
+    if (edge) {
+        edge.data = data;
+    }
+};
+
+sontgen.prototype.addEventToObj = function(obj, type, fn) {
+
+    $jit.util.addEvent(obj, type, fn);
+};
+
+sontgen.prototype.addEvent = function(type, fn) {
+
+    this.viz.config.Events[type] = fn;
+};
+
+sontgen.prototype.animate = function(trans, way, dur) {
+
+    dur = typeof dur !== 'undefined' ? dur : 500;
+
+    //if (trans && way) {
+    this.viz.compute('end');
+    this.viz.fx.animate({
+        modes: [
+            'linear'
+        ],
+        duration: dur,
+        transition: $jit.Trans[trans][way]
+    });
+    //} else 
+};
+
+sontgen.prototype.showTip = function(x, y, elem, html){
+    if(x && y){
+        if(!html){
+            if(elem){
+                if(elem.nodeFrom)
+                    html = '<div class="tip customtip" style="top:' + y + 'px; left:' + x + 'px;">' +
+                        elem.nodeFrom.name + ' > ' + elem.data.labeltext + ' > ' + elem.nodeTo.name + '</div>';
+                else
+                    html = '';
+            }
+        }
+        $('#canvas-canvaswidget').append(html);
+    }
+};
+
+sontgen.prototype.hideTips = function(){
+    $('.customtip').remove();
+}
+
+sontgen.prototype.isNode = function(elem){
+    if(elem){
+        if(elem.nodeFrom)
+            return false;
+        else
+            return true;
+    } else {
+        return false;
     }
 }
 
-sontgen.prototype.editEdge = function(node, node2, data){
+sontgen.prototype.isEdge = function(elem){
+    if(elem)
+        return !this.isNode(elem);
+    else
+        return false;
+}
 
-    var edge = this.getEdge(node.id,node2.id);
-    if(edge){
-	edge.data = data;
+sontgen.prototype.cursor = function(type, path){
+    if(type == 'custom'){
+        if(path)
+            sog.viz.canvas.getElement().style.cursor = 'url("'+path+'")';
+    } else if(type) {
+        sog.viz.canvas.getElement().style.cursor = type;
+    } else {
+        return sog.viz.canvas.getElement().style.cursor;
     }
-}; 
+}
+
