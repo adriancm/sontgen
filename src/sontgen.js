@@ -189,6 +189,7 @@ function sontgen(canvas, mode, view) {
     this.canvas = canvas;
     this.mode = mode;
     this.view = view;
+    this.selected = '';
 
     console.log(rgraph);
 }
@@ -253,14 +254,19 @@ sontgen.prototype.addNode = function(name, data) {
 
 sontgen.prototype.addEdge = function(node, node2, data) {
     //TODO Hidden edge case
-    var e = this.viz.graph.addAdjacence(node, node2, data);
+    var e = this.getEdge(node.id,node2.id);
+    if(e && e.getData('_rootsAdj')){
+        e.removeData('_rootsAdj');
+        e.setData('alpha', 1);
+    }
+    e = this.viz.graph.addAdjacence(node, node2, data);
     this.animate('Elastic', 'easeOut');
     return e;
 };
 
 sontgen.prototype.removeNode = function(id) {
     //TODO Root or Last node case
-    if (this.getNode(id)) {
+    if (this.getNode(id) && id != this.viz.root) {
         this.viz.graph.removeNode(id);
         this.animate('Elastic', 'easeOut');
         return true;

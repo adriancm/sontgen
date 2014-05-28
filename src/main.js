@@ -42,8 +42,10 @@ function init() {
                 case 'viewonly':
                     if(sog.isEdge(elem))
                         alert('This is an edge');
-                    else
+                    else{
+                        elem.setData('color', 'orange');
                         sog.viz.onClick(elem.id);
+                    }
                     break;
                 case 'addedge':
                     var fromnode = ctrlEventObj['from']
