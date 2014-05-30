@@ -178,7 +178,7 @@ function sontgen(canvas, mode, view) {
             }
         },
 
-        levelDistance: 200,
+        levelDistance: 100,
         //iterations: 100,
         fps: 30,
         duration: 1500
@@ -189,7 +189,6 @@ function sontgen(canvas, mode, view) {
     this.canvas = canvas;
     this.mode = mode;
     this.view = view;
-    this.selected = '';
 
     console.log(rgraph);
 }
@@ -395,3 +394,12 @@ sontgen.prototype.cursor = function(type, path){
     }
 }
 
+sontgen.prototype.root = function(id){
+    if(id){
+        this.getNode(this.viz.root).setData('color', 'purple');
+        this.getNode(id).setData('color', 'orange');
+        sog.viz.onClick(id);
+    } else {
+        return this.getNode(this.viz.root);
+    }
+}

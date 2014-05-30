@@ -43,8 +43,9 @@ function init() {
                     if(sog.isEdge(elem))
                         alert('This is an edge');
                     else{
-                        elem.setData('color', 'orange');
-                        sog.viz.onClick(elem.id);
+
+                        sog.root(elem.id);
+
                     }
                     break;
                 case 'addedge':
