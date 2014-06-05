@@ -97,16 +97,32 @@
     <!-- ................................................................................ -->
     <!-- ................................................................................ -->
     <div data-role="content" data-theme="b" id="content">
+
+        <div data-role="popup" id="resourceData" data-theme="a" class="custom-popup ui-corner-all">
+            <form autocomplete="off">
+                <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+                    <legend>Type of data:</legend>
+                    <input name="radio-choice-b" id="radio-choice-c" value="resource" type="radio" checked="checked" onchange="resOrLitToogle(this.checked);">
+                    <label for="radio-choice-c">Resource</label>
+                    <input name="radio-choice-b" id="radio-choice-d" value="literal" type="radio" onchange="resOrLitToogle(!this.checked)">
+                    <label for="radio-choice-d">Literal</label>
+                </fieldset>
+                <div id="resourceInput">
+                    <input name="text" id="namespace" placeholder="Namespace" value="" data-theme="a" >
+                    <input name="text" id="iri"  placeholder="URI/IRI" value="" data-theme="a" >
+                    <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check" onclick="editElem({ namespace:$('#namespace').val(), iri:$('#iri').val()})">Edit</button>
+                </div>
+            </form>
+        </div>
+
         <div class="main" id="canvas">
-            <div data-role="popup" id="popupMenu" data-theme="b">
+           <!-- <div data-role="popup" id="popupMenu" data-theme="b">
                 <ul data-role="listview" data-inset="true">
                     <li data-role="list-divider">Choose an action</li>
-                    <li><a href="#">View details</a></li>
-                    <li><a href="#">Edit</a></li>
-                    <li><a href="#">Disable</a></li>
-                    <li><a href="#">Delete</a></li>
+                    <li><a href="#resourceData" onclick="$('#popupMenu').popup('close'); $('#resourceData').popup('open');">Details</a></li>
+                    <li><a href="#deleteResource" onclick="$('#popupMenu').popup('close'); sog.remove(ctrlEventObj['popup'])">Delete</a></li>
                 </ul>
-            </div>
+            </div> -->
         </div>
         <div class="aside" id="options" >
             <div data-role="controlgroup" >
@@ -126,7 +142,7 @@
                 <a id="openfile" href="#popupLoadFile" data-role="button" data-rel="popup" data-position-to="window" data-transition="pop"><img src="../res/openfile.png"/></a>
                 <div data-role="popup" id="popupLoadFile" data-theme="a" class="ui-corner-all">
                     <form>
-                        <div style="padding:10px 20px;">
+                        <div class="custom-popup">
                             <h3>Choose file:</h3>
                             <label for="file" class="ui-hidden-accessible">Username:</label>
                             <input name="file" id="file" value="" placeholder="File to open" data-theme="a" type="file">

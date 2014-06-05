@@ -18,6 +18,40 @@ function controlEvents(action) {
     $("#" + action).css({"background": "linear-gradient(#444444, #767676) #333333", "border": "0 0 12px solid #22AADD"});
 }
 
+function editElem(data){
+
+    $('#resourceData').popup('close');
+    var elem = ctrlEventObj['popup'];
+
+    if((data.namespace && data.iri) || data.literal){
+        if(!data.literal){
+            var label = data.namespace+':'+data.iri;
+        } else {
+            var label = data.literal
+        }
+
+        if(sog.isNode(elem)){
+            var a = sog.editNode(elem.id, label, { $color: sog.viz.config.Node.color, iri: data.iri, namespace: data.namespace, literal: data.literal } );
+            console.log(a);
+        } else {
+            sog.editEdge(elem.nodeFrom, elem.nodeTo, { name: label, $color: sog.viz.config.Edge.color,  iri: data.iri, namespace: data.namespace, literal: data.literal });
+        }
+    }
+}
+
+function resOrLitToogle(res){
+    if(res){
+        $('#resourceInput').html('<div class="ui-input-text ui-body-a ui-corner-all ui-shadow-inset">'+
+        '<input data-theme="a" placeholder="Namespace" id="namespace" name="text"></div>'+
+        '<div class="ui-input-text ui-body-a ui-corner-all ui-shadow-inset"><input data-theme="a" placeholder="URI/IRI" id="iri" name="text"></div>'+
+        '<button onclick="editElem({ namespace:$(\'#namespace\').val(), iri:$(\'#iri\').val()})" class="ui-btn ui-btn-b ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all" type="submit">Edit</button></div>');
+    } else {
+        $('#resourceInput').html('<div class="ui-input-text ui-body-a ui-corner-all ui-shadow-inset">'+
+        ' <input name="text" id="literal" placeholder="Literal" data-theme="a" ></div>' +
+        '<button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check" onclick="editElem({literal:$(\'#literal\').val()})">Edit</button>');
+    }
+}
+
 /**
  * Description
  * @method init
@@ -32,7 +66,10 @@ function init() {
     sog.fromJSON(json);
 
     sog.addEvent('onRightClick', function(elem, infoEvent, e) {
-        $('#popupMenu').popup('open', { x: e.clientX+100, y: e.clientY+120, transition: 'pop', positionTo: 'origin'});
+        if(elem){
+            $('#resourceData').popup('open');//{ x: e.clientX+100, y: e.clientY+80, transition: 'pop', positionTo: 'origin'});
+            ctrlEventObj['popup'] = elem;
+        }
     });
 
     sog.addEvent('onClick', function(elem, eventInfo, e) {
@@ -45,7 +82,6 @@ function init() {
                     else{
 
                         sog.root(elem.id);
-
                     }
                     break;
                 case 'addedge':
@@ -66,7 +102,7 @@ function init() {
                     if(sog.isEdge(elem))
                         sog.removeEdge(elem.nodeFrom.id,elem.nodeTo.id);
                     else
-                        sog.remove(elem.id);
+                        sog.removeNode(elem.id);
             }
 
         } else {

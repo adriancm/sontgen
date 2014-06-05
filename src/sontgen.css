@@ -114,4 +114,8 @@ body h1 {
 
 #popupMenu {
     min-width: 120px;
+
+}
+.custom-popup{
+    padding:10px 20px;
 }

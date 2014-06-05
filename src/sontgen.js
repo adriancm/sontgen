@@ -89,13 +89,13 @@ function sontgen(canvas, mode, view) {
         //Set Node and Edge styles.
         Node: {
             overridable: true,
-            color: 'purple',
+            color: '#284C94',
             dim: 10
         },
 
         Edge: {
             overridable: true,
-            color: 'green',
+            color: '#3388CC',
             lineWidth: 3,
             type: 'line',
             dim: 20
@@ -283,9 +283,15 @@ sontgen.prototype.removeEdge = function(id, id2) {
     return false;
 };
 
-sontgen.prototype.remove = function(id) {
-    this.removeNode(id);
+sontgen.prototype.remove = function(elem) {
 
+    if(this.isNode(elem)){
+        this.removeNode(elem.id);
+        return true;
+    }else{
+        this.removeEdge(elem.nodeFrom.id,elem.nodeTo.id);
+        return true;
+    }
     return false;
 };
 
@@ -309,6 +315,10 @@ sontgen.prototype.editNode = function(id, name, data) {
     if (node) {
         node.name = name;
         node.data = data;
+        this.animate('Elastic', 'easeOut');
+        return node;
+    } else {
+        return false;
     }
 };
 
@@ -317,6 +327,10 @@ sontgen.prototype.editEdge = function(node, node2, data) {
     var edge = this.getEdge(node.id, node2.id);
     if (edge) {
         edge.data = data;
+        this.animate('Elastic', 'easeOut');
+        return edge;
+    } else {
+        return false;
     }
 };
 
@@ -352,7 +366,7 @@ sontgen.prototype.showTip = function(x, y, elem, html){
             if(elem){
                 if(elem.nodeFrom)
                     html = '<div class="tip customtip" style="top:' + y + 'px; left:' + x + 'px;">' +
-                        elem.nodeFrom.name + ' > ' + elem.data.labeltext + ' > ' + elem.nodeTo.name + '</div>';
+                        elem.nodeFrom.name + ' > ' + elem.data.name + ' > ' + elem.nodeTo.name + '</div>';
                 else
                     html = '';
             }
@@ -396,8 +410,8 @@ sontgen.prototype.cursor = function(type, path){
 
 sontgen.prototype.root = function(id){
     if(id){
-        this.getNode(this.viz.root).setData('color', 'purple');
-        this.getNode(id).setData('color', 'orange');
+        this.getNode(this.viz.root).setData('color', this.viz.config.Node.color);
+        this.getNode(id).setData('color', '#7A6752');
         sog.viz.onClick(id);
     } else {
         return this.getNode(this.viz.root);
