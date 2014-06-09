@@ -112,10 +112,20 @@ body h1 {
     position: fixed;
 }
 
-#popupMenu {
+#popupMenu, #resourceData {
     min-width: 120px;
 
 }
 .custom-popup{
     padding:10px 20px;
+}
+
+div.ui-icon-delete, .btn-red {
+    background-color: #A82020 !important;
+    border-color: #5E1B1B !important;
+}
+
+div.ui-icon-check, .btn-green {
+    background-color: #899625 !important;
+    border-color: #596600 !important;
 }
