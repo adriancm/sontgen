@@ -1,8 +1,8 @@
 [{
     "id": "node0",  
-    "name": "rdfs:Class",
+    "name": "rdfs:Class",  
     "data": {    
-        "iri": "http://www.w3.org/rdfs.rdf#Class"
+        "URI": "http://www.w3.org/rdfs.rdf#Class"  
     },  
     "adjacencies": [{  
         "nodeTo": "node2",  
@@ -26,7 +26,7 @@
     "adjacencies": [{  
         "nodeTo": "node0",  
         "data": {  
-            	"labeltext":"Text",
+            	"name":"Text",
             	"labelid":"node1-node0"
         }  
     }, {  
@@ -83,7 +83,7 @@
     }]  
 }, {  
     "id": "node5",  
-    "name": "comact:wweffwfwewf",
+    "name": "comact:qqwefeqqwefe",
     "data": {  
        
     },  
@@ -93,4 +93,16 @@
             
         }  
     }]  
+}, {
+    "id": "node6",
+    "name": "comact:pwpwpwp",
+    "data": {
+
+    },
+    "adjacencies": [{
+        "nodeTo": "node3",
+        "data": {
+
+        }
+    }]
 }]
