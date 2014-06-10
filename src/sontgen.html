@@ -26,7 +26,6 @@
     <script src="sontgen.js"></script>
     <script src="main.js"></script>
     <link type="text/css" rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
-    <link href="http://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet" type="text/css">
     <link type="text/css" rel="stylesheet" href="sontgen.css"/>
 
 </head>
@@ -84,7 +83,7 @@
     <!-- ................................................................................ -->
     <div id="header" data-role="header" data-theme="a">
         <a href="index.html" data-rel="back" data-icon="back">Back</a>
-        <h1><a href="http://sontgen.com"><img src="../res/sontgen_logo_large-v0.1.png" alt="SONTGEN" height="23"/></a></h1>
+        <h1><a href="http://sontgen.com"><img src="../res/sontgen_logo_large-v0.1.png" alt="SONTGEN" height="23px"/></a></h1>
         <a href="#toolbar" data-icon="gear" data-theme="b">Options</a>
     </div>
     <!-- header end -->
@@ -99,28 +98,29 @@
     <div data-role="content" data-theme="b" id="content">
 
         <div data-role="popup" id="resourceData" data-theme="a" class="custom-popup ui-corner-all">
-            <form autocomplete="off">
+            <form onsubmit="editElem({ namespace:$('#namespace').val(), iri:$('#iri').val(), literal:$('#literal').val() })">
                 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-                    <legend>Type of data:</legend>
-                    <input name="radio-choice-b" id="radio-choice-c" value="resource" type="radio" checked="checked" onchange="resOrLitToogle(this.checked);">
-                    <label for="radio-choice-c">Resource</label>
-                    <input name="radio-choice-b" id="radio-choice-d" value="literal" type="radio" onchange="resOrLitToogle(!this.checked)">
-                    <label for="radio-choice-d">Literal</label>
+                    <input name="res-lit" id="res-choice" value="resource" type="radio" checked="checked" onchange="resLitToogle(this.checked);">
+                    <label for="res-choice">Resource</label>
+                    <input name="res-lit" id="lit-choice" value="literal" type="radio" onchange="resLitToogle(!this.checked)">
+                    <label for="lit-choice">Literal</label>
                 </fieldset>
-
+                <h4>Edit</h4>
                 <div id="resourceInput">
                     <label for="namespace">Namespace</label>
-                    <input name="text" id="namespace" placeholder="Namespace" value="" data-theme="a">
+                    <input name="elem" data-role="text" id="namespace" placeholder="Namespace (optional)" value="" data-theme="a">
                     <label for="iri">URI/IRI</label>
-                    <input name="text" id="iri"  placeholder="URI/IRI" value="" data-theme="a" >
+                    <input name="elem" data-role="text" id="iri"  placeholder="URI/IRI" value="" data-theme="a" >
+                    <h4>OR</h4>
+                    <label for="literal">Literal</label>
+                    <input name="elem" id="literal" data-role="text" placeholder="Literal" value="" data-theme="a" disabled="disabled">
                     <fieldset class="ui-grid-a ui-responsive">
                         <div class="ui-block-a">
                             <input type="button" data-theme="b" data-icon="delete" data-mini="true"
                                     onclick="$('#resourceData').popup('close');" value="Cancel"/>
                         </div>
                         <div class="ui-block-b">
-                            <input type="submit" data-theme="b" data-icon="check" data-mini="true"
-                                    onclick="editElem({ namespace:$('#namespace').val(), iri:$('#iri').val()})" value="Edit"/>
+                            <input type="submit" data-theme="b" data-icon="check" data-mini="true" value="Edit"/>
                         </div>
                     </fieldset>
 
@@ -156,26 +156,31 @@
                 <a id="openfile" href="#popupLoadFile" data-role="button" data-rel="popup" data-position-to="window" data-transition="pop">
                     <img src="../res/openfile.png"/>
                 </a>
-                <div data-role="popup" id="popupLoadFile" data-theme="a" class="ui-corner-all">
+                <div data-role="popup" id="popupLoadFile" data-theme="a" class="ui-corner-all" >
                     <form>
                         <div class="custom-popup">
+                            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+                                <input name="local-remote" id="local-choice" value="resource" type="radio" checked="checked" onchange="localRemoteToogle(this.checked);">
+                                <label for="local-choice">Local</label>
+                                <input name="local-remote" id="remote-choice" value="literal" type="radio" onchange="localRemoteToogle(!this.checked)">
+                                <label for="remote-choice">Remote</label>
+                            </fieldset>
                             <h3>Open</h3>
-                            <label for="file" class="">Local file:</label>
+                            <label for="file" class="">Local file</label>
                             <input name="file" id="file" value="" placeholder="Choose a file" data-theme="a" type="file">
                             <h4>OR</h4>
-                            <label for="fileurl" class="">Remote file:</label>
-                            <input name="fileurl" id="fileurl" value="" placeholder="http://..." data-theme="a" type="text">
-                            <div class="ui-grid-b ui-responsive">
+                            <label for="fileurl" class="">Remote file</label>
+                            <input name="fileurl" id="fileurl" value="" placeholder="http://..." data-theme="a" type="text" disabled="disabled">
+                            <fieldset class="ui-grid-a ui-responsive">
                                 <div class="ui-block-a">
-                                    <button class="ui-btn ui-corner-all ui-shadow ui-btn-icon-left ui-icon-delete ui-btn-b btn-red"
-                                            onclick="$('#popupLoadFile').popup('close');">Cancel</button>
+                                    <input type="button" data-theme="b" data-icon="delete" data-mini="true"
+                                           onclick="$('#popupLoadFile').popup('close');" value="Cancel"/>
                                 </div>
-                                <div class="ui-block-b"></div>
-                                <div class="ui-block-c">
-                                    <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-icon-left ui-icon-check ui-btn-b btn-green">Submit</button>
+                                <div class="ui-block-b">
+                                    <input type="button" data-theme="b" data-icon="check" data-mini="true" value="Submit"
+                                            onclick="$('#popupLoadFile').popup('close'); sog.openFile($('#fileurl').val()); " />
                                 </div>
-                            </div>
-
+                            </fieldset>
                         </div>
                     </form>
                 </div>

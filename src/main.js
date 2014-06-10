@@ -39,45 +39,45 @@ function editElem(data){
     }
 }
 
-function resOrLitToogle(res){
+function resLitToogle(res){
     if(res){
-        $('#resourceInput').html('<label for="namespace">Namespace</label>' +
-            '<div class="ui-input-text ui-body-a ui-corner-all ui-shadow-inset">' +
-            '<input data-theme="a" placeholder="Namespace (optional)" id="namespace" name="text"></div>'+
-            '<label for="iri">URI/IRI</label>' +
-            '<div class="ui-input-text ui-body-a ui-corner-all ui-shadow-inset">' +
-            '<input data-theme="a" placeholder="URI/IRI" id="iri" name="text"></div>'+
-            '<fieldset class="ui-grid-a ui-responsive">' +
-            '<div class="ui-block-a">' +
-            '<div class="ui-btn ui-input-btn ui-btn-b ui-corner-all ui-shadow ui-mini ui-icon-delete ui-btn-icon-left">Cancel' +
-            '<input type="button" data-role="button" data-theme="b" data-icon="delete" data-mini="true" onclick="$(\'#resourceData\').popup(\'close\');" value="Cancel"/></div></div>' +
-            '<div class="ui-block-b">' +
-            '<div class="ui-btn ui-input-btn ui-btn-b ui-corner-all ui-shadow ui-mini ui-icon-check ui-btn-icon-left">Edit' +
-            '<input type="submit" data-role="submit" data-theme="b" data-icon="check" data-mini="true" onclick="editElem({ namespace:$(\'#namespace\').val(), iri:$(\'#iri\').val()})" value="Edit"/>' +
-            '</div></div></fieldset>');
-            //'<button onclick="editElem({ namespace:$(\'#namespace\').val(), iri:$(\'#iri\').val()})" class="ui-btn ui-btn-b ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all btn-green" type="submit">Edit</button></div>');
-        var ns = ctrlEventObj['popup'].data.namespace;
-        ns = ns?ns:'';
-        $('#namespace').val(ns);
-        var iri = ctrlEventObj['popup'].data.iri;
-        iri = iri?iri:'';
-        $('#iri').val(iri);
+        $('#literal')
+            .attr('disabled', true)
+            .parent().addClass('ui-state-disabled');
+        $('#namespace')
+            .removeAttr('disabled')
+            .parent().removeClass('ui-state-disabled');
+        $('#iri')
+            .removeAttr('disabled')
+            .parent().removeClass('ui-state-disabled');
     } else {
-        $('#resourceInput').html('<label for="literal">Literal</label>'+
-            '<div class="ui-input-text ui-body-a ui-corner-all ui-shadow-inset">'+
-            ' <input name="text" id="literal" placeholder="Literal" data-theme="a" ></div>' +
-            '<fieldset class="ui-grid-a ui-responsive">' +
-            '<div class="ui-block-a">' +
-            '<div class="ui-btn ui-input-btn ui-btn-b ui-corner-all ui-shadow ui-mini ui-icon-delete ui-btn-icon-left">Cancel' +
-            '<input type="button" data-role="button" data-theme="b" data-icon="delete" data-mini="true" onclick="$(\'#resourceData\').popup(\'close\');" value="Cancel"/></div></div>' +
-            '<div class="ui-block-b">' +
-            '<div class="ui-btn ui-input-btn ui-btn-b ui-corner-all ui-shadow ui-mini ui-icon-check ui-btn-icon-left">Edit' +
-            '<input type="submit" data-role="submit" data-theme="b" data-icon="check" data-mini="true" onclick="editElem({literal:$(\'#literal\').val()})" value="Edit"/>' +
-            '</div></div></fieldset>');
-            //'<button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check btn-green" onclick="editElem({literal:$(\'#literal\').val()})">Edit</button>');
-        var lit = ctrlEventObj['popup'].data.literal;
-        lit = lit?lit:'';
-        $('#literal').val(lit);
+        $('#literal')
+            .removeAttr('disabled')
+            .parent().removeClass('ui-state-disabled');
+        $('#namespace')
+            .attr('disabled', true)
+            .parent().addClass('ui-state-disabled');
+        $('#iri')
+            .attr('disabled', true)
+            .parent().addClass('ui-state-disabled');
+    }
+}
+
+function localRemoteToogle(local){
+    if(local){
+        $('#fileurl')
+            .attr('disabled', true)
+            .parent().addClass('ui-state-disabled');
+        $('#file')
+            .removeAttr('disabled')
+            .parent().removeClass('ui-state-disabled');
+    } else {
+        $('#file')
+            .attr('disabled', true)
+            .parent().addClass('ui-state-disabled');
+        $('#fileurl')
+            .removeAttr('disabled')
+            .parent().removeClass('ui-state-disabled');
     }
 }
 
@@ -93,18 +93,17 @@ function init() {
 
     sog = new sontgen('canvas');
     sog.openFile('http://localhost/sontgen/res/data2.json');
-    sog.fromJSON(json);
 
     sog.addEvent('onRightClick', function(elem, infoEvent, e) {
         if(elem){
             ctrlEventObj['popup'] = elem;
             $('#resourceData').popup('open');//{ x: e.clientX+100, y: e.clientY+80, transition: 'pop', positionTo: 'origin'});
             var ns = ctrlEventObj['popup'].data.namespace;
-            console.log('oa'+ns);
             $('#namespace').val(ns?ns:'');
             var iri = ctrlEventObj['popup'].data.iri;
-            console.log('ri'+iri);
             $('#iri').val(iri?iri:'');
+            var lit = ctrlEventObj['popup'].data.literal;
+            $('#literal').val(lit?lit:'');
         }
     });
 
@@ -177,8 +176,6 @@ function init() {
         elem.pos.setc(pos.x, pos.y);
         sog.viz.plot();
     });
-
-    sog.toJSON('graph');
 
     controlEvents('viewonly');
 }

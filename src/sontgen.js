@@ -201,7 +201,6 @@ sontgen.prototype.fromJSON = function(file) {
     /*var superNode = this.viz.graph.addNode({'id':'_superNode','name':'_superNode'});
       //trigger small animation
       var joined = false;*/
-    console.log(this.viz.compute);
     this.viz.compute('end');
     this.viz.fx.animate({
         modes: ['polar'],
@@ -226,13 +225,35 @@ sontgen.prototype.toJSON = function(type) {
     return this.viz.toJSON(type);
 };
 
-sontgen.prototype.openFile = function(path){
+sontgen.prototype.openFile = function(path, local){
+    that = this
+    if(local){
+        if (window.File && window.FileReader && window.FileList && window.Blob) {
+            // Great success! All the File APIs are supported.
+            var reader = new FileReader;
 
-    if (window.File && window.FileReader && window.FileList && window.Blob) {
-        // Great success! All the File APIs are supported.
-    } else {
-        alert('The File APIs are not fully supported. Please upgrade your browser.');
+            reader.readAsDataURL(path);
+            path = reader.result;
+
+        } else {
+            alert('The File APIs are not fully supported. Please upgrade your browser.');
+        }
     }
+
+    $.ajax({
+        type:    "GET",
+        url:     path,
+        success: function(text) {
+
+            console.log(JSON.parse(text));
+            that.fromJSON(JSON.parse(text));
+
+        },
+        error:   function() {
+            console.log('error');
+        }
+    });
+
 };
 
 sontgen.prototype.saveAs = function(path){
@@ -243,7 +264,7 @@ sontgen.prototype.addNode = function(name, data) {
 
     var n = this.viz.graph.addNode({
         'id': '_n_' + autoID,
-        'name': name,
+        'name': name?name:'',
         'data': data
     });
     autoID++;
@@ -313,7 +334,7 @@ sontgen.prototype.editNode = function(id, name, data) {
 
     var node = this.getNode(id);
     if (node) {
-        node.name = name;
+        node.name = name?name:'';
         node.data = data;
         this.animate('Elastic', 'easeOut');
         return node;
