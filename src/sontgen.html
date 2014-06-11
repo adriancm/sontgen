@@ -166,11 +166,11 @@
                                 <label for="remote-choice">Remote</label>
                             </fieldset>
                             <h3>Open</h3>
-                            <label for="file" class="">Local file</label>
-                            <input name="file" id="file" value="" placeholder="Choose a file" data-theme="a" type="file">
+                            <label for="local-file" class="">Local file</label>
+                            <input name="fileinput" id="local-file" value="" placeholder="Choose a file" data-theme="a" type="file">
                             <h4>OR</h4>
-                            <label for="fileurl" class="">Remote file</label>
-                            <input name="fileurl" id="fileurl" value="" placeholder="http://..." data-theme="a" type="text" disabled="disabled">
+                            <label for="remote-file" class="">Remote file</label>
+                            <input name="fileinput" id="remote-file" value="" placeholder="http://..." data-theme="a" type="text" disabled="true">
                             <fieldset class="ui-grid-a ui-responsive">
                                 <div class="ui-block-a">
                                     <input type="button" data-theme="b" data-icon="delete" data-mini="true"
@@ -178,7 +178,7 @@
                                 </div>
                                 <div class="ui-block-b">
                                     <input type="button" data-theme="b" data-icon="check" data-mini="true" value="Submit"
-                                            onclick="$('#popupLoadFile').popup('close'); sog.openFile($('#fileurl').val()); " />
+                                            onclick="$('#popupLoadFile').popup('close'); openSelectedFile($('input[name=fileinput]')); " />
                                 </div>
                             </fieldset>
                         </div>

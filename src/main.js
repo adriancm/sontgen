@@ -65,20 +65,38 @@ function resLitToogle(res){
 
 function localRemoteToogle(local){
     if(local){
-        $('#fileurl')
+        $('#remote-file')
             .attr('disabled', true)
             .parent().addClass('ui-state-disabled');
-        $('#file')
+        $('#local-file')
             .removeAttr('disabled')
             .parent().removeClass('ui-state-disabled');
     } else {
-        $('#file')
+        $('#local-file')
             .attr('disabled', true)
             .parent().addClass('ui-state-disabled');
-        $('#fileurl')
+        $('#remote-file')
             .removeAttr('disabled')
             .parent().removeClass('ui-state-disabled');
     }
+}
+
+function openSelectedFile(inputs){
+    var file;
+    var local = false;
+    inputs.each(function (){
+        console.log(this);
+        if (!this.disabled) {
+            if(this.id == 'local-file'){
+                local = true;
+                file = this.files[0];
+            } else {
+                file = $(this).val();
+            }
+        }
+    });
+    sog.openFile(file, local);
+    return true;
 }
 
 /**
@@ -120,7 +138,7 @@ function init() {
                     }
                     break;
                 case 'addedge':
-                    var fromnode = ctrlEventObj['from']
+                    var fromnode = ctrlEventObj['from'];
                     if(sog.isNode(elem)) {
                         if (fromnode){
                             sog.addEdge(elem, fromnode);

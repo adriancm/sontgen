@@ -226,34 +226,40 @@ sontgen.prototype.toJSON = function(type) {
 };
 
 sontgen.prototype.openFile = function(path, local){
-    that = this
-    if(local){
-        if (window.File && window.FileReader && window.FileList && window.Blob) {
-            // Great success! All the File APIs are supported.
-            var reader = new FileReader;
+    that = this;
+    if (path){
+        if(local){
+            console.log(path);
+            if (window.File && window.FileReader && window.FileList && window.Blob) {
+                // Great success! All the File APIs are supported.
+                var reader = new FileReader();
 
-            reader.readAsDataURL(path);
-            path = reader.result;
+                reader.onload = function(e){
+                    sog.fromJSON(JSON.parse(reader.result));
+                };
 
-        } else {
-            alert('The File APIs are not fully supported. Please upgrade your browser.');
+                reader.readAsText(path);
+                return true;
+            } else {
+                alert('The File APIs are not fully supported. Please upgrade your browser.');
+                return false;
+            }
+        }else {
+            $.ajax({
+                type:    "GET",
+                url:     path,
+                success: function(text) {
+                    that.fromJSON(JSON.parse(text));
+                    return true
+                },
+                error:   function() {
+                    console.log('error');
+                    return false;
+                }
+            })
         }
     }
-
-    $.ajax({
-        type:    "GET",
-        url:     path,
-        success: function(text) {
-
-            console.log(JSON.parse(text));
-            that.fromJSON(JSON.parse(text));
-
-        },
-        error:   function() {
-            console.log('error');
-        }
-    });
-
+    return false;
 };
 
 sontgen.prototype.saveAs = function(path){
@@ -313,7 +319,6 @@ sontgen.prototype.remove = function(elem) {
         this.removeEdge(elem.nodeFrom.id,elem.nodeTo.id);
         return true;
     }
-    return false;
 };
 
 sontgen.prototype.getNode = function(id) {
@@ -398,43 +403,40 @@ sontgen.prototype.showTip = function(x, y, elem, html){
 
 sontgen.prototype.hideTips = function(){
     $('.customtip').remove();
-}
+};
 
-sontgen.prototype.isNode = function(elem){
-    if(elem){
-        if(elem.nodeFrom)
-            return false;
-        else
-            return true;
-    } else {
-        return false;
-    }
-}
+sontgen.prototype.isNode = function (elem) {
+    if (elem) return elem.nodeFrom ? false : true;
+    return false;
+};
 
-sontgen.prototype.isEdge = function(elem){
-    if(elem)
+sontgen.prototype.isEdge = function (elem) {
+    if (elem)
         return !this.isNode(elem);
     else
         return false;
-}
+};
 
 sontgen.prototype.cursor = function(type, path){
     if(type == 'custom'){
         if(path)
-            sog.viz.canvas.getElement().style.cursor = 'url("'+path+'")';
+            return sog.viz.canvas.getElement().style.cursor = 'url("'+path+'")';
+        else
+            return false;
     } else if(type) {
-        sog.viz.canvas.getElement().style.cursor = type;
+        return sog.viz.canvas.getElement().style.cursor = type;
     } else {
         return sog.viz.canvas.getElement().style.cursor;
     }
-}
+};
 
 sontgen.prototype.root = function(id){
     if(id){
         this.getNode(this.viz.root).setData('color', this.viz.config.Node.color);
         this.getNode(id).setData('color', '#7A6752');
         sog.viz.onClick(id);
+        return this.getNode(id);
     } else {
         return this.getNode(this.viz.root);
     }
-}
+};
