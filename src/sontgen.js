@@ -262,8 +262,9 @@ sontgen.prototype.openFile = function(path, local){
     return false;
 };
 
-sontgen.prototype.saveAs = function(path){
-
+sontgen.prototype.saveAs = function(type){
+    var b = new Blob([JSON.stringify(this.toJSON('graph'))], {type: "text/plain;charset=utf-8"});
+    saveAs(b, "myfile."+type);
 };
 
 sontgen.prototype.addNode = function(name, data) {
