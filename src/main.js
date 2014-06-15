@@ -141,7 +141,7 @@ function init() {
                     var fromnode = ctrlEventObj['from'];
                     if(sog.isNode(elem)) {
                         if (fromnode){
-                            sog.addEdge(elem, fromnode);
+                            sog.addEdge(fromnode, elem);
                             ctrlEventObj['from'] = false;
                             sog.cursor('pointer');
 

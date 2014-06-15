@@ -97,7 +97,7 @@ function sontgen(canvas, mode, view) {
             overridable: true,
             color: '#3388CC',
             lineWidth: 3,
-            type: 'line',
+            type: 'arrow',
             dim: 20
 
         },
@@ -280,12 +280,13 @@ sontgen.prototype.addNode = function(name, data) {
 };
 
 sontgen.prototype.addEdge = function(node, node2, data) {
+    data = data || {};
     //TODO Hidden edge case
     var e = this.getEdge(node.id,node2.id);
     if(e && e.getData('_rootsAdj')){
-        e.removeData('_rootsAdj');
-        e.setData('alpha', 1);
+        this.viz.graph.removeAdjacence(e.nodeFrom.id, e.nodeTo.id);
     }
+    data.$direction = [node.id, node2.id];
     e = this.viz.graph.addAdjacence(node, node2, data);
     this.animate('Elastic', 'easeOut');
     return e;
@@ -353,7 +354,9 @@ sontgen.prototype.editEdge = function(node, node2, data) {
 
     var edge = this.getEdge(node.id, node2.id);
     if (edge) {
-        edge.data = data;
+        $.each(data, function(index, value){
+           edge.data[index] = value;
+        });
         this.animate('Elastic', 'easeOut');
         return edge;
     } else {
@@ -393,7 +396,7 @@ sontgen.prototype.showTip = function(x, y, elem, html){
             if(elem){
                 if(elem.nodeFrom)
                     html = '<div class="tip customtip" style="top:' + y + 'px; left:' + x + 'px;">' +
-                        elem.nodeFrom.name + ' > ' + elem.data.name + ' > ' + elem.nodeTo.name + '</div>';
+                        elem.data.name + '</div>';
                 else
                     html = '';
             }
