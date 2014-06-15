@@ -18,15 +18,14 @@
 
     <title>SONTGEN</title>
 
-    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-    <script type="text/javascript" src=""></script>
-    <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
-    <script src="lib/jit/Jit/jit.js"></script>
-    <script src="../res/data.json"></script>
-    <script src="sontgen.js"></script>
-    <script src="main.js"></script>
-    <link type="text/css" rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
-    <link href="http://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="lib/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="lib/js/jquery.mobile-1.4.2.min.js"></script>
+    <script type="text/javascript" src="lib/jit/Jit/jit.js"></script>
+    <script type="text/javascript" src="lib/js/Blob.js"></script>
+    <script type="text/javascript" src="lib/js/FileSaver.js"></script>
+    <script type="text/javascript" src="sontgen.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+    <link type="text/css" rel="stylesheet" href="lib/css/jquery.mobile-1.4.2.min.css" />
     <link type="text/css" rel="stylesheet" href="sontgen.css"/>
 
 </head>
@@ -84,7 +83,7 @@
     <!-- ................................................................................ -->
     <div id="header" data-role="header" data-theme="a">
         <a href="index.html" data-rel="back" data-icon="back">Back</a>
-        <h1><a href="http://sontgen.com"><img src="../res/sontgen_logo_large-v0.1.png" alt="SONTGEN" height="23"/></a></h1>
+        <h1><a href="http://sontgen.com"><img src="../res/sontgen_logo_large-v0.1.png" alt="SONTGEN" height="23px"/></a></h1>
         <a href="#toolbar" data-icon="gear" data-theme="b">Options</a>
     </div>
     <!-- header end -->
@@ -97,16 +96,47 @@
     <!-- ................................................................................ -->
     <!-- ................................................................................ -->
     <div data-role="content" data-theme="b" id="content">
+
+        <div data-role="popup" id="resourceData" data-theme="a" class="custom-popup ui-corner-all">
+            <form onsubmit="editElem({ namespace:$('#namespace').val(), iri:$('#iri').val(), literal:$('#literal').val() })">
+                <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+                    <input name="res-lit" id="res-choice" value="resource" type="radio" checked="checked" onchange="resLitToogle(this.checked);">
+                    <label for="res-choice">Resource</label>
+                    <input name="res-lit" id="lit-choice" value="literal" type="radio" onchange="resLitToogle(!this.checked)">
+                    <label for="lit-choice">Literal</label>
+                </fieldset>
+                <h4>Edit</h4>
+                <div id="resourceInput">
+                    <label for="namespace">Namespace</label>
+                    <input name="elem" data-role="text" id="namespace" placeholder="Namespace (optional)" value="" data-theme="a">
+                    <label for="iri">URI/IRI</label>
+                    <input name="elem" data-role="text" id="iri"  placeholder="URI/IRI" value="" data-theme="a" >
+                    <h4>OR</h4>
+                    <label for="literal">Literal</label>
+                    <input name="elem" id="literal" data-role="text" placeholder="Literal" value="" data-theme="a" disabled="disabled">
+                    <fieldset class="ui-grid-a ui-responsive">
+                        <div class="ui-block-a">
+                            <input type="button" data-theme="b" data-icon="delete" data-mini="true"
+                                    onclick="$('#resourceData').popup('close');" value="Cancel"/>
+                        </div>
+                        <div class="ui-block-b">
+                            <input type="submit" data-theme="b" data-icon="check" data-mini="true" value="Edit"/>
+                        </div>
+                    </fieldset>
+
+                </div>
+            </form>
+        </div>
+
         <div class="main" id="canvas">
-            <div data-role="popup" id="popupMenu" data-theme="b">
+           <!--<div data-role="popup" id="popupMenu" data-theme="b">
                 <ul data-role="listview" data-inset="true">
                     <li data-role="list-divider">Choose an action</li>
-                    <li><a href="#">View details</a></li>
-                    <li><a href="#">Edit</a></li>
-                    <li><a href="#">Disable</a></li>
-                    <li><a href="#">Delete</a></li>
+                    <li><a href="javascript:void(0);" onclick="$('#popupMenu').popup('close'); $('#resourceData').popup('open');">Details</a></li>
+                    <li><a href="javascript:void(0);" onclick="$('#popupMenu').popup('close'); sog.remove(ctrlEventObj['popup'])">Delete</a></li>
+                    li><a href="javascript:void(0);" onclick="$('#popupMenu').popup('close'); sog.remove(ctrlEventObj['popup'])">Validate</a></li>
                 </ul>
-            </div>
+            </div>-->
         </div>
         <div class="aside" id="options" >
             <div data-role="controlgroup" >
@@ -123,18 +153,38 @@
                 </a>
                 <!-- View Only button -->
                 <a id="trash" onclick="controlEvents('trash')" href="#trash" data-role="button" data-theme="b"><img src="../res/trash.png" /></a>
-                <a id="openfile" href="#popupLoadFile" data-role="button" data-rel="popup" data-position-to="window" data-transition="pop"><img src="../res/openfile.png"/></a>
-                <div data-role="popup" id="popupLoadFile" data-theme="a" class="ui-corner-all">
+                <a id="openfile" href="#popupLoadFile" data-role="button" data-rel="popup" data-position-to="window" data-transition="pop">
+                    <img src="../res/openfile.png"/>
+                </a>
+                <div data-role="popup" id="popupLoadFile" data-theme="a" class="ui-corner-all" >
                     <form>
-                        <div style="padding:10px 20px;">
-                            <h3>Choose file:</h3>
-                            <label for="file" class="ui-hidden-accessible">Username:</label>
-                            <input name="file" id="file" value="" placeholder="File to open" data-theme="a" type="file">
-                            <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Open</button>
+                        <div class="custom-popup">
+                            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+                                <input name="local-remote" id="local-choice" value="resource" type="radio" checked="checked" onchange="localRemoteToogle(this.checked);">
+                                <label for="local-choice">Local</label>
+                                <input name="local-remote" id="remote-choice" value="literal" type="radio" onchange="localRemoteToogle(!this.checked)">
+                                <label for="remote-choice">Remote</label>
+                            </fieldset>
+                            <h3>Open</h3>
+                            <label for="local-file" class="">Local file</label>
+                            <input name="fileinput" id="local-file" value="" placeholder="Choose a file" data-theme="a" type="file">
+                            <h4>OR</h4>
+                            <label for="remote-file" class="">Remote file</label>
+                            <input name="fileinput" id="remote-file" value="" placeholder="http://..." data-theme="a" type="text" disabled="true">
+                            <fieldset class="ui-grid-a ui-responsive">
+                                <div class="ui-block-a">
+                                    <input type="button" data-theme="b" data-icon="delete" data-mini="true"
+                                           onclick="$('#popupLoadFile').popup('close');" value="Cancel"/>
+                                </div>
+                                <div class="ui-block-b">
+                                    <input type="button" data-theme="b" data-icon="check" data-mini="true" value="Submit"
+                                            onclick="$('#popupLoadFile').popup('close'); openSelectedFile($('input[name=fileinput]')); " />
+                                </div>
+                            </fieldset>
                         </div>
                     </form>
                 </div>
-                <a id="saveas" href="#saveas" data-role="button" ><img src="../res/saveas.png" /></a>
+                <a id="saveas" href="javascript:sog.saveAs('json');" data-role="button" ><img src="../res/saveas.png" /></a>
                 <!--<a id="more" href="#more" data-role="button" data-theme="a"><img src="../res/trash.png" /></a>-->
             </div>
         </div>
@@ -166,7 +216,7 @@
 
 <!-- ................................................................................ -->
 <!-- ................................................................................ -->
-<div data-role="page" id="about" data-title="SONTGEN:About" data-theme="d" data-add-back-btn="true">
+<div data-role="page" id="about" data-title="SONTGEN:About" data-theme="a" data-add-back-btn="true">
 
     <!-- ................................................................................ -->
     <!-- ................................................................................ -->
@@ -175,7 +225,7 @@
 
     <!-- ................................................................................ -->
     <!-- ................................................................................ -->
-    <div data-theme="c" data-role="header" >
+    <div data-theme="a" data-role="header" >
         <h1>Help &amp; Info</h1>
     </div><!-- header -->
 
@@ -186,7 +236,7 @@
 
     <!-- ................................................................................ -->
     <!-- ................................................................................ -->
-    <div data-theme="d" data-role="content" >
+    <div data-theme="a" data-role="content" >
         <h2>Introduction</h2>
         <h2>Help</h2>
     </div><!--  content -->
@@ -198,7 +248,7 @@
 
     <!-- ................................................................................ -->
     <!-- ................................................................................ -->
-    <div data-role="footer" data-theme="c">
+    <div data-role="footer" data-theme="a">
         <h1>Links</h1>
     </div><!-- footer -->
 

@@ -89,15 +89,15 @@ function sontgen(canvas, mode, view) {
         //Set Node and Edge styles.
         Node: {
             overridable: true,
-            color: 'purple',
+            color: '#284C94',
             dim: 10
         },
 
         Edge: {
             overridable: true,
-            color: 'green',
+            color: '#3388CC',
             lineWidth: 3,
-            type: 'line',
+            type: 'arrow',
             dim: 20
 
         },
@@ -178,7 +178,7 @@ function sontgen(canvas, mode, view) {
             }
         },
 
-        levelDistance: 200,
+        levelDistance: 100,
         //iterations: 100,
         fps: 30,
         duration: 1500
@@ -189,7 +189,6 @@ function sontgen(canvas, mode, view) {
     this.canvas = canvas;
     this.mode = mode;
     this.view = view;
-    this.selected = '';
 
     console.log(rgraph);
 }
@@ -202,7 +201,6 @@ sontgen.prototype.fromJSON = function(file) {
     /*var superNode = this.viz.graph.addNode({'id':'_superNode','name':'_superNode'});
       //trigger small animation
       var joined = false;*/
-    console.log(this.viz.compute);
     this.viz.compute('end');
     this.viz.fx.animate({
         modes: ['polar'],
@@ -227,24 +225,53 @@ sontgen.prototype.toJSON = function(type) {
     return this.viz.toJSON(type);
 };
 
-sontgen.prototype.openFile = function(path){
+sontgen.prototype.openFile = function(path, local){
+    that = this;
+    if (path){
+        if(local){
+            console.log(path);
+            if (window.File && window.FileReader && window.FileList && window.Blob) {
+                // Great success! All the File APIs are supported.
+                var reader = new FileReader();
 
-    if (window.File && window.FileReader && window.FileList && window.Blob) {
-        // Great success! All the File APIs are supported.
-    } else {
-        alert('The File APIs are not fully supported. Please upgrade your browser.');
+                reader.onload = function(e){
+                    sog.fromJSON(JSON.parse(reader.result));
+                };
+
+                reader.readAsText(path);
+                return true;
+            } else {
+                alert('The File APIs are not fully supported. Please upgrade your browser.');
+                return false;
+            }
+        }else {
+            $.ajax({
+                type:    "GET",
+                url:     path,
+                success: function(text) {
+                    that.fromJSON(JSON.parse(text));
+                    return true
+                },
+                error:   function() {
+                    console.log('error');
+                    return false;
+                }
+            })
+        }
     }
+    return false;
 };
 
-sontgen.prototype.saveAs = function(path){
-
+sontgen.prototype.saveAs = function(type){
+    var b = new Blob([JSON.stringify(this.toJSON('graph'))], {type: "text/plain;charset=utf-8"});
+    saveAs(b, "myfile."+type);
 };
 
 sontgen.prototype.addNode = function(name, data) {
 
     var n = this.viz.graph.addNode({
         'id': '_n_' + autoID,
-        'name': name,
+        'name': name?name:'',
         'data': data
     });
     autoID++;
@@ -253,12 +280,13 @@ sontgen.prototype.addNode = function(name, data) {
 };
 
 sontgen.prototype.addEdge = function(node, node2, data) {
+    data = data || {};
     //TODO Hidden edge case
     var e = this.getEdge(node.id,node2.id);
     if(e && e.getData('_rootsAdj')){
-        e.removeData('_rootsAdj');
-        e.setData('alpha', 1);
+        this.viz.graph.removeAdjacence(e.nodeFrom.id, e.nodeTo.id);
     }
+    data.$direction = [node.id, node2.id];
     e = this.viz.graph.addAdjacence(node, node2, data);
     this.animate('Elastic', 'easeOut');
     return e;
@@ -284,10 +312,15 @@ sontgen.prototype.removeEdge = function(id, id2) {
     return false;
 };
 
-sontgen.prototype.remove = function(id) {
-    this.removeNode(id);
+sontgen.prototype.remove = function(elem) {
 
-    return false;
+    if(this.isNode(elem)){
+        this.removeNode(elem.id);
+        return true;
+    }else{
+        this.removeEdge(elem.nodeFrom.id,elem.nodeTo.id);
+        return true;
+    }
 };
 
 sontgen.prototype.getNode = function(id) {
@@ -308,8 +341,12 @@ sontgen.prototype.editNode = function(id, name, data) {
 
     var node = this.getNode(id);
     if (node) {
-        node.name = name;
+        node.name = name?name:'';
         node.data = data;
+        this.animate('Elastic', 'easeOut');
+        return node;
+    } else {
+        return false;
     }
 };
 
@@ -317,7 +354,13 @@ sontgen.prototype.editEdge = function(node, node2, data) {
 
     var edge = this.getEdge(node.id, node2.id);
     if (edge) {
-        edge.data = data;
+        $.each(data, function(index, value){
+           edge.data[index] = value;
+        });
+        this.animate('Elastic', 'easeOut');
+        return edge;
+    } else {
+        return false;
     }
 };
 
@@ -353,7 +396,7 @@ sontgen.prototype.showTip = function(x, y, elem, html){
             if(elem){
                 if(elem.nodeFrom)
                     html = '<div class="tip customtip" style="top:' + y + 'px; left:' + x + 'px;">' +
-                        elem.nodeFrom.name + ' > ' + elem.data.labeltext + ' > ' + elem.nodeTo.name + '</div>';
+                        elem.data.name + '</div>';
                 else
                     html = '';
             }
@@ -364,34 +407,40 @@ sontgen.prototype.showTip = function(x, y, elem, html){
 
 sontgen.prototype.hideTips = function(){
     $('.customtip').remove();
-}
+};
 
-sontgen.prototype.isNode = function(elem){
-    if(elem){
-        if(elem.nodeFrom)
-            return false;
-        else
-            return true;
-    } else {
-        return false;
-    }
-}
+sontgen.prototype.isNode = function (elem) {
+    if (elem) return elem.nodeFrom ? false : true;
+    return false;
+};
 
-sontgen.prototype.isEdge = function(elem){
-    if(elem)
+sontgen.prototype.isEdge = function (elem) {
+    if (elem)
         return !this.isNode(elem);
     else
         return false;
-}
+};
 
 sontgen.prototype.cursor = function(type, path){
     if(type == 'custom'){
         if(path)
-            sog.viz.canvas.getElement().style.cursor = 'url("'+path+'")';
+            return sog.viz.canvas.getElement().style.cursor = 'url("'+path+'")';
+        else
+            return false;
     } else if(type) {
-        sog.viz.canvas.getElement().style.cursor = type;
+        return sog.viz.canvas.getElement().style.cursor = type;
     } else {
         return sog.viz.canvas.getElement().style.cursor;
     }
-}
+};
 
+sontgen.prototype.root = function(id){
+    if(id){
+        this.getNode(this.viz.root).setData('color', this.viz.config.Node.color);
+        this.getNode(id).setData('color', '#7A6752');
+        sog.viz.onClick(id);
+        return this.getNode(id);
+    } else {
+        return this.getNode(this.viz.root);
+    }
+};

@@ -18,6 +18,87 @@ function controlEvents(action) {
     $("#" + action).css({"background": "linear-gradient(#444444, #767676) #333333", "border": "0 0 12px solid #22AADD"});
 }
 
+function editElem(data){
+
+    $('#resourceData').popup('close');
+    var elem = ctrlEventObj['popup'];
+
+    if((data.namespace && data.iri) || data.literal){
+        if(!data.literal){
+            var label = data.namespace+':'+data.iri;
+        } else {
+            var label = data.literal
+        }
+
+        if(sog.isNode(elem)){
+            sog.editNode(elem.id, label, { $color: sog.viz.config.Node.color, iri: data.iri, namespace: data.namespace, literal: data.literal } );
+        } else {
+            sog.editEdge(elem.nodeFrom, elem.nodeTo, { name: label, $color: sog.viz.config.Edge.color,  iri: data.iri, namespace: data.namespace, literal: data.literal });
+        }
+
+    }
+}
+
+function resLitToogle(res){
+    if(res){
+        $('#literal')
+            .attr('disabled', true)
+            .parent().addClass('ui-state-disabled');
+        $('#namespace')
+            .removeAttr('disabled')
+            .parent().removeClass('ui-state-disabled');
+        $('#iri')
+            .removeAttr('disabled')
+            .parent().removeClass('ui-state-disabled');
+    } else {
+        $('#literal')
+            .removeAttr('disabled')
+            .parent().removeClass('ui-state-disabled');
+        $('#namespace')
+            .attr('disabled', true)
+            .parent().addClass('ui-state-disabled');
+        $('#iri')
+            .attr('disabled', true)
+            .parent().addClass('ui-state-disabled');
+    }
+}
+
+function localRemoteToogle(local){
+    if(local){
+        $('#remote-file')
+            .attr('disabled', true)
+            .parent().addClass('ui-state-disabled');
+        $('#local-file')
+            .removeAttr('disabled')
+            .parent().removeClass('ui-state-disabled');
+    } else {
+        $('#local-file')
+            .attr('disabled', true)
+            .parent().addClass('ui-state-disabled');
+        $('#remote-file')
+            .removeAttr('disabled')
+            .parent().removeClass('ui-state-disabled');
+    }
+}
+
+function openSelectedFile(inputs){
+    var file;
+    var local = false;
+    inputs.each(function (){
+        console.log(this);
+        if (!this.disabled) {
+            if(this.id == 'local-file'){
+                local = true;
+                file = this.files[0];
+            } else {
+                file = $(this).val();
+            }
+        }
+    });
+    sog.openFile(file, local);
+    return true;
+}
+
 /**
  * Description
  * @method init
@@ -29,10 +110,19 @@ function init() {
     //end
 
     sog = new sontgen('canvas');
-    sog.fromJSON(json);
+    sog.openFile('http://localhost/sontgen/res/data2.json');
 
     sog.addEvent('onRightClick', function(elem, infoEvent, e) {
-        $('#popupMenu').popup('open', { x: e.clientX+100, y: e.clientY+120, transition: 'pop', positionTo: 'origin'});
+        if(elem){
+            ctrlEventObj['popup'] = elem;
+            $('#resourceData').popup('open');//{ x: e.clientX+100, y: e.clientY+80, transition: 'pop', positionTo: 'origin'});
+            var ns = ctrlEventObj['popup'].data.namespace;
+            $('#namespace').val(ns?ns:'');
+            var iri = ctrlEventObj['popup'].data.iri;
+            $('#iri').val(iri?iri:'');
+            var lit = ctrlEventObj['popup'].data.literal;
+            $('#literal').val(lit?lit:'');
+        }
     });
 
     sog.addEvent('onClick', function(elem, eventInfo, e) {
@@ -43,15 +133,15 @@ function init() {
                     if(sog.isEdge(elem))
                         alert('This is an edge');
                     else{
-                        elem.setData('color', 'orange');
-                        sog.viz.onClick(elem.id);
+
+                        sog.root(elem.id);
                     }
                     break;
                 case 'addedge':
-                    var fromnode = ctrlEventObj['from']
+                    var fromnode = ctrlEventObj['from'];
                     if(sog.isNode(elem)) {
                         if (fromnode){
-                            sog.addEdge(elem, fromnode);
+                            sog.addEdge(fromnode, elem);
                             ctrlEventObj['from'] = false;
                             sog.cursor('pointer');
 
@@ -65,7 +155,7 @@ function init() {
                     if(sog.isEdge(elem))
                         sog.removeEdge(elem.nodeFrom.id,elem.nodeTo.id);
                     else
-                        sog.remove(elem.id);
+                        sog.removeNode(elem.id);
             }
 
         } else {
@@ -104,8 +194,6 @@ function init() {
         elem.pos.setc(pos.x, pos.y);
         sog.viz.plot();
     });
-
-    sog.toJSON('graph');
 
     controlEvents('viewonly');
 }
