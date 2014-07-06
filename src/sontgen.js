@@ -33,13 +33,7 @@ function drawTextBG(ctx, txt, font, x, y) {
     ctx.restore();
 }
 
-/**
- * Create a new sontgen object.
- * @class sontgen
- * @param {} canvas
- * @param {} mode
- */
-function sontgen(canvas, mode, view) {
+function Sontgen(canvas, mode, view) {
 
     $jit.RGraph.Plot.EdgeTypes.implement({
         'labeled': {
@@ -189,43 +183,74 @@ function sontgen(canvas, mode, view) {
     this.canvas = canvas;
     this.mode = mode;
     this.view = view;
+    this.namespaces = {
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#"
+    };
 
     console.log(rgraph);
 }
 
 
-sontgen.prototype.fromJSON = function(file) {
+Sontgen.prototype.fromJSON = function(json) {
     //var that = this;
-    this.viz.loadJSON(file);
 
-    /*var superNode = this.viz.graph.addNode({'id':'_superNode','name':'_superNode'});
-      //trigger small animation
-      var joined = false;*/
+    this.viz.loadJSON(json);
+
     this.viz.compute('end');
     this.viz.fx.animate({
         modes: ['polar'],
         duration: 1000
     });
-    //end
-    /*this.viz.computeIncremental({
-    iter: 20,
-    property: 'end',
-    onStep: function(perc) {
-        console.log("loading " + perc + "%");
-    },
-    onComplete: function() {
-        console.log("done");
-        that.viz.animate();
-    }
-});*/
 };
 
-sontgen.prototype.toJSON = function(type) {
+Sontgen.prototype.toJSON = function(type) {
 
     return this.viz.toJSON(type);
 };
 
-sontgen.prototype.openFile = function(path, local){
+Sontgen.prototype.fromRDF = function(rdf){
+    var store = rdfstore.create();
+    var rdfgraph = store.rdf.createGraph();
+};
+
+Sontgen.prototype.objToStore = function(store, elem){
+    if(elem.data.literal){
+        return store.rdf.createLiteral(elem.data.literal);
+    } else if(elem.data.iri){
+        var res = elem.data.namespace ? elem.data.namespace+":"+elem.data.iri : elem.data.iri;
+        return store.rdf.createNamedNode(store.rdf.resolve(res));
+    } else {
+        return store.rdf.createBlankNode();
+    }
+};
+
+Sontgen.prototype.toRDF = function(){
+    var that = this;
+    var store = rdfstore.create();
+    var rdfgraph = store.rdf.createGraph();
+    var ns = this.namespaces;
+
+    for (var key in ns) {
+        store.rdf.setPrefix(key, ns[key]);
+    }
+
+    this.viz.graph.each(function(node){
+        node.eachAdjacency(function(adj){
+            var s = that.objToStore(store, node);
+            var p = that.objToStore(store, adj);
+            var o = that.objToStore(store, adj.nodeTo);
+
+            rdfgraph.add(store.rdf.createTriple(s, p, o));
+        });
+    });
+
+    console.log('Obj Graph: '+rdfgraph);
+    console.log('Text: '+rdfgraph.toNT());
+    return rdfgraph.toNT();
+};
+
+Sontgen.prototype.openFile = function(path, local){
     that = this;
     if (path){
         if(local){
@@ -253,7 +278,7 @@ sontgen.prototype.openFile = function(path, local){
                     return true
                 },
                 error:   function() {
-                    console.log('error');
+                    console.log('error to load data');
                     return false;
                 }
             })
@@ -262,12 +287,12 @@ sontgen.prototype.openFile = function(path, local){
     return false;
 };
 
-sontgen.prototype.saveAs = function(type){
+Sontgen.prototype.saveAs = function(type){
     var b = new Blob([JSON.stringify(this.toJSON('graph'))], {type: "text/plain;charset=utf-8"});
     saveAs(b, "myfile."+type);
 };
 
-sontgen.prototype.addNode = function(name, data) {
+Sontgen.prototype.addNode = function(name, data) {
 
     var n = this.viz.graph.addNode({
         'id': '_n_' + autoID,
@@ -279,7 +304,7 @@ sontgen.prototype.addNode = function(name, data) {
     return n;
 };
 
-sontgen.prototype.addEdge = function(node, node2, data) {
+Sontgen.prototype.addEdge = function(node, node2, data) {
     data = data || {};
     //TODO Hidden edge case
     var e = this.getEdge(node.id,node2.id);
@@ -292,7 +317,7 @@ sontgen.prototype.addEdge = function(node, node2, data) {
     return e;
 };
 
-sontgen.prototype.removeNode = function(id) {
+Sontgen.prototype.removeNode = function(id) {
     //TODO Root or Last node case
     if (this.getNode(id) && id != this.viz.root) {
         this.viz.graph.removeNode(id);
@@ -302,7 +327,7 @@ sontgen.prototype.removeNode = function(id) {
     return false;
 };
 
-sontgen.prototype.removeEdge = function(id, id2) {
+Sontgen.prototype.removeEdge = function(id, id2) {
 
     if(this.getEdge(id, id2)){
         this.viz.graph.removeAdjacence(id, id2);
@@ -312,7 +337,7 @@ sontgen.prototype.removeEdge = function(id, id2) {
     return false;
 };
 
-sontgen.prototype.remove = function(elem) {
+Sontgen.prototype.remove = function(elem) {
 
     if(this.isNode(elem)){
         this.removeNode(elem.id);
@@ -323,21 +348,21 @@ sontgen.prototype.remove = function(elem) {
     }
 };
 
-sontgen.prototype.getNode = function(id) {
+Sontgen.prototype.getNode = function(id) {
 
     return this.viz.graph.getNode(id);
 };
 
-sontgen.prototype.getNodeByName = function(name) {
+Sontgen.prototype.getNodeByName = function(name) {
     return this.viz.graph.getByName(name);
 };
 
-sontgen.prototype.getEdge = function(id, id2) {
+Sontgen.prototype.getEdge = function(id, id2) {
 
     return this.viz.graph.getAdjacence(id, id2);
 };
 
-sontgen.prototype.editNode = function(id, name, data) {
+Sontgen.prototype.editNode = function(id, name, data) {
 
     var node = this.getNode(id);
     if (node) {
@@ -350,7 +375,7 @@ sontgen.prototype.editNode = function(id, name, data) {
     }
 };
 
-sontgen.prototype.editEdge = function(node, node2, data) {
+Sontgen.prototype.editEdge = function(node, node2, data) {
 
     var edge = this.getEdge(node.id, node2.id);
     if (edge) {
@@ -364,17 +389,17 @@ sontgen.prototype.editEdge = function(node, node2, data) {
     }
 };
 
-sontgen.prototype.addEventToObj = function(obj, type, fn) {
+Sontgen.prototype.addEventToObj = function(obj, type, fn) {
 
     $jit.util.addEvent(obj, type, fn);
 };
 
-sontgen.prototype.addEvent = function(type, fn) {
+Sontgen.prototype.addEvent = function(type, fn) {
 
     this.viz.config.Events[type] = fn;
 };
 
-sontgen.prototype.animate = function(trans, way, dur) {
+Sontgen.prototype.animate = function(trans, way, dur) {
 
     dur = typeof dur !== 'undefined' ? dur : 500;
 
@@ -390,7 +415,7 @@ sontgen.prototype.animate = function(trans, way, dur) {
     //} else 
 };
 
-sontgen.prototype.showTip = function(x, y, elem, html){
+Sontgen.prototype.showTip = function(x, y, elem, html){
     if(x && y){
         if(!html){
             if(elem){
@@ -405,23 +430,23 @@ sontgen.prototype.showTip = function(x, y, elem, html){
     }
 };
 
-sontgen.prototype.hideTips = function(){
+Sontgen.prototype.hideTips = function(){
     $('.customtip').remove();
 };
 
-sontgen.prototype.isNode = function (elem) {
+Sontgen.prototype.isNode = function (elem) {
     if (elem) return elem.nodeFrom ? false : true;
     return false;
 };
 
-sontgen.prototype.isEdge = function (elem) {
+Sontgen.prototype.isEdge = function (elem) {
     if (elem)
         return !this.isNode(elem);
     else
         return false;
 };
 
-sontgen.prototype.cursor = function(type, path){
+Sontgen.prototype.cursor = function(type, path){
     if(type == 'custom'){
         if(path)
             return sog.viz.canvas.getElement().style.cursor = 'url("'+path+'")';
@@ -434,7 +459,7 @@ sontgen.prototype.cursor = function(type, path){
     }
 };
 
-sontgen.prototype.root = function(id){
+Sontgen.prototype.root = function(id){
     if(id){
         this.getNode(this.viz.root).setData('color', this.viz.config.Node.color);
         this.getNode(id).setData('color', '#7A6752');
