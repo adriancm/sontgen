@@ -1,3 +1,21 @@
+/*
+ Sontgen is an app for graphical management of linked data.
+ Copyright (C) 2014  Adrian Cepillo Macias
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see {http://www.gnu.org/licenses/}.
+ */
+
 var labelType, useGradients, nativeTextSupport, animate, moved = true,
     pressed, node = false;
 var autoID = 0;
@@ -194,8 +212,9 @@ function Sontgen(canvas, mode, view) {
 
 Sontgen.prototype.fromJSON = function(json) {
     //var that = this;
+    this.namespaces = json.namespaces;
 
-    this.viz.loadJSON(json);
+    this.viz.loadJSON(json.graph);
 
     this.viz.compute('end');
     this.viz.fx.animate({
@@ -209,9 +228,20 @@ Sontgen.prototype.toJSON = function(type) {
     return this.viz.toJSON(type);
 };
 
-Sontgen.prototype.fromRDF = function(rdf){
+Sontgen.prototype.fromRDF = function(rdf, type){
+    var that = this;
     var store = rdfstore.create();
     var rdfgraph = store.rdf.createGraph();
+    var ns = this.namespaces;
+
+    store.load(type, rdf, rdfgraph, function(success, results){
+        console.log(results);
+        var triples = rdfgraph.toArray();
+        for (var i in triples){
+
+        }
+    });
+
 };
 
 Sontgen.prototype.objToStore = function(store, elem){
@@ -225,7 +255,7 @@ Sontgen.prototype.objToStore = function(store, elem){
     }
 };
 
-Sontgen.prototype.toRDF = function(){
+Sontgen.prototype.toRDF = function(type){
     var that = this;
     var store = rdfstore.create();
     var rdfgraph = store.rdf.createGraph();
@@ -245,8 +275,7 @@ Sontgen.prototype.toRDF = function(){
         });
     });
 
-    console.log('Obj Graph: '+rdfgraph);
-    console.log('Text: '+rdfgraph.toNT());
+    console.log(rdfgraph);
     return rdfgraph.toNT();
 };
 
@@ -274,7 +303,7 @@ Sontgen.prototype.openFile = function(path, local){
                 type:    "GET",
                 url:     path,
                 success: function(text) {
-                    that.fromJSON(JSON.parse(text));
+                    that.fromJSON(text);
                     return true
                 },
                 error:   function() {
