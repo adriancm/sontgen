@@ -22,12 +22,15 @@ function editElem(data){
 
     $('#resourceData').popup('close');
     var elem = ctrlEventObj['popup'];
-
-    if((data.namespace && data.iri) || data.literal){
-        if(!data.literal){
-            var label = data.namespace+':'+data.iri;
+    var label;
+    if(data.iri || data.literal){
+        if(data.iri){
+            if(data.namespace)
+                label = data.namespace+':'+data.iri;
+            else
+                label = data.iri;
         } else {
-            var label = data.literal
+            label = data.literal
         }
 
         if(sog.isNode(elem)){
@@ -43,22 +46,26 @@ function resLitToogle(res){
     if(res){
         $('#literal')
             .attr('disabled', true)
+            .removeAttr('required')
             .parent().addClass('ui-state-disabled');
         $('#namespace')
             .removeAttr('disabled')
             .parent().removeClass('ui-state-disabled');
         $('#iri')
             .removeAttr('disabled')
+            .attr('required', true)
             .parent().removeClass('ui-state-disabled');
     } else {
         $('#literal')
             .removeAttr('disabled')
+            .attr('required', true)
             .parent().removeClass('ui-state-disabled');
         $('#namespace')
             .attr('disabled', true)
             .parent().addClass('ui-state-disabled');
         $('#iri')
             .attr('disabled', true)
+            .removeAttr('required')
             .parent().addClass('ui-state-disabled');
     }
 }
@@ -82,7 +89,7 @@ function localRemoteToogle(local){
 }
 
 function openSelectedFile(inputs){
-    var file;
+    var file = undefined;
     var local = false;
     inputs.each(function (){
         console.log(this);
@@ -109,10 +116,10 @@ function init() {
 
     //end
 
-    sog = new sontgen('canvas');
-    sog.openFile('http://localhost/sontgen/res/data2.json');
+    sog = new Sontgen('canvas');
+    sog.openFile('../res/personCoreVocabulary.json');
 
-    sog.addEvent('onRightClick', function(elem, infoEvent, e) {
+    sog.addEvent('onRightClick', function(elem) {
         if(elem){
             ctrlEventObj['popup'] = elem;
             $('#resourceData').popup('open');//{ x: e.clientX+100, y: e.clientY+80, transition: 'pop', positionTo: 'origin'});
@@ -125,7 +132,7 @@ function init() {
         }
     });
 
-    sog.addEvent('onClick', function(elem, eventInfo, e) {
+    sog.addEvent('onClick', function(elem) {
         //$jit.util.event.stop(e);
         if (elem) {
             switch (ctrlEventObj['selected']) {
@@ -159,7 +166,7 @@ function init() {
             }
 
         } else {
-            ctrlEventObj['from'] = null
+            ctrlEventObj['from'] = null;
             sog.cursor('pointer');
         }
     });
@@ -171,7 +178,7 @@ function init() {
         }
     });
 
-    sog.addEvent('onMouseLeave', function(elem, eventInfo, e) {
+    sog.addEvent('onMouseLeave', function() {
         if(sog.cursor() != 'crosshair'){
             sog.cursor('move');
             sog.hideTips();
@@ -180,16 +187,16 @@ function init() {
 
     sog.addEvent('onDragStart', function(elem, eventInfo, e) {
         $jit.util.event.stop(e);
-        if (elem) {
+        /*if (elem) {
             node = elem;
         } else {
             node = false;
         }
-        console.log("Drag: " + elem.id);
+        console.log("Drag: " + elem.id);*/
 
     });
 
-    sog.addEvent('onDragMove', function(elem, eventInfo, e) {
+    sog.addEvent('onDragMove', function(elem, eventInfo) {
         var pos = eventInfo.getPos();
         elem.pos.setc(pos.x, pos.y);
         sog.viz.plot();
