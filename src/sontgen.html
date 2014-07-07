@@ -23,6 +23,7 @@
     <script type="text/javascript" src="lib/jit/Jit/jit.js"></script>
     <script type="text/javascript" src="lib/js/Blob.js"></script>
     <script type="text/javascript" src="lib/js/FileSaver.js"></script>
+    <script type="text/javascript" src="lib/js/rdf_store.js"></script>
     <script type="text/javascript" src="sontgen.js"></script>
     <script type="text/javascript" src="main.js"></script>
     <link type="text/css" rel="stylesheet" href="lib/css/jquery.mobile-1.4.2.min.css" />
@@ -64,12 +65,15 @@
             <input type="search" name="search" id="search" value="" placeholder="Search"/>
             <label for="slider-fill"><h4>Zoom:</h4></label>
             <input type="range" name="slider-fill" id="slider-fill" value="60" min="0" max="1000" step="50" data-highlight="true" />
-
-
-            <input type="button" value="Undo" data-icon="back"/>
+            <fieldset id="namespaces" data-role="controlgroup" data-type="horizontal" data-mini="true">
+                <h4>Namespaces:</h4>
+                <input class="prefix" type="text" data-inline="true" placeholder="Prefix">
+                <input class="ns" type="text" data-inline="true" placeholder="Namespace">
+            </fieldset>
+           <!-- <input type="button" value="Undo" data-icon="back"/>
             <input type="button" value="Redo" data-icon="forward"/>
             <input type="file" value="Import" data-icon="arrow-u"/>
-            <input type="file" value="Export"  data-icon="arrow-d"/>
+            <input type="file" value="Export"  data-icon="arrow-d"/>-->
         </form>
     </div>
     <!-- /panel -->
@@ -110,7 +114,7 @@
                     <label for="namespace">Namespace</label>
                     <input name="elem" data-role="text" id="namespace" placeholder="Namespace (optional)" value="" data-theme="a">
                     <label for="iri">URI/IRI</label>
-                    <input name="elem" data-role="text" id="iri"  placeholder="URI/IRI" value="" data-theme="a" >
+                    <input name="elem" data-role="text" id="iri"  placeholder="URI/IRI" value="" data-theme="a" required="true">
                     <h4>OR</h4>
                     <label for="literal">Literal</label>
                     <input name="elem" id="literal" data-role="text" placeholder="Literal" value="" data-theme="a" disabled="disabled">
