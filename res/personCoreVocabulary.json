@@ -1,0 +1,395 @@
+{
+    "namespaces": {
+        "person": "http://www.w3.org/ns/person#",
+        "schema": "http://schema.org/",
+        "foaf": "http://xmlns.com/foaf/0.1/"
+    },
+
+    "graph": [
+        {
+            "id": "node0",
+            "name": "person:Person",
+            "data": {
+                "$color": "#7A6752",
+                "iri": "Person",
+                "namespace": "person",
+                "literal": ""
+            },
+            "adjacencies": [
+                {
+                    "nodeTo": "node2",
+                    "data": {
+                        "name": "rdfs:comment",
+                        "$color": "#3388CC",
+                        "iri": "comment",
+                        "namespace": "rdfs",
+                        "literal": ""
+                    }
+                },
+                {
+                    "nodeTo": "node3",
+                    "data": {
+                        "name": "rdfs:subClassOf",
+                        "$color": "#3388CC",
+                        "iri": "subClassOf",
+                        "namespace": "rdfs",
+                        "literal": ""
+                    }
+                },
+                {
+                    "nodeTo": "_n_1",
+                    "data": {
+                        "name": "rdfs:label",
+                        "$color": "#3388CC",
+                        "iri": "label",
+                        "namespace": "rdfs",
+                        "literal": ""
+                    }
+                },
+                {
+                    "nodeTo": "_n_2",
+                    "data": {
+                        "name": "rdfs:subClassOf",
+                        "$color": "#3388CC",
+                        "iri": "subClassOf",
+                        "namespace": "rdfs",
+                        "literal": ""
+                    }
+                },
+                {
+                    "nodeTo": "_n_6",
+                    "data": {
+                        "$direction": ["_n_6", "node0"],
+                        "name": "rdfs:domain",
+                        "$color": "#3388CC",
+                        "iri": "domain",
+                        "namespace": "rdfs",
+                        "literal": ""
+                    }
+                },
+                {
+                    "nodeTo": "_n_5",
+                    "data": {
+                        "$direction": ["_n_5", "node0"],
+                        "name": "rdfs:domain",
+                        "$color": "#3388CC",
+                        "iri": "domain",
+                        "namespace": "rdfs",
+                        "literal": ""
+                    }
+                },
+                {
+                    "nodeTo": "_n_11",
+                    "data": {
+                        "$direction": ["_n_11", "node0"],
+                        "name": "rdfs:domain",
+                        "$color": "#3388CC",
+                        "iri": "domain",
+                        "namespace": "rdfs",
+                        "literal": ""
+                    }
+                }
+            ]
+        },
+        {
+            "id": "node2",
+            "name": "An individual ..",
+            "data": {
+                "$color": "#284C94",
+                "iri": "",
+                "namespace": "",
+                "literal": "An individual .."
+            },
+            "adjacencies": []
+        },
+        {
+            "id": "node3",
+            "name": "foaf:Person",
+            "data": {
+                "$color": "#284C94",
+                "iri": "Person",
+                "namespace": "foaf",
+                "literal": ""
+            },
+            "adjacencies": []
+        },
+        {
+            "id": "_n_1",
+            "name": "Person",
+            "data": {
+                "$color": "#284C94",
+                "iri": "",
+                "namespace": "",
+                "literal": "Person"
+            },
+            "adjacencies": []
+        },
+        {
+            "id": "_n_2",
+            "name": "schema:Person",
+            "data": {
+                "$color": "#284C94",
+                "iri": "Person",
+                "namespace": "schema",
+                "literal": ""
+            },
+            "adjacencies": []
+        },
+        {
+            "id": "_n_6",
+            "name": "person:patronymicName",
+            "data": {
+                "$color": "#284C94",
+                "iri": "patronymicName",
+                "namespace": "person",
+                "literal": ""
+            },
+            "adjacencies": [
+                {
+                    "nodeTo": "_n_3",
+                    "data": {
+                        "$alpha": 1,
+                        "name": "rdfs:label",
+                        "$color": "#3388CC",
+                        "iri": "label",
+                        "namespace": "rdfs",
+                        "literal": ""
+                    }
+                },
+                {
+                    "nodeTo": "_n_0",
+                    "data": {
+                        "$alpha": 1,
+                        "name": "rdfs:comment",
+                        "$color": "#3388CC",
+                        "iri": "comment",
+                        "namespace": "rdfs",
+                        "literal": ""
+                    }
+                },
+                {
+                    "nodeTo": "_n_4",
+                    "data": {
+                        "$alpha": 1,
+                        "name": "rdfs:range",
+                        "$color": "#3388CC",
+                        "iri": "range",
+                        "namespace": "rdfs",
+                        "literal": ""
+                    }
+                }
+            ]
+        },
+        {
+            "id": "_n_0",
+            "name": "Patronymic names are important in some countries. ",
+            "data": {
+                "$color": "#284C94",
+                "iri": "",
+                "namespace": "",
+                "literal": "Patronymic names are important in some countries. "
+            },
+            "adjacencies": []
+        },
+        {
+            "id": "_n_3",
+            "name": "patronymic name",
+            "data": {
+                "$color": "#284C94",
+                "iri": "label",
+                "namespace": "rdfs",
+                "literal": "patronymic name"
+            },
+            "adjacencies": []
+        },
+        {
+            "id": "_n_4",
+            "name": "rdfs:Literal",
+            "data": {
+                "$color": "#284C94",
+                "iri": "Literal",
+                "namespace": "rdfs",
+                "literal": ""
+            },
+            "adjacencies": []
+        },
+        {
+            "id": "_n_5",
+            "name": "person:placeOfBirth",
+            "data": {
+                "$color": "#284C94",
+                "iri": "placeOfBirth",
+                "namespace": "person",
+                "literal": ""
+            },
+            "adjacencies": [
+                {
+                    "nodeTo": "_n_9",
+                    "data": {
+                        "$alpha": 1,
+                        "name": "rdfs:label",
+                        "$color": "#3388CC",
+                        "iri": "label",
+                        "namespace": "rdfs",
+                        "literal": ""
+                    }
+                },
+                {
+                    "nodeTo": "_n_8",
+                    "data": {
+                        "$alpha": 1,
+                        "name": "rdfs:comment",
+                        "$color": "#3388CC",
+                        "iri": "comment",
+                        "namespace": "rdfs",
+                        "literal": ""
+                    }
+                },
+                {
+                    "nodeTo": "_n_7",
+                    "data": {
+                        "$alpha": 1,
+                        "name": "rdfs:range",
+                        "$color": "#3388CC",
+                        "iri": "range",
+                        "namespace": "rdfs",
+                        "literal": ""
+                    }
+                },
+                {
+                    "nodeTo": "_n_15",
+                    "data": {
+                        "$alpha": 1,
+                        "name": "rdfs:range",
+                        "$color": "#3388CC",
+                        "iri": "range",
+                        "namespace": "rdfs",
+                        "literal": ""
+                    }
+                }
+            ]
+        },
+        {
+            "id": "_n_7",
+            "name": "dcterms:Location",
+            "data": {
+                "$color": "#284C94",
+                "iri": "Location",
+                "namespace": "dcterms",
+                "literal": ""
+            },
+            "adjacencies": []
+        },
+        {
+            "id": "_n_8",
+            "name": "A person's place of birth",
+            "data": {
+                "$color": "#284C94",
+                "iri": "",
+                "namespace": "",
+                "literal": "A person's place of birth"
+            },
+            "adjacencies": []
+        },
+        {
+            "id": "_n_9",
+            "name": "place of birth",
+            "data": {
+                "$color": "#284C94",
+                "iri": "",
+                "namespace": "",
+                "literal": "place of birth"
+            },
+            "adjacencies": []
+        },
+        {
+            "id": "_n_11",
+            "name": "person:birthName",
+            "data": {
+                "$color": "#284C94",
+                "iri": "birthName",
+                "namespace": "person",
+                "literal": ""
+            },
+            "adjacencies": [
+                {
+                    "nodeTo": "_n_12",
+                    "data": {
+                        "$alpha": 1,
+                        "name": "rdfs:label",
+                        "$color": "#3388CC",
+                        "iri": "label",
+                        "namespace": "rdfs",
+                        "literal": ""
+                    }
+                },
+                {
+                    "nodeTo": "_n_14",
+                    "data": {
+                        "$alpha": 1,
+                        "name": "rdfs:comment",
+                        "$color": "#3388CC",
+                        "iri": "comment",
+                        "namespace": "rdfs",
+                        "literal": ""
+                    }
+                },
+                {
+                    "nodeTo": "_n_13",
+                    "data": {
+                        "$alpha": 1,
+                        "name": "rdfs:range",
+                        "$color": "#3388CC",
+                        "iri": "range",
+                        "namespace": "rdfs",
+                        "literal": ""
+                    }
+                }
+            ]
+        },
+        {
+            "id": "_n_12",
+            "name": "birth name",
+            "data": {
+                "$color": "#284C94",
+                "iri": "",
+                "namespace": "",
+                "literal": "birth name"
+            },
+            "adjacencies": []
+        },
+        {
+            "id": "_n_13",
+            "name": "rdfs:Literal",
+            "data": {
+                "$color": "#284C94",
+                "iri": "Literal",
+                "namespace": "rdfs",
+                "literal": ""
+            },
+            "adjacencies": []
+        },
+        {
+            "id": "_n_14",
+            "name": "All data associated with an individual ...",
+            "data": {
+                "$color": "#284C94",
+                "iri": "",
+                "namespace": "",
+                "literal": "All data associated with an individual ..."
+            },
+            "adjacencies": []
+        },
+        {
+            "id": "_n_15",
+            "name": "schema:Place",
+            "data": {
+                "$color": "#284C94",
+                "iri": "Place",
+                "namespace": "schema",
+                "literal": ""
+            },
+            "adjacencies": []
+        }
+    ]
+}
