@@ -108,16 +108,16 @@ function Sontgen(canvas, mode, view) {
         Edge: {
             overridable: true,
             color: '#3388CC',
-            lineWidth: 3,
+            lineWidth: 4,
             type: 'arrow',
-            dim: 20
+            dim: 13
 
         },
         Label: {
             overridable: true,
             type: 'Native',
             color: '#fff',
-            size: 10
+            size: 8
 
         },
         Tips: {
@@ -190,7 +190,7 @@ function Sontgen(canvas, mode, view) {
             }
         },
 
-        levelDistance: 100,
+        levelDistance: 600,
         //iterations: 100,
         fps: 30,
         duration: 1500
@@ -231,17 +231,36 @@ Sontgen.prototype.toJSON = function(type) {
 Sontgen.prototype.fromRDF = function(rdf, type){
     var that = this;
     var store = rdfstore.create();
-    var rdfgraph = store.rdf.createGraph();
-    var ns = this.namespaces;
+    var json = {
+        namespaces: {},
+        graph: []
+    };
+    var n3 = "";
 
-    store.load(type, rdf, rdfgraph, function(success, results){
-        console.log(results);
-        var triples = rdfgraph.toArray();
-        for (var i in triples){
+    store.load(type, rdf.toString(), function(success, results) {
+        store.graph(function(success, graph){
+            json.namespaces = store.rdf.prefixes.values();
 
-        }
+            json.graph.push({
+                'id': '_n_' + autoID,
+                'name': graph.triples[0].subject.nominalValue,
+                'data': {},
+                'adjacencies': []
+            });
+            that.fromJSON(json);
+
+            graph.forEach(function(t){
+                n3 = n3 + t.toString();
+                var s = that.getNodeByName(t.subject.nominalValue) || that.addNode(t.subject.nominalValue);
+                var p = t.predicate.nominalValue;
+                var o = that.getNodeByName(t.object.nominalValue) || that.addNode(t.object.nominalValue);
+
+                that.addEdge(s,o,{ name: p });
+            });
+        });
     });
-
+    console.log(n3);
+    return n3;
 };
 
 Sontgen.prototype.objToStore = function(store, elem){
@@ -279,7 +298,7 @@ Sontgen.prototype.toRDF = function(type){
     return rdfgraph.toNT();
 };
 
-Sontgen.prototype.openFile = function(path, local){
+Sontgen.prototype.openFile = function(path, type, local){
     that = this;
     if (path){
         if(local){
@@ -289,7 +308,10 @@ Sontgen.prototype.openFile = function(path, local){
                 var reader = new FileReader();
 
                 reader.onload = function(e){
-                    sog.fromJSON(JSON.parse(reader.result));
+                    if(type == 'jit-json')
+                        that.fromJSON(JSON.parse(reader.result));
+                    else
+                        that.fromRDF(reader.result, type);
                 };
 
                 reader.readAsText(path);
@@ -303,7 +325,11 @@ Sontgen.prototype.openFile = function(path, local){
                 type:    "GET",
                 url:     path,
                 success: function(text) {
-                    that.fromJSON(text);
+                    switch (type){
+                        case 'jit-json': that.fromJSON(text); break;
+                        default: that.fromRDF(text, type); break;
+                    }
+
                     return true
                 },
                 error:   function() {
@@ -317,8 +343,9 @@ Sontgen.prototype.openFile = function(path, local){
 };
 
 Sontgen.prototype.saveAs = function(type){
-    var b = new Blob([JSON.stringify(this.toJSON('graph'))], {type: "text/plain;charset=utf-8"});
-    saveAs(b, "myfile."+type);
+    //var b = new Blob([JSON.stringify(this.toJSON('graph'))], {type: "text/plain;charset=utf-8"});
+    var b = new Blob([this.toRDF('n3')], {type: "text/n3;charset=utf-8"});
+    saveAs(b, "myfile.nt");
 };
 
 Sontgen.prototype.addNode = function(name, data) {
@@ -326,7 +353,7 @@ Sontgen.prototype.addNode = function(name, data) {
     var n = this.viz.graph.addNode({
         'id': '_n_' + autoID,
         'name': name?name:'',
-        'data': data
+        'data': data || {}
     });
     autoID++;
     this.animate('Elastic', 'easeOut');
