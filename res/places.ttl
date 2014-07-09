@@ -1,0 +1,756 @@
+@prefix dct: <http://purl.org/dc/terms/>.
+@prefix dctype: <http://purl.org/dc/dcmitype/>.
+@prefix default90: <http://xmlns.com/foaf/0.1/>.
+@prefix ns0: <http://purl.org/ontology/>.
+@prefix default95: <http://purl.org/dc/elements/1.1/>.
+@prefix default87: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix msg0: <http://web.resource.org/cc/>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix vann: <http://purl.org/vocab/vann/>.
+@prefix default73: <http://www.w3.org/2002/07/owl#>.
+@prefix ns1: <http://purl.org/ontology/places/#>.
+@prefix ns2: <http://purl.org/ontology/places#>.
+@prefix status: <http://www.w3.org/2003/06/sw-vocab-status/ns#>.
+@prefix r: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix wiki: <http://en.wikipedia.org/wiki/>.
+@prefix dbpo: <http://dbpedia.org/ontology/>.
+@prefix ns3: <http://www.telegraphis.net/ontology/geography/geography#>.
+
+<>
+    dct:hasFormat
+       <schema.html>, <places.json>, <schema.rdf>;
+    a    dctype:Text, default90:Document;
+    default90:primaryTopic
+       ns0:places;
+    default90:topic
+       ns0:places.
+<schema.rdf>
+    default95:format
+       "application/rdf+xml";
+    a    dctype:Text, default90:Document;
+    default87:label
+       "RDF/XML".
+<schema.html>
+    default95:format
+       "text/html";
+    a    dctype:Text, default90:Document;
+    default87:label
+       "HTML".
+<places.json>
+    default95:format
+       "application/json";
+    a    dctype:Text, default90:Document;
+    default87:label
+       "JSON".
+<http://creativecommons.org/licenses/by/1.0/>
+    msg0:permits
+       msg0:DerivativeWorks, msg0:Distribution, msg0:Reproduction;
+    msg0:requires
+       msg0:Attribution, msg0:Notice;
+    a    msg0:Licence.
+ns0:places
+    dct:created
+       "2010-11-27"^^xsd:date;
+    dct:description
+        "The Places Ontology is a simple lightweight ontology for describing places of geographic interest."@en;
+    dct:title
+       "The Places Ontology"@en;
+    dct:type
+       dctype:Text;
+    vann:preferredNamespacePrefix
+       "place";
+    vann:preferredNamespaceUri
+       "http://purl.org/ontology/places#";
+    msg0:license
+       <http://creativecommons.org/licenses/by/1.0/>;
+    a    msg0:Work, default73:Ontology;
+    default87:comment
+        "The Places Ontology is a simple lightweight ontology for describing places of geographic interest."@en;
+    default90:maker
+       ns1:michael, ns1:rob, ns1:tom.
+ns2:ArbitraryRegion
+    a    default73:Class;
+    default87:comment
+        "An area that is useful to illustrate a particular point but does not have a recognised political or cultural identity.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+        "Arbitraria Regi\u00f3n"@es,
+        "Arbitrary Region"@en,
+        "ArbitraryRegion",
+        "R\u00e9gion Arbitraire"@fr-fr,
+        "Willk\u00fcrliche Region"@de,
+        "\u4efb\u610f\u533a\u57df"@zh;
+    status:term_status
+       "testing".
+ns2:Bay
+    a    default73:Class;
+    default87:comment
+        "An indentation to a shoreline, a body of water enclosed but with a large mouth to a wider body of water.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+       "Bah\u00eda"@es, "Bay", "Bay"@de, "Bay"@en, "Bay"@fr-fr, "\u6e7e"@zh;
+    status:term_status
+       "testing".
+ns2:Beach
+    a    default73:Class;
+    default87:comment
+       "The shore of a body of water, usually sandy or pebbly.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+        "Beach",
+        "Beach"@de,
+        "Beach"@en,
+        "Beach"@fr-fr,
+        "Playa"@es,
+        "\u6d77\u6ee9"@zh;
+    status:term_status
+       "testing".
+ns2:Borough
+    a    default73:Class;
+    default87:comment
+       "An administrative region of governance.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+        "Arrondissement"@fr-fr,
+        "Bezirk"@de,
+        "Borough",
+        "Borough"@en,
+        "Municipio"@es,
+        "\u4f2f\u52d2"@zh;
+    status:term_status
+       "testing".
+ns2:Boundary
+    a    default73:Class;
+    default87:comment
+        "A Boundary resource specifies a sequence of points which, if joined, give the boundary of a geographical area. The sequence may be a serious of resources, each with a latitude and longitude, or a series of points using the datatype place:latlong. If the final point is the same as the first then the boundary is considered to be a closed area, whereas if the first and last points differ the boundary is considered to be a border line.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+       "Boundary";
+    default87:subClassOf
+       r:Seq;
+    status:term_status
+       "testing".
+ns2:Cape
+    a    default73:Class;
+    default87:comment
+       "A strip of land projecting into a body of water";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+       "Cabo"@es, "Cap"@fr-fr, "Cape", "Cape"@de, "Cape"@en, "\u62ab\u80a9"@zh;
+    status:term_status
+       "testing".
+ns2:City
+    a    default73:Class;
+    default87:comment
+       "A large settlement, often with some form of formal political recognition.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+       "City", "City"@de, "City"@en, "City"@fr-fr, "Ciudad"@es, "\u5e02"@zh;
+    default87:seeAlso
+       wiki:City;
+    default73:equivalentClass
+       dbpo:City;
+    status:term_status
+       "testing".
+ns2:Cliff
+    a    default73:Class;
+    default87:comment
+       "A steep high face of rock.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+        "Acantilado"@es,
+        "Cliff",
+        "Cliff"@de,
+        "Cliff"@en,
+        "Cliff"@fr-fr,
+        "\u60ac\u5d16"@zh;
+    status:term_status
+       "testing".
+ns2:Continent
+    a    default73:Class;
+    default87:comment
+       "A large landmass recognised by convention as a continent.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+        "Continent",
+        "Continent"@en,
+        "Continent"@fr-fr,
+        "Continente"@es,
+        "Kontinent"@de,
+        "\u5927\u9646"@zh;
+    default87:seeAlso
+       wiki:Continent;
+    default73:equivalentClass
+       dbpo:Continent, ns3:Continent;
+    status:term_status
+       "testing".
+ns2:Country
+    a    default73:Class;
+    default87:comment
+       "A region considered to be the territory of a recognised political state.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+        "Country",
+        "Country"@en,
+        "Land"@de,
+        "Pays"@fr-fr,
+        "Pa\u00eds"@es,
+        "\u56fd\u5bb6"@zh;
+    default87:seeAlso
+       wiki:Country;
+    default73:equivalentClass
+       dbpo:Country;
+    status:term_status
+       "testing".
+ns2:County
+    a    default73:Class;
+    default87:comment
+        "A county is a land area of local governance within a country. A county may have cities and towns within its area.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+        "Comt\u00e9"@fr-fr,
+        "Condado"@es,
+        "County",
+        "County"@de,
+        "County"@en,
+        "\u53bf"@zh;
+    default87:seeAlso
+       wiki:County;
+    status:term_status
+       "testing".
+ns2:Desert
+    a    default73:Class;
+    default87:comment
+        "A desert is a landscape or region that receives an extremely low amount of precipitation, less than enough to support growth of most plants.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+        "Desert",
+        "Desert"@de,
+        "Desert"@en,
+        "Desert"@fr-fr,
+        "Desierto"@es,
+        "\u6c99\u6f20"@zh;
+    default87:seeAlso
+       wiki:Desert;
+    status:term_status
+       "testing".
+ns2:District
+    a    default73:Class;
+    default87:comment
+       "A region of governance.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+        "Bezirk"@de,
+        "District",
+        "District"@en,
+        "District"@fr-fr,
+        "Distrito"@es,
+        "\u533a"@zh;
+    status:term_status
+       "testing".
+ns2:Estuary
+    a    default73:Class;
+    default87:comment
+       "The widened area of a river as it opens to meet the sea or ocean.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+        "Estuaire"@fr-fr,
+        "Estuario"@es,
+        "Estuary",
+        "Estuary"@en,
+        "M\u00fcndung"@de,
+        "\u6cb3\u53e3"@zh;
+    status:term_status
+       "testing".
+ns2:Glacier
+    a    default73:Class;
+    default87:comment
+       "A slow-moving mass of ice.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+        "Glaciar"@es,
+        "Glacier",
+        "Glacier"@en,
+        "Glacier"@fr-fr,
+        "Gletscher"@de,
+        "\u51b0\u5ddd"@zh;
+    status:term_status
+       "testing".
+ns2:Gulf
+    a    default73:Class;
+    default87:comment
+        "Part of a sea or ocean that is partially enclosed by land. Like a bay but larger.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+       "Golfe"@fr-fr, "Golfo"@es, "Gulf", "Gulf"@de, "Gulf"@en, "\u6d77\u6e7e"@zh;
+    status:term_status
+       "testing".
+ns2:Hamlet
+    a    default73:Class;
+    default87:comment
+       "A Hamlet is a small human settlement consisting of just a few dwellings.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+        "Aldea"@es,
+        "Hamlet",
+        "Hamlet"@en,
+        "Hamlet"@fr-fr,
+        "Weiler"@de,
+        "\u6751\u5e84"@zh;
+    status:term_status
+       "testing".
+ns2:Hill
+    a    default73:Class;
+    default87:comment
+       "A hill is a landform that extends above the surrounding terrain.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+       "Hill", "Hill"@de, "Hill"@en, "Hill"@es, "Hill"@fr-fr, "\u5e0c\u5c14"@zh;
+    default87:seeAlso
+       wiki:Hill;
+    status:term_status
+       "testing".
+ns2:Island
+    a    default73:Class;
+    default87:comment
+       "A landmass surrounded entirely by water.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+       "Isla"@es, "Island", "Island"@de, "Island"@en, "Island"@fr-fr, "\u5c9b"@zh;
+    default87:seeAlso
+       wiki:Island;
+    status:term_status
+       "testing".
+ns2:Isthmus
+    a    default73:Class;
+    default87:comment
+        "A narrow strip of land, bounded by water on two sides, and connecting two larger landmasses.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+        "Isthme"@fr-fr,
+        "Isthmus",
+        "Isthmus"@de,
+        "Isthmus"@en,
+        "Istmo"@es,
+        "\u5730\u5ce1"@zh;
+    status:term_status
+       "testing".
+ns2:Lake
+    a    default73:Class;
+    default87:comment
+       "An inland body of water.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+       "Lago"@es, "Lake", "Lake"@de, "Lake"@en, "Lake"@fr-fr, "\u6e56"@zh;
+    default87:seeAlso
+       wiki:Lake;
+    default73:equivalentClass
+       dbpo:Lake;
+    status:term_status
+       "testing".
+ns2:LandMass
+    a    default73:Class;
+    default87:comment
+       "A piece of land, useful in combination with Continent, Plate and others.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+        "La masse continentale"@fr-fr,
+        "LandMass",
+        "Landmass"@en,
+        "Landmasse"@de,
+        "Masa de tierra"@es,
+        "\u9646\u5730"@zh;
+    default87:seeAlso
+       wiki:Landmass;
+    status:term_status
+       "testing".
+ns2:Mountain
+    a    default73:Class;
+    default87:comment
+        "A mountain is a large landform that stretches above the surrounding land in a limited area usually in the form of a peak. A mountain is generally steeper than a hill.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+        "Monta\u00f1a"@es,
+        "Mountain",
+        "Mountain"@de,
+        "Mountain"@en,
+        "Mountain"@fr-fr,
+        "\u5c71"@zh;
+    default87:seeAlso
+       wiki:Mountain;
+    default73:equivalentClass
+       dbpo:Mountain;
+    status:term_status
+       "testing".
+ns2:Municipality
+    a    default73:Class;
+    default87:comment
+       "A region of governance, often self-governed.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+        "Gemeinde"@de,
+        "Municipality",
+        "Municipality"@en,
+        "Municipalit\u00e9"@fr-fr,
+        "Municipio"@es,
+        "\u5e02"@zh;
+    status:term_status
+       "testing".
+ns2:Ocean
+    a    default73:Class;
+    default87:comment
+       "A major body of salt water.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+       "Mar"@es, "Ocean", "Ocean"@de, "Ocean"@en, "Ocean"@fr-fr, "\u6d77\u6d0b"@zh;
+    default87:seeAlso
+       wiki:Ocean;
+    status:term_status
+       "testing".
+ns2:Parish
+    a    default73:Class;
+    default87:comment
+        "An area of regional governance stemming from the geographical area associated with a church.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+        "Gemeinde"@de,
+        "Parish",
+        "Parish"@en,
+        "Paroisse"@fr-fr,
+        "Parroquia"@es,
+        "\u6559\u533a"@zh;
+    status:term_status
+       "testing".
+ns2:Path
+    a    default73:Class;
+    default87:comment
+        " A Path is a recognised and maintained route from one place to another that is suitable for pedestrians.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+       "Path", "Path"@de, "Path"@en, "Path"@fr-fr, "Ruta"@es, "\u8def\u5f84"@zh;
+    status:term_status
+       "testing".
+ns2:Peninsula
+    a    default73:Class;
+    default87:comment
+       "A landmass projecting out into a body of water.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+        "Halbinsel"@de,
+        "Peninsula",
+        "Peninsula"@en,
+        "Pen\u00ednsula"@es,
+        "P\u00e9ninsule"@fr-fr,
+        "\u534a\u5c9b"@zh;
+    status:term_status
+       "testing".
+ns2:Plain
+    a    default73:Class;
+    default87:comment
+       "A level area of land.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+        "Llanura"@es,
+        "Plain",
+        "Plain"@de,
+        "Plain"@en,
+        "Plain"@fr-fr,
+        "\u5e73\u539f"@zh;
+    status:term_status
+       "testing".
+ns2:Plate
+    a    default73:Class;
+    default87:comment
+        "A geological plate, a piece of the earth\u2019s crust. Useful for geological descriptions involving the movement and separation of continents.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+       "Placa"@es, "Plate", "Plate"@en, "Plate"@fr-fr, "Tafel"@de, "\u677f"@zh;
+    default87:seeAlso
+       wiki:Tectonic_plate;
+    status:term_status
+       "testing".
+ns2:Plateau
+    a    default73:Class;
+    default87:comment
+        "A flat highland, a large area of flat land higher than the surrounding land.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+        "Meseta"@es,
+        "Plateau",
+        "Plateau"@de,
+        "Plateau"@en,
+        "Plateau"@fr-fr,
+        "\u9ad8\u539f"@zh;
+    status:term_status
+       "testing".
+ns2:Province
+    a    default73:Class;
+    default87:comment
+       "A region of governance.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+        "Province",
+        "Province"@en,
+        "Province"@fr-fr,
+        "Provincia"@es,
+        "Provinz"@de,
+        "\u7701"@zh;
+    status:term_status
+       "testing".
+ns2:Region
+    a    default73:Class;
+    default87:comment
+       "A politically or culturally recognised area.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+        "Region",
+        "Region"@de,
+        "Region"@en,
+        "Regi\u00f3n"@es,
+        "R\u00e9gion"@fr-fr,
+        "\u533a"@zh;
+    default87:seeAlso
+       wiki:Region;
+    status:term_status
+       "testing".
+ns2:Reservoir
+    a    default73:Class;
+    default87:comment
+        "A man-made or natural lake used for the storage and regulation of a water supply.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+        "Dep\u00f3sito"@es,
+        "Reservoir",
+        "Reservoir"@de,
+        "Reservoir"@en,
+        "R\u00e9servoir"@fr-fr,
+        "\u6c34\u5e93"@zh;
+    status:term_status
+       "testing".
+ns2:Ridge
+    a    default73:Class;
+    default87:comment
+       "A long elevation or striation in the land.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+       "Ridge", "Ridge"@de, "Ridge"@en, "Ridge"@es, "Ridge"@fr-fr, "\u810a"@zh;
+    status:term_status
+       "testing".
+ns2:River
+    a    default73:Class;
+    default87:comment
+       "A natural watercourse flowing towards an ocean, sea or lake.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+       "River", "River"@de, "River"@en, "River"@fr-fr, "R\u00edo"@es, "\u6cb3"@zh;
+    default87:seeAlso
+       wiki:River;
+    default73:equivalentClass
+       dbpo:River;
+    status:term_status
+       "testing".
+ns2:Road
+    a    default73:Class;
+    default87:comment
+        "A Road is a recognised and maintained route from one place to another that is suitable for vehicles.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+       "Por carretera"@es, "Road", "Road"@de, "Road"@en, "Road"@fr-fr, "\u8def"@zh;
+    status:term_status
+       "testing".
+ns2:Sea
+    a    default73:Class;
+    default87:comment
+       "A large body of salt water, usually connected to an ocean.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+       "Mar"@es, "Mer"@fr-fr, "Sea", "Sea"@de, "Sea"@en, "\u6d77"@zh;
+    default87:seeAlso
+       wiki:Sea;
+    status:term_status
+       "testing".
+ns2:Settlement
+    a    default73:Class;
+    default87:comment
+        "A Settlement is an area of land inhabited by humans and usually having buildings.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+        "Liquidaci\u00f3n"@es,
+        "R\u00e8glement"@fr-fr,
+        "Settlement",
+        "Settlement"@en,
+        "Siedlung"@de,
+        "\u89e3\u51b3"@zh;
+    status:term_status
+       "testing".
+ns2:State
+    a    default73:Class;
+    default87:comment
+        "A State is a land area of governance within a country. A state may have counties, cities and towns within its area.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+        "Estado"@es,
+        "Staat"@de,
+        "State",
+        "State"@en,
+        "\u00c9tat"@fr-fr,
+        "\u56fd\u5bb6"@zh;
+    status:term_status
+       "testing".
+ns2:Strait
+    a    default73:Class;
+    default87:comment
+       "A narrow channel of a sea joining two larger bodies of water.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+        "D\u00e9troit"@fr-fr,
+        "Estrecho"@es,
+        "Meerenge"@de,
+        "Strait",
+        "Strait"@en,
+        "\u6d77\u5ce1"@zh;
+    status:term_status
+       "testing".
+ns2:Town
+    a    default73:Class;
+    default87:comment
+       "A settlement smaller than a city but larger than a village.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+       "Ciudad"@es, "Town", "Town"@de, "Town"@en, "Ville"@fr-fr, "\u9547"@zh;
+    default87:seeAlso
+       wiki:Town;
+    status:term_status
+       "testing".
+ns2:Township
+    a    default73:Class;
+    default87:comment
+       "A settlement and geographic area, less formally recognised than a town.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+        "Canton"@fr-fr,
+        "Municipio"@es,
+        "Township",
+        "Township"@de,
+        "Township"@en,
+        "\u4e61"@zh;
+    status:term_status
+       "testing".
+ns2:Valley
+    a    default73:Class;
+    default87:comment
+        "A depressed area of land, often between mountains and often containing a river.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+        "Valle"@es,
+        "Valley",
+        "Valley"@de,
+        "Valley"@en,
+        "Vall\u00e9e"@fr-fr,
+        "\u8c37"@zh;
+    status:term_status
+       "testing".
+ns2:Village
+    a    default73:Class;
+    default87:comment
+       "A small human settlement.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+        "Pueblo"@es,
+        "Village",
+        "Village"@de,
+        "Village"@en,
+        "Village"@fr-fr,
+        "\u6751"@zh;
+    default87:seeAlso
+       wiki:Village;
+    status:term_status
+       "testing".
+ns2:Volcano
+    a    default73:Class;
+    default87:comment
+        "A volcano is a crack in the Earth's crust that allows lava and hot gases to escape.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+        "Volcan"@fr-fr,
+        "Volcano",
+        "Volcano"@en,
+        "Volc\u00e1n"@es,
+        "Vulkan"@de,
+        "\u706b\u5c71"@zh;
+    status:term_status
+       "testing".
+ns2:Watershed
+    a    default73:Class;
+    default87:comment
+       "A ridge of land seperating two adjacent water systems.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+        "Cuencas"@es,
+        "Des bassins versants"@fr-fr,
+        "Wasserscheide"@de,
+        "Watershed",
+        "Watershed"@en,
+        "\u6d41\u57df"@zh;
+    status:term_status
+       "testing".
+ns2:bounded_by
+    a    default73:ObjectProperty;
+    default87:comment
+        "The bounded by property relates any place to a boundary that marks out the geographic area it covers.";
+    default87:isDefinedBy
+       ns2:;
+    default87:label
+       "bounded by";
+    default87:range
+       ns2:Boundary;
+    status:term_status
+       "testing".
+   ns2:in a default73:ObjectProperty.

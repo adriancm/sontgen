@@ -1,0 +1,194 @@
+@prefix dct: <http://purl.org/dc/terms/>.
+@prefix schema: <http://schema.org/>.
+@prefix default87: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix default90: <http://xmlns.com/foaf/0.1/>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix vann: <http://purl.org/vocab/vann/>.
+@prefix voaf: <http://purl.org/vocommons/voaf#>.
+@prefix default73: <http://www.w3.org/2002/07/owl#>.
+@prefix base: <http://www.w3.org/2007/05/powder-s#>.
+@prefix cc: <http://creativecommons.org/ns#>.
+@prefix r: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+
+<person>
+    dct:abstract
+        "The Person Core Vocabulary provides a minimum set of classes and properties for describing a natural person, i.e. the individual as opposed to any role they may play in society or the relationships they have to other people, organisations and property; all of which contribute significantly to the broader concept of identity."@en;
+    dct:comment
+        """This vocabulary was not developed by a W3C group and its publication does not imply endorsement
+      by the W3C Membership. Terms MAY be deprecated or their definitions clarified but they will
+      not be deleted (see the W3C Persistence Policy). The vocabulary MAY be further developed by a future group.""";
+    dct:creator
+            [ schema:affiliation
+               </data#W3C>;
+            default87:seeAlso
+               <http://philarcher.org/foaf.rdf#me>;
+            default90:homepage
+               </People/all#phila>;
+            default90:name
+               "Phil Archer" ],
+            [ schema:affiliation
+                    [ default90:homepage
+                       <http://ies.jrc.ec.europa.eu/DE>;
+                    default90:name
+                       "European Commission, Joint Research Centre " ];
+            default87:seeAlso
+               <http://andrea-perego.name/foaf/#me>;
+            default90:homepage
+               <http://andrea-perego.name/>;
+            default90:name
+               "Andrea Perego" ];
+    dct:description
+        "The Person Core Vocabulary provides a minimum set of classes and properties for describing a natural person, i.e. the individual as opposed to any role they may play in society or the relationships they have to other people, organisations and property; all of which contribute significantly to the broader concept of identity.";
+    dct:issued
+       "2012-05-07"^^xsd:date;
+    dct:license
+        <https://joinup.ec.europa.eu/category/licence/isa-open-metadata-licence-v11>;
+    dct:modified
+       "2013-11-17"^^xsd:date, "2013-12-21"^^xsd:date;
+    dct:rights
+       "Copyright &#169; 2012 European Commission";
+    dct:title
+       "ISA Programme Person Core Vocabulary"@en;
+    vann:preferredNamespacePrefix
+       "person";
+    vann:preferredNamespaceUri
+       "http://www.w3.org/ns/person#";
+    a    voaf:Vocabulary, default73:Ontology;
+    base:describedby
+        <https://joinup.ec.europa.eu/asset/core_person/asset_release/core-person-vocabulary-100>;
+    default90:maker
+            [ default90:name
+               "Core Vocabularies Working Group (Person Task Force)";
+            default90:page
+               <http://joinup.ec.europa.eu/asset/core_person/home> ].
+<https://joinup.ec.europa.eu/category/licence/isa-open-metadata-licence-v11>
+    cc:attributionName
+       "European Commission";
+    cc:attributionURL
+       <http://ec.europa.eu/>;
+    dct:title
+       "ISA Open Metadata Licence v1.1".
+<person#Person>
+    dct:identifier
+       "person:Person";
+    a    default87:Class;
+    default87:comment
+        "An individual person who may be dead or alive, but not imaginary. It is that restriction that makes person:Person a sub class of both foaf:Person and schema:Person which both cover imaginary characters as well as real people."@en;
+    default87:isDefinedBy
+       <person>;
+    default87:label
+       "Person"@en;
+    default87:subClassOf
+       schema:Person, default90:Person.
+<person#patronymicName>
+    dct:identifier
+       "person:patronymicName";
+    a    r:Property, default73:DatatypeProperty;
+    default87:comment
+        "Patronymic names are important in some countries. Iceland does not have a concept of family name in the way that many other European countries do, for example. In Bulgaria and Russia, patronymic names are in every day usage, for example, the &quot;Sergeyevich&quot; (\u0421\u0435\u0440\u0433\u0435\u0435\u0432\u0438\u0447) in &quot;Mikhail Sergeyevich Gorbachev&quot; (\u041c\u0438\u0445\u0430\u0438\u043b \u0421\u0435\u0440\u0433\u0435\u0435\u0432\u0438\u0447 \u0413\u043e\u0440\u0431\u0430\u0447\u0451\u0432)."@en;
+    default87:domain
+       <person#Person>;
+    default87:isDefinedBy
+       <person#>;
+    default87:label
+       "patronymic name"@en;
+    default87:range
+       default87:Literal.
+<person#birthName>
+    dct:identifier
+       "person:birthName";
+    a    r:Property, default73:DatatypeProperty;
+    default87:comment
+        "All data associated with an individual is subject to change. Names can change for a variety of reasons, either formally or informally, and new information may come to light that means that a correction or clarification can be made to an existing record. Birth names tend to be persistent however and for this reason they are recorded by some public sector information systems. There is no granularity for birth name - the full name should be recorded in a single field."@en;
+    default87:domain
+       <person#Person>;
+    default87:isDefinedBy
+       <person#>;
+    default87:label
+       "birth name"@en;
+    default87:range
+       default87:Literal.
+<person#placeOfBirth>
+    dct:identifier
+       "person:placeOfBirth";
+    a    r:Property, default73:ObjectProperty;
+    default87:comment
+       "A person's place of birth."@en;
+    default87:domain
+       <person#Person>;
+    default87:isDefinedBy
+       <person>;
+    default87:label
+       "place of birth"@en;
+    default87:range
+       dct:Location, schema:Place.
+<person#placeOfDeath>
+    dct:identifier
+       "person:placeOfDeath";
+    a    r:Property, default73:ObjectProperty;
+    default87:comment
+       "A person's place of death."@en;
+    default87:domain
+       <person#Person>;
+    default87:isDefinedBy
+       <person>;
+    default87:label
+       "place of death"@en;
+    default87:range
+       dct:Location, schema:Place.
+<person#countryOfBirth>
+    dct:identifier
+       "person:countryOfBirth";
+    a    r:Property, default73:ObjectProperty;
+    default87:comment
+       "The country in which a Person was born."@en;
+    default87:domain
+       <person#Person>;
+    default87:isDefinedBy
+       <person>;
+    default87:label
+       "country of birth"@en;
+    default87:range
+       dct:Location, schema:Place.
+<person#countryOfDeath>
+    dct:identifier
+       "person:countryOfDeath";
+    a    r:Property, default73:ObjectProperty;
+    default87:comment
+       "The country in which a Person died."@en;
+    default87:domain
+       <person#Person>;
+    default87:isDefinedBy
+       <person>;
+    default87:label
+       "country of death"@en;
+    default87:range
+       dct:Location, schema:Place.
+<person#citizenship>
+    dct:identifier
+       "person:citizenship";
+    a    r:Property, default73:ObjectProperty;
+    default87:comment
+        "The citizenship relationship links a Person to a Jurisdiction that has conferred citizenship rights on the individual such as the right to vote, to receive certain protection from the community or the issuance of a passport. Multiple citizenships are recorded as multiple instances of the citizenship relationship."@en;
+    default87:domain
+       <person#Person>;
+    default87:isDefinedBy
+       <person>;
+    default87:label
+       "citizenship"@en;
+    default87:range
+       dct:Jurisdiction.
+<person#residency>
+    dct:identifier
+       "person:residency";
+    a    r:Property, default73:ObjectProperty;
+    default87:comment
+        "Residency typically provides an individual with a subset of the rights of a citizen."@en;
+    default87:domain
+       <person#Person>;
+    default87:isDefinedBy
+       <person>;
+    default87:label
+       "residency"@en;
+    default87:range
+       dct:Jurisdiction.
