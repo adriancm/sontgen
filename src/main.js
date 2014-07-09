@@ -136,7 +136,7 @@ function init() {
 
     sog = new Sontgen('canvas');
     //sog.openFile('../res/personCoreVocabulary.json', 'jit-json');
-    //sog.openFile('../res/person.ttl', 'text/turtle');
+    sog.openFile('../res/person.ttl', 'text/turtle');
 
     sog.addEvent('onRightClick', function(elem) {
         if(elem){
