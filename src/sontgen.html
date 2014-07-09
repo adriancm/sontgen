@@ -186,6 +186,13 @@ along with this program.  If not, see {http://www.gnu.org/licenses/}.
                                 <label for="remote-choice">Remote</label>
                             </fieldset>
                             <h3>Open</h3>
+                            <select id="file-type" data-theme="a">
+                                <option value="jit-json">JIT-JSON</option>
+                                <option value="text/turtle">text/turtle</option>
+                                <option value="text/n3">text/n3</option>
+                                <option value="application/ld+json">application/ld+json</option>
+                                <option value="application/json">application/json</option>
+                            </select>
                             <label for="local-file" class="">Local file</label>
                             <input name="fileinput" id="local-file" value="" placeholder="Choose a file" data-theme="a" type="file">
                             <h4>OR</h4>
@@ -198,7 +205,7 @@ along with this program.  If not, see {http://www.gnu.org/licenses/}.
                                 </div>
                                 <div class="ui-block-b">
                                     <input type="button" data-theme="b" data-icon="check" data-mini="true" value="Submit"
-                                            onclick="$('#popupLoadFile').popup('close'); openSelectedFile($('input[name=fileinput]')); " />
+                                            onclick="$('#popupLoadFile').popup('close'); openSelectedFile($('input[name=fileinput]'), $('#file-type').val()); " />
                                 </div>
                             </fieldset>
                         </div>

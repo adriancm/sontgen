@@ -106,7 +106,7 @@ function localRemoteToogle(local){
     }
 }
 
-function openSelectedFile(inputs){
+function openSelectedFile(inputs, type){
     var file = undefined;
     var local = false;
     inputs.each(function (){
@@ -120,7 +120,7 @@ function openSelectedFile(inputs){
             }
         }
     });
-    sog.openFile(file, local);
+    sog.openFile(file, type, local);
     return true;
 }
 
@@ -135,7 +135,8 @@ function init() {
     //end
 
     sog = new Sontgen('canvas');
-    sog.openFile('../res/personCoreVocabulary.json');
+    //sog.openFile('../res/personCoreVocabulary.json', 'jit-json');
+    //sog.openFile('../res/person.ttl', 'text/turtle');
 
     sog.addEvent('onRightClick', function(elem) {
         if(elem){
