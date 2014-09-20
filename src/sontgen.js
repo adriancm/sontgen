@@ -52,7 +52,7 @@ function drawTextBG(ctx, txt, font, x, y) {
 }
 
 /**
- * Description
+ * Constructor
  * @class Sontgen
  * @param {String} canvas
  * @return {Sontgen} Sontgen instance
@@ -647,7 +647,9 @@ Sontgen.prototype.showTip = function(x, y, elem, html){
                     html = '';
             }
         }
-        $('#canvas-canvaswidget').append(html);
+        var div = document.createElement('div');
+        div.innerHTML = html;
+        document.getElementById('canvas-canvaswidget').appendChild(div);
     }
 };
 
@@ -657,7 +659,10 @@ Sontgen.prototype.showTip = function(x, y, elem, html){
  * @memberof Sontgen.prototype
  */
 Sontgen.prototype.hideTips = function(){
-    $('.customtip').remove();
+    var tips = document.getElementsByClassName('customtip');
+    for (var i = 0; i < tips.length; i++){
+       tips[i].parentNode.remove();
+    }
 };
 
 /**

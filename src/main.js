@@ -60,6 +60,7 @@ function editElem(data){
     }
 }
 
+//TODO Unique toogle function
 function resLitToogle(res){
     if(res){
         $('#literal')
