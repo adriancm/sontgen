@@ -1,0 +1,535 @@
+[
+  {
+    "@id": "_:ub162bL22C13",
+    "http://schema.org/affiliation": [
+      {
+        "@id": "file:///data#W3C"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#seeAlso": [
+      {
+        "@id": "http://philarcher.org/foaf.rdf#me"
+      }
+    ],
+    "http://xmlns.com/foaf/0.1/homepage": [
+      {
+        "@id": "file:///People/all#phila"
+      }
+    ],
+    "http://xmlns.com/foaf/0.1/name": [
+      {
+        "@value": "Phil Archer"
+      }
+    ]
+  },
+  {
+    "@id": "file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person",
+    "@type": [
+      "http://purl.org/vocommons/voaf#Vocabulary",
+      "http://www.w3.org/2002/07/owl#Ontology"
+    ],
+    "http://purl.org/dc/terms/abstract": [
+      {
+        "@language": "en",
+        "@value": "The Person Core Vocabulary provides a minimum set of classes and properties for describing a natural person, i.e. the individual as opposed to any role they may play in society or the relationships they have to other people, organisations and property; all of which contribute significantly to the broader concept of identity."
+      }
+    ],
+    "http://purl.org/dc/terms/comment": [
+      {
+        "@value": "This vocabulary was not developed by a W3C group and its publication does not imply endorsement\n      by the W3C Membership. Terms MAY be deprecated or their definitions clarified but they will\n      not be deleted (see the W3C Persistence Policy). The vocabulary MAY be further developed by a future group."
+      }
+    ],
+    "http://purl.org/dc/terms/creator": [
+      {
+        "@id": "_:ub162bL22C13"
+      },
+      {
+        "@id": "_:ub162bL31C13"
+      }
+    ],
+    "http://purl.org/dc/terms/description": [
+      {
+        "@value": "The Person Core Vocabulary provides a minimum set of classes and properties for describing a natural person, i.e. the individual as opposed to any role they may play in society or the relationships they have to other people, organisations and property; all of which contribute significantly to the broader concept of identity."
+      }
+    ],
+    "http://purl.org/dc/terms/issued": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#date",
+        "@value": "2012-05-07"
+      }
+    ],
+    "http://purl.org/dc/terms/license": [
+      {
+        "@id": "https://joinup.ec.europa.eu/category/licence/isa-open-metadata-licence-v11"
+      }
+    ],
+    "http://purl.org/dc/terms/modified": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#date",
+        "@value": "2013-11-17"
+      },
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#date",
+        "@value": "2013-12-21"
+      }
+    ],
+    "http://purl.org/dc/terms/rights": [
+      {
+        "@value": "Copyright &#169; 2012 European Commission"
+      }
+    ],
+    "http://purl.org/dc/terms/title": [
+      {
+        "@language": "en",
+        "@value": "ISA Programme Person Core Vocabulary"
+      }
+    ],
+    "http://purl.org/vocab/vann/preferredNamespacePrefix": [
+      {
+        "@value": "person"
+      }
+    ],
+    "http://purl.org/vocab/vann/preferredNamespaceUri": [
+      {
+        "@value": "http://www.w3.org/ns/person#"
+      }
+    ],
+    "http://www.w3.org/2007/05/powder-s#describedby": [
+      {
+        "@id": "https://joinup.ec.europa.eu/asset/core_person/asset_release/core-person-vocabulary-100"
+      }
+    ],
+    "http://xmlns.com/foaf/0.1/maker": [
+      {
+        "@id": "_:ub162bL71C13"
+      }
+    ]
+  },
+  {
+    "@id": "https://joinup.ec.europa.eu/category/licence/isa-open-metadata-licence-v11",
+    "http://creativecommons.org/ns#attributionName": [
+      {
+        "@value": "European Commission"
+      }
+    ],
+    "http://creativecommons.org/ns#attributionURL": [
+      {
+        "@id": "http://ec.europa.eu/"
+      }
+    ],
+    "http://purl.org/dc/terms/title": [
+      {
+        "@value": "ISA Open Metadata Licence v1.1"
+      }
+    ]
+  },
+  {
+    "@id": "_:ub162bL71C13",
+    "http://xmlns.com/foaf/0.1/name": [
+      {
+        "@value": "Core Vocabularies Working Group (Person Task Force)"
+      }
+    ],
+    "http://xmlns.com/foaf/0.1/page": [
+      {
+        "@id": "http://joinup.ec.europa.eu/asset/core_person/home"
+      }
+    ]
+  },
+  {
+    "@id": "file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#Person",
+    "@type": [
+      "http://www.w3.org/2000/01/rdf-schema#Class"
+    ],
+    "http://purl.org/dc/terms/identifier": [
+      {
+        "@value": "person:Person"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "An individual person who may be dead or alive, but not imaginary. It is that restriction that makes person:Person a sub class of both foaf:Person and schema:Person which both cover imaginary characters as well as real people."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
+      {
+        "@id": "file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Person"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "http://schema.org/Person"
+      },
+      {
+        "@id": "http://xmlns.com/foaf/0.1/Person"
+      }
+    ]
+  },
+  {
+    "@id": "file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#placeOfBirth",
+    "@type": [
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property",
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://purl.org/dc/terms/identifier": [
+      {
+        "@value": "person:placeOfBirth"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "A person's place of birth."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#Person"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
+      {
+        "@id": "file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "place of birth"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://schema.org/Place"
+      },
+      {
+        "@id": "http://purl.org/dc/terms/Location"
+      }
+    ]
+  },
+  {
+    "@id": "file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#residency",
+    "@type": [
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property",
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://purl.org/dc/terms/identifier": [
+      {
+        "@value": "person:residency"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Residency typically provides an individual with a subset of the rights of a citizen."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#Person"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
+      {
+        "@id": "file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "residency"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://purl.org/dc/terms/Jurisdiction"
+      }
+    ]
+  },
+  {
+    "@id": "file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#patronymicName",
+    "@type": [
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property",
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ],
+    "http://purl.org/dc/terms/identifier": [
+      {
+        "@value": "person:patronymicName"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Patronymic names are important in some countries. Iceland does not have a concept of family name in the way that many other European countries do, for example. In Bulgaria and Russia, patronymic names are in every day usage, for example, the &quot;Sergeyevich&quot; (\u0421\u0435\u0440\u0433\u0435\u0435\u0432\u0438\u0447) in &quot;Mikhail Sergeyevich Gorbachev&quot; (\u041c\u0438\u0445\u0430\u0438\u043b \u0421\u0435\u0440\u0433\u0435\u0435\u0432\u0438\u0447 \u0413\u043e\u0440\u0431\u0430\u0447\u0451\u0432)."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#Person"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
+      {
+        "@id": "file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "patronymic name"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#Literal"
+      }
+    ]
+  },
+  {
+    "@id": "_:ub162bL31C13",
+    "http://schema.org/affiliation": [
+      {
+        "@id": "_:ub162bL32C21"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#seeAlso": [
+      {
+        "@id": "http://andrea-perego.name/foaf/#me"
+      }
+    ],
+    "http://xmlns.com/foaf/0.1/homepage": [
+      {
+        "@id": "http://andrea-perego.name/"
+      }
+    ],
+    "http://xmlns.com/foaf/0.1/name": [
+      {
+        "@value": "Andrea Perego"
+      }
+    ]
+  },
+  {
+    "@id": "file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#countryOfBirth",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
+    ],
+    "http://purl.org/dc/terms/identifier": [
+      {
+        "@value": "person:countryOfBirth"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "The country in which a Person was born."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#Person"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
+      {
+        "@id": "file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "country of birth"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://purl.org/dc/terms/Location"
+      },
+      {
+        "@id": "http://schema.org/Place"
+      }
+    ]
+  },
+  {
+    "@id": "file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#placeOfDeath",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
+    ],
+    "http://purl.org/dc/terms/identifier": [
+      {
+        "@value": "person:placeOfDeath"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "A person's place of death."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#Person"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
+      {
+        "@id": "file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "place of death"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://purl.org/dc/terms/Location"
+      },
+      {
+        "@id": "http://schema.org/Place"
+      }
+    ]
+  },
+  {
+    "@id": "file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#countryOfDeath",
+    "@type": [
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property",
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://purl.org/dc/terms/identifier": [
+      {
+        "@value": "person:countryOfDeath"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "The country in which a Person died."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#Person"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
+      {
+        "@id": "file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "country of death"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://purl.org/dc/terms/Location"
+      },
+      {
+        "@id": "http://schema.org/Place"
+      }
+    ]
+  },
+  {
+    "@id": "file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#citizenship",
+    "@type": [
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property",
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://purl.org/dc/terms/identifier": [
+      {
+        "@value": "person:citizenship"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "The citizenship relationship links a Person to a Jurisdiction that has conferred citizenship rights on the individual such as the right to vote, to receive certain protection from the community or the issuance of a passport. Multiple citizenships are recorded as multiple instances of the citizenship relationship."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#Person"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
+      {
+        "@id": "file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "citizenship"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://purl.org/dc/terms/Jurisdiction"
+      }
+    ]
+  },
+  {
+    "@id": "_:ub162bL32C21",
+    "http://xmlns.com/foaf/0.1/homepage": [
+      {
+        "@id": "http://ies.jrc.ec.europa.eu/DE"
+      }
+    ],
+    "http://xmlns.com/foaf/0.1/name": [
+      {
+        "@value": "European Commission, Joint Research Centre "
+      }
+    ]
+  },
+  {
+    "@id": "file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#birthName",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
+    ],
+    "http://purl.org/dc/terms/identifier": [
+      {
+        "@value": "person:birthName"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "All data associated with an individual is subject to change. Names can change for a variety of reasons, either formally or informally, and new information may come to light that means that a correction or clarification can be made to an existing record. Birth names tend to be persistent however and for this reason they are recorded by some public sector information systems. There is no granularity for birth name - the full name should be recorded in a single field."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#Person"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
+      {
+        "@id": "file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "birth name"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#Literal"
+      }
+    ]
+  }
+]
