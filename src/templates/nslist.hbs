@@ -1,0 +1,6 @@
+{{#each ns}}
+    <li>
+        <a href="#see_{{@key}}" data-rel="popup"><p>{{@key}}: {{this}}</p></a>
+        <a class="btn-red" href="#" data-rel="popup" data-position-to="window" data-transition="pop">Delete namespace</a>
+    </li>
+{{/each}}

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+   xmlns:base="http://www.w3.org/2007/05/powder-s#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dct="http://purl.org/dc/terms/"
+   xmlns:default87="http://www.w3.org/2000/01/rdf-schema#"
+   xmlns:default90="http://xmlns.com/foaf/0.1/"
+   xmlns:r="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:schema="http://schema.org/"
+   xmlns:vann="http://purl.org/vocab/vann/"
+>
+  <rdf:Description rdf:about="file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#birthName">
+    <r:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+    <default87:comment xml:lang="en">All data associated with an individual is subject to change. Names can change for a variety of reasons, either formally or informally, and new information may come to light that means that a correction or clarification can be made to an existing record. Birth names tend to be persistent however and for this reason they are recorded by some public sector information systems. There is no granularity for birth name - the full name should be recorded in a single field.</default87:comment>
+    <default87:domain rdf:resource="file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#Person"/>
+    <r:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <default87:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+    <dct:identifier>person:birthName</dct:identifier>
+    <default87:isDefinedBy rdf:resource="file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#"/>
+    <default87:label xml:lang="en">birth name</default87:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#countryOfDeath">
+    <default87:range rdf:resource="http://schema.org/Place"/>
+    <dct:identifier>person:countryOfDeath</dct:identifier>
+    <r:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+    <default87:comment xml:lang="en">The country in which a Person died.</default87:comment>
+    <r:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <default87:range rdf:resource="http://purl.org/dc/terms/Location"/>
+    <default87:domain rdf:resource="file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#Person"/>
+    <default87:isDefinedBy rdf:resource="file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person"/>
+    <default87:label xml:lang="en">country of death</default87:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#countryOfBirth">
+    <default87:label xml:lang="en">country of birth</default87:label>
+    <default87:comment xml:lang="en">The country in which a Person was born.</default87:comment>
+    <default87:range rdf:resource="http://schema.org/Place"/>
+    <dct:identifier>person:countryOfBirth</dct:identifier>
+    <default87:isDefinedBy rdf:resource="file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person"/>
+    <r:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+    <default87:domain rdf:resource="file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#Person"/>
+    <r:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <default87:range rdf:resource="http://purl.org/dc/terms/Location"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="ub166bL32C21">
+    <default90:name>European Commission, Joint Research Centre </default90:name>
+    <default90:homepage rdf:resource="http://ies.jrc.ec.europa.eu/DE"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://joinup.ec.europa.eu/category/licence/isa-open-metadata-licence-v11">
+    <cc:attributionURL rdf:resource="http://ec.europa.eu/"/>
+    <cc:attributionName>European Commission</cc:attributionName>
+    <dct:title>ISA Open Metadata Licence v1.1</dct:title>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="ub166bL22C13">
+    <default87:seeAlso rdf:resource="http://philarcher.org/foaf.rdf#me"/>
+    <default90:homepage rdf:resource="file:///People/all#phila"/>
+    <schema:affiliation rdf:resource="file:///data#W3C"/>
+    <default90:name>Phil Archer</default90:name>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="ub166bL71C13">
+    <default90:name>Core Vocabularies Working Group (Person Task Force)</default90:name>
+    <default90:page rdf:resource="http://joinup.ec.europa.eu/asset/core_person/home"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#patronymicName">
+    <default87:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+    <dct:identifier>person:patronymicName</dct:identifier>
+    <default87:label xml:lang="en">patronymic name</default87:label>
+    <default87:isDefinedBy rdf:resource="file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#"/>
+    <default87:domain rdf:resource="file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#Person"/>
+    <r:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+    <r:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <default87:comment xml:lang="en">Patronymic names are important in some countries. Iceland does not have a concept of family name in the way that many other European countries do, for example. In Bulgaria and Russia, patronymic names are in every day usage, for example, the &amp;quot;Sergeyevich&amp;quot; (Сергеевич) in &amp;quot;Mikhail Sergeyevich Gorbachev&amp;quot; (Михаил Сергеевич Горбачёв).</default87:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#residency">
+    <default87:comment xml:lang="en">Residency typically provides an individual with a subset of the rights of a citizen.</default87:comment>
+    <r:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <default87:domain rdf:resource="file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#Person"/>
+    <default87:isDefinedBy rdf:resource="file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person"/>
+    <r:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+    <default87:range rdf:resource="http://purl.org/dc/terms/Jurisdiction"/>
+    <dct:identifier>person:residency</dct:identifier>
+    <default87:label xml:lang="en">residency</default87:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#Person">
+    <default87:subClassOf rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <default87:subClassOf rdf:resource="http://schema.org/Person"/>
+    <dct:identifier>person:Person</dct:identifier>
+    <default87:isDefinedBy rdf:resource="file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person"/>
+    <default87:comment xml:lang="en">An individual person who may be dead or alive, but not imaginary. It is that restriction that makes person:Person a sub class of both foaf:Person and schema:Person which both cover imaginary characters as well as real people.</default87:comment>
+    <r:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+    <default87:label xml:lang="en">Person</default87:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person">
+    <dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2012-05-07</dct:issued>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2013-12-21</dct:modified>
+    <dct:description>The Person Core Vocabulary provides a minimum set of classes and properties for describing a natural person, i.e. the individual as opposed to any role they may play in society or the relationships they have to other people, organisations and property; all of which contribute significantly to the broader concept of identity.</dct:description>
+    <dct:abstract xml:lang="en">The Person Core Vocabulary provides a minimum set of classes and properties for describing a natural person, i.e. the individual as opposed to any role they may play in society or the relationships they have to other people, organisations and property; all of which contribute significantly to the broader concept of identity.</dct:abstract>
+    <r:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+    <default90:maker rdf:nodeID="ub166bL71C13"/>
+    <base:describedby rdf:resource="https://joinup.ec.europa.eu/asset/core_person/asset_release/core-person-vocabulary-100"/>
+    <dct:title xml:lang="en">ISA Programme Person Core Vocabulary</dct:title>
+    <dct:creator rdf:nodeID="ub166bL22C13"/>
+    <dct:comment>This vocabulary was not developed by a W3C group and its publication does not imply endorsement
+      by the W3C Membership. Terms MAY be deprecated or their definitions clarified but they will
+      not be deleted (see the W3C Persistence Policy). The vocabulary MAY be further developed by a future group.</dct:comment>
+    <vann:preferredNamespaceUri>http://www.w3.org/ns/person#</vann:preferredNamespaceUri>
+    <dct:creator rdf:nodeID="ub166bL31C13"/>
+    <r:type rdf:resource="http://purl.org/vocommons/voaf#Vocabulary"/>
+    <dct:rights>Copyright &amp;#169; 2012 European Commission</dct:rights>
+    <vann:preferredNamespacePrefix>person</vann:preferredNamespacePrefix>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2013-11-17</dct:modified>
+    <dct:license rdf:resource="https://joinup.ec.europa.eu/category/licence/isa-open-metadata-licence-v11"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#citizenship">
+    <dct:identifier>person:citizenship</dct:identifier>
+    <r:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <default87:isDefinedBy rdf:resource="file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person"/>
+    <r:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+    <default87:comment xml:lang="en">The citizenship relationship links a Person to a Jurisdiction that has conferred citizenship rights on the individual such as the right to vote, to receive certain protection from the community or the issuance of a passport. Multiple citizenships are recorded as multiple instances of the citizenship relationship.</default87:comment>
+    <default87:domain rdf:resource="file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#Person"/>
+    <default87:range rdf:resource="http://purl.org/dc/terms/Jurisdiction"/>
+    <default87:label xml:lang="en">citizenship</default87:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#placeOfDeath">
+    <default87:label xml:lang="en">place of death</default87:label>
+    <default87:comment xml:lang="en">A person's place of death.</default87:comment>
+    <default87:range rdf:resource="http://schema.org/Place"/>
+    <r:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+    <default87:isDefinedBy rdf:resource="file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person"/>
+    <default87:domain rdf:resource="file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#Person"/>
+    <r:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <default87:range rdf:resource="http://purl.org/dc/terms/Location"/>
+    <dct:identifier>person:placeOfDeath</dct:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="ub166bL31C13">
+    <default90:homepage rdf:resource="http://andrea-perego.name/"/>
+    <default87:seeAlso rdf:resource="http://andrea-perego.name/foaf/#me"/>
+    <schema:affiliation rdf:nodeID="ub166bL32C21"/>
+    <default90:name>Andrea Perego</default90:name>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#placeOfBirth">
+    <default87:comment xml:lang="en">A person's place of birth.</default87:comment>
+    <r:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <default87:label xml:lang="en">place of birth</default87:label>
+    <r:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+    <default87:isDefinedBy rdf:resource="file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person"/>
+    <default87:range rdf:resource="http://schema.org/Place"/>
+    <dct:identifier>person:placeOfBirth</dct:identifier>
+    <default87:domain rdf:resource="file:///base/data/home/apps/s%7Erdf-translator/1.376065471669087711/person#Person"/>
+    <default87:range rdf:resource="http://purl.org/dc/terms/Location"/>
+  </rdf:Description>
+</rdf:RDF>

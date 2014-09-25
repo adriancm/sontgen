@@ -20,6 +20,61 @@ var labelType, useGradients, nativeTextSupport, animate, moved = true,
     pressed, node = false;
 var autoID = 0;
 
+//Snippet for ajax
+var ajax = {};
+ajax.x = function() {
+    if (typeof XMLHttpRequest !== 'undefined') {
+        return new XMLHttpRequest();
+    }
+    var versions = [
+        "MSXML2.XmlHttp.5.0",
+        "MSXML2.XmlHttp.4.0",
+        "MSXML2.XmlHttp.3.0",
+        "MSXML2.XmlHttp.2.0",
+        "Microsoft.XmlHttp"
+    ];
+
+    var xhr;
+    for(var i = 0; i < versions.length; i++) {
+        try {
+            xhr = new ActiveXObject(versions[i]);
+            break;
+        } catch (e) {
+        }
+    }
+    return xhr;
+};
+
+ajax.send = function(url, callback, method, data, sync) {
+    var x = ajax.x();
+    x.open(method, url, sync);
+    x.onreadystatechange = function() {
+        if (x.readyState == 4) {
+            callback(x.responseText)
+        }
+    };
+    if (method == 'POST') {
+        x.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    }
+    x.send(data)
+};
+
+ajax.get = function(url, data, callback, sync) {
+    var query = [];
+    for (var key in data) {
+        query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
+    }
+    ajax.send(url + '?' + query.join('&'), callback, 'GET', null, sync)
+};
+
+ajax.post = function(url, data, callback, sync) {
+    var query = [];
+    for (var key in data) {
+        query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
+    }
+    ajax.send(url, callback, 'POST', query.join('&'), sync)
+};
+
 /// expand with color, background etc.
 function drawTextBG(ctx, txt, font, x, y) {
 
@@ -211,6 +266,16 @@ function Sontgen(canvas, mode, view) {
 }
 
 
+Sontgen.prototype.namespaces = function(prefix, uri){
+  if(prefix)
+    if(uri)
+        this.namespaces[prefix] = uri;
+    else
+        return this.namespaces[prefix];
+  else
+    return this.namespaces;
+};
+
 /**
  * Description
  * @method fromJSON
@@ -237,9 +302,11 @@ Sontgen.prototype.fromJSON = function(json) {
  * @param {String} type
  * @return {JSON} A JSON graph representation
  */
-Sontgen.prototype.toJSON = function(type) {
-
-    return this.viz.toJSON(type);
+Sontgen.prototype.toJSON = function() {
+    var json = {};
+    json.namespaces = this.namespaces;
+    json.graph = this.viz.toJSON('graph');
+    return json;
 };
 
 /**
@@ -294,13 +361,13 @@ Sontgen.prototype.fromRDF = function(rdf, type){
  * @return {RDFNode}
  */
 Sontgen.prototype.objToStore = function(store, elem){
-    if(elem.data.literal){
-        return store.rdf.createLiteral(elem.data.literal);
-    } else if(elem.data.iri){
-        var res = elem.data.namespace ? elem.data.namespace+":"+elem.data.iri : elem.data.iri;
-        return store.rdf.createNamedNode(store.rdf.resolve(res));
-    } else {
+    var name = this.isNode(elem) ? elem.name : elem.data.name;
+    if(!name){
         return store.rdf.createBlankNode();
+    } else if(name.match(/^http:\/\//) || store.rdf.resolve(name)){
+        return store.rdf.createNamedNode(name);
+    } else {
+        return store.rdf.createLiteral(name);
     }
 };
 
@@ -323,11 +390,13 @@ Sontgen.prototype.toRDF = function(type){
 
     this.viz.graph.each(function(node){
         node.eachAdjacency(function(adj){
-            var s = that.objToStore(store, node);
-            var p = that.objToStore(store, adj);
-            var o = that.objToStore(store, adj.nodeTo);
+            if(adj.data.$direction.toString() == [node.id, adj.nodeTo.id]) {
+                var s = that.objToStore(store, node);
+                var p = that.objToStore(store, adj);
+                var o = that.objToStore(store, adj.nodeTo);
 
-            rdfgraph.add(store.rdf.createTriple(s, p, o));
+                rdfgraph.add(store.rdf.createTriple(s, p, o));
+            }
         });
     });
 
@@ -398,7 +467,7 @@ Sontgen.prototype.openFile = function(path, type, local){
  */
 Sontgen.prototype.saveAs = function(type){
     //var b = new Blob([JSON.stringify(this.toJSON('graph'))], {type: "text/plain;charset=utf-8"});
-    var b = new Blob([this.toRDF('n3')], {type: "text/n3;charset=utf-8"});
+    var b = new Blob([this.toRDF('nt')], {type: "text/nt;charset=utf-8"});
     saveAs(b, "myfile.nt");
 };
 

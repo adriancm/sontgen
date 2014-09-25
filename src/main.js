@@ -60,6 +60,18 @@ function editElem(data){
     }
 }
 
+function removeNS(prefix){
+    delete sog.namespaces[prefix];
+    $("#ns_"+prefix).remove();
+}
+
+function addNS(nsobj){
+    $.extend(sog.namespaces, nsobj);
+    var source   = $("#nstemplate").html();
+    var template = Handlebars.compile(source);
+    $("#nslist").prepend(template({ ns: nsobj })).listview('refresh')
+}
+
 //TODO Unique toogle function
 function resLitToogle(res){
     if(res){
@@ -122,6 +134,7 @@ function openSelectedFile(inputs, type){
         }
     });
     sog.openFile(file, type, local);
+    addNS(sog.namespaces);
     return true;
 }
 
@@ -137,7 +150,8 @@ function init() {
 
     sog = new Sontgen('canvas');
     //sog.openFile('../res/personCoreVocabulary.json', 'jit-json');
-    sog.openFile('../res/person.ttl', 'text/turtle');
+    sog.openFile('../res/test.n3', 'text/n3');
+    addNS(sog.namespaces);
 
     sog.addEvent('onRightClick', function(elem) {
         if(elem){
