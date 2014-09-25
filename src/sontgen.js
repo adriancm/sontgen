@@ -326,6 +326,20 @@ Sontgen.prototype.fromRDF = function(rdf, type){
     };
     var n3 = "";
 
+    switch (type) {
+        case 'xml':
+        case 'rdfa':
+        case 'microdata':
+        case 'rdf-json':
+        case 'nt':
+            ajax.post('http://rdf-translator.appspot.com/convert/'+type+'/n3/content',
+                { content: rdf }, function (resp) {
+                    rdf = resp;
+                    type = 'text/n3';
+                }, false);
+            break;
+    }
+
     store.load(type, rdf.toString(), function(success, results) {
         store.graph(function(success, graph){
             json.namespaces = store.rdf.prefixes.values();
@@ -364,7 +378,7 @@ Sontgen.prototype.objToStore = function(store, elem){
     var name = this.isNode(elem) ? elem.name : elem.data.name;
     if(!name){
         return store.rdf.createBlankNode();
-    } else if(name.match(/^http:\/\//) || store.rdf.resolve(name)){
+    } else if(name.match(/^http:\/\//) || name.match(/^_:.*/) || store.rdf.resolve(name)){
         return store.rdf.createNamedNode(name);
     } else {
         return store.rdf.createLiteral(name);
@@ -399,9 +413,17 @@ Sontgen.prototype.toRDF = function(type){
             }
         });
     });
-
     console.log(rdfgraph);
-    return rdfgraph.toNT();
+    var out = rdfgraph.toNT();
+    if(type == 'nt')
+        return out;
+    else {
+        ajax.post('http://rdf-translator.appspot.com/convert/nt/' + type + '/content',
+            { content: out }, function (resp) {
+                out = resp;
+            }, false);
+        return out;
+    }
 };
 
 /**
@@ -467,8 +489,24 @@ Sontgen.prototype.openFile = function(path, type, local){
  */
 Sontgen.prototype.saveAs = function(type){
     //var b = new Blob([JSON.stringify(this.toJSON('graph'))], {type: "text/plain;charset=utf-8"});
-    var b = new Blob([this.toRDF('nt')], {type: "text/nt;charset=utf-8"});
-    saveAs(b, "myfile.nt");
+    var exts = {};
+    exts['jit-json'] = 'sog';
+    exts['json-ld'] = 'jsonld';
+    exts['xml'] = 'rdf';
+    exts['rdfa'] = 'html';
+    exts['microdata'] = 'html';
+    exts['rdf-json'] = 'rdf';
+    exts['n3'] = 'n3';
+    exts['nt'] = 'nt';
+
+    var text;
+    if(type == 'jit-json')
+        text = JSON.stringify(this.toJSON('graph'));
+    else
+        text = this.toRDF(type);
+
+    var b = new Blob([text], {type: "text/plain;charset=utf-8"});
+    saveAs(b, "myfile."+exts[type]);
 };
 
 /**
