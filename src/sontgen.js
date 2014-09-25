@@ -326,6 +326,20 @@ Sontgen.prototype.fromRDF = function(rdf, type){
     };
     var n3 = "";
 
+    switch (type) {
+        case 'xml':
+        case 'rdfa':
+        case 'microdata':
+        case 'rdf-json':
+        case 'nt':
+            ajax.post('http://rdf-translator.appspot.com/convert/'+type+'/n3/content',
+                { content: rdf }, function (resp) {
+                    rdf = resp;
+                    type = 'text/n3';
+                }, false);
+            break;
+    }
+
     store.load(type, rdf.toString(), function(success, results) {
         store.graph(function(success, graph){
             json.namespaces = store.rdf.prefixes.values();

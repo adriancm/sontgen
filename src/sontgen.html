@@ -201,11 +201,15 @@ along with this program.  If not, see {http://www.gnu.org/licenses/}.
                             </fieldset>
                             <h3>Open</h3>
                             <select id="file-type" data-theme="a">
-                                <option value="jit-json">JIT-JSON</option>
-                                <option value="text/turtle">text/turtle</option>
-                                <option value="text/n3">text/n3</option>
-                                <option value="application/ld+json">application/ld+json</option>
-                                <option value="application/json">application/json</option>
+                                <option value="jit-json">sontgen (.sog)</option>
+                                <option value="text/turtle">turtle (.ttl)</option>
+                                <option value="text/n3">notation3 (.n3)</option>
+                                <option value="application/ld+json">json-ld (.jsonld)</option>
+                                <option value="xml">rdf/xml (.rdf)</option>
+                                <option value="rdfa">rdfa</option>
+                                <option value="microdata">microdata</option>
+                                <option value="rdf-json">rdf/json (.rdf)</option>
+                                <option value="nt">n-triples (.nt)</option>
                             </select>
                             <label for="local-file" class="">Local file</label>
                             <input name="fileinput" id="local-file" value="" placeholder="Choose a file" data-theme="a" type="file">
