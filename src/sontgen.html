@@ -36,6 +36,7 @@ along with this program.  If not, see {http://www.gnu.org/licenses/}.
 
     <script type="text/javascript" src="lib/js/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="lib/js/jquery.mobile-1.4.2.min.js"></script>
+    <script type="text/javascript" src="lib/js/handlebars-v1.3.0.js"></script>
     <script type="text/javascript" src="lib/js/jit.js"></script>
     <script type="text/javascript" src="lib/js/Blob.js"></script>
     <script type="text/javascript" src="lib/js/FileSaver.js"></script>
@@ -66,7 +67,14 @@ along with this program.  If not, see {http://www.gnu.org/licenses/}.
 <!-- ................................................................................ -->
 <div data-role="page" id="viewer" data-title="SONTGEN:Viewer" data-theme="a" data-add-back-btn="true">
 
-
+    <script id="nstemplate" type="text/x-handlebars-template" >
+        {{#each ns}}
+        <li id="ns_{{@key}}">
+            <a href="#see_{{@key}}" data-rel="popup" title="{{this}}"><p>{{@key}}: {{this}}</p></a>
+            <a class="btn-red" href="javascript:removeNS('{{@key}}');" data-rel="popup" data-position-to="window" data-transition="pop">Delete namespace</a>
+        </li>
+        {{/each}}
+    </script>
     <!-- ................................................................................ -->
     <!-- ................................................................................ -->
 
@@ -76,16 +84,22 @@ along with this program.  If not, see {http://www.gnu.org/licenses/}.
     <!-- ................................................................................ -->
     <div data-theme="a" data-role="panel" data-position="right" data-display="overlay" id="toolbar">
         <a href="#" data-theme="b" data-role="button" data-icon="arrow-r" data-rel="close">Close</a>
-        <h3>Toolbar:</h3>
         <form>
-            <input type="search" name="search" id="search" value="" placeholder="Search"/>
-            <label for="slider-fill"><h4>Zoom:</h4></label>
-            <input type="range" name="slider-fill" id="slider-fill" value="60" min="0" max="1000" step="50" data-highlight="true" />
+            <h3>Namespaces:</h3>
+            <!--<input type="search" name="search" id="search" value="" placeholder="Search"/>-->
+           <!-- <label for="slider-fill"><h4>Zoom:</h4></label>
+            <input type="range" name="slider-fill" id="slider-fill" value="60" min="0" max="1000" step="50" data-highlight="true" />-->
             <fieldset id="namespaces" data-role="controlgroup" data-type="horizontal" data-mini="true">
-                <h4>Namespaces:</h4>
                 <input class="prefix" type="text" data-inline="true" placeholder="Prefix">
-                <input class="ns" type="text" data-inline="true" placeholder="Namespace">
+                <input class="ns" type="text" data-inline="true" placeholder="http://...">
+                <input type="button" data-inline="true" value="Namespace" data-icon="plus" data-theme="b"
+                       onclick="var obj = {}; obj[$('#namespaces .prefix').val()] = $('#namespaces .ns').val(); addNS(obj)">
             </fieldset>
+
+            <h4>Using:</h4>
+            <ul id='nslist' data-role="listview" data-split-icon="delete" data-theme="a" data-split-theme="b" data-inset="true">
+
+            </ul>
            <!-- <input type="button" value="Undo" data-icon="back"/>
             <input type="button" value="Redo" data-icon="forward"/>
             <input type="file" value="Import" data-icon="arrow-u"/>
